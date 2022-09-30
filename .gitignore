@@ -1,4 +1,8 @@
 .vscode/
+__pycache__/
+core.python*
 *.pyc
+*.py[cod]
 dev.py
 db.sqlite3
+data/
