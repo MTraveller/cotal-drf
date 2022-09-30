@@ -47,7 +47,7 @@ How is the information, logically grouped, the feature the elements the data?
 
 The data model built for this project laid the foundation for how the app should work and from this point forward, all that is needed, is to get hacking.
 
-![Data-Model](./docs/planes/structure/data-models-v2.png "Data model image")
+![Data-Model](./docs/planes/structure/data-models-v3.png "Data model image")
 
 <br>
 
@@ -92,6 +92,8 @@ Aiming to achieve and for whom?
 6. [Pillow](https://pypi.org/project/Pillow/ "pypi.org/project/Pillow/")
    - The Python Imaging Library adds image processing capabilities to your Python interpreter.
 7. [DJ Database URL](https://pypi.org/project/django-database-url/ "pypi.org/project/django-database-url/")
+   - This simple Django utility allows you to utilize the 12factor-inspired DATABASE_URL environment variable to configure your Django application.
+8. [Django Debug Toolbar](https://pypi.org/project/django-debug-toolbar/ "pypi.org/project/django-debug-toolbar/")
    - This simple Django utility allows you to utilize the 12factor-inspired DATABASE_URL environment variable to configure your Django application.
 
    <br>
