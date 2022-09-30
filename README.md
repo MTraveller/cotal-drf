@@ -63,7 +63,7 @@ What features,(nvp), both ability and desires?
 
 ### Strategy
 
-Aiming to achieve and for whom?
+Cotal-drf is the backend for Cotal aiming to fulfill and satisfy all requests about the users, posts, likes, follows, connections between users, and more.
 
 <br>
 
