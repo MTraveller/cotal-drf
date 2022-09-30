@@ -12,6 +12,7 @@ djangorestframework = "*"
 
 [dev-packages]
 autopep8 = "*"
+django-debug-toolbar = "*"
 
 [requires]
 python_version = "3.10"
