@@ -1,3 +1,4 @@
+.vscode/
 *.pyc
 dev.py
 db.sqlite3
