@@ -45,6 +45,10 @@ What will the product actually look like, what colors, what typography, what ima
 
 How is the information, logically grouped, the feature the elements the data?
 
+The data model built for this project laid the foundation for how the app should work and from this point forward, all that is needed, is to get hacking.
+
+![Data-Model](./docs/planes/structure/data-models-v2.png "Data model image")
+
 <br>
 
 ### Scope
@@ -67,7 +71,7 @@ Aiming to achieve and for whom?
 
 #### Languages Used
 
-- [Python](<https://en.wikipedia.org/wiki/Python_(programming_language)> "Wikipedia's Python page")
+- [Python](https://en.wikipedia.org/wiki/Python_(programming_language)"Wikipedia's Python page")
 
 <br>
 
@@ -76,16 +80,19 @@ Aiming to achieve and for whom?
 <br>
 
 1. [Git:](https://git-scm.com/ "git-scm.com")
-   - Git was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
+   - Git was used for version control by utilizing the VSCode terminal to commit to Git and Push to GitHub.
 2. [GitHub:](https://github.com/ "github.com")
    - GitHub is used to store the project's code after being pushed from Git.
-3. [Django](<https://en.wikipedia.org/wiki/Django_(web_framework)> "wikipedia.com")
+3. [Django](https://en.wikipedia.org/wiki/Django_(web_framework) "wikipedia.com")
    - Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design.
 4. [Django](https://www.django-rest-framework.org/ "django-rest-framework.org")
-   - Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design.
-5. [Heroku:](https://www.heroku.com "heroku.com"
-
-   - Heroku is a container-based cloud Platform as a Service (PaaS). Developers use Heroku to deploy, manage, and scale modern apps. Project is hosted on Heroku for viewing and interacting with the app.
+   - Django REST framework is a powerful and flexible toolkit for building Web APIs.
+5. [Cloudinary](https://cloudinary.com/ "cloudinary.com")
+   - Image & Video API Trusted by 1.3M+ Developers. Cut the complexity involved in optimizing, editing, and managing media for your app, e-commerce store, marketplace, or website.
+6. [Pillow](https://pypi.org/project/Pillow/ "pypi.org/project/Pillow/")
+   - The Python Imaging Library adds image processing capabilities to your Python interpreter.
+7. [DJ Database URL](https://pypi.org/project/django-database-url/ "pypi.org/project/django-database-url/")
+   - This simple Django utility allows you to utilize the 12factor-inspired DATABASE_URL environment variable to configure your Django application.
 
    <br>
 
@@ -146,8 +153,6 @@ See [project cloning](https://github.com/cotal#clone)
 
 ### Deploy
 
-To deploy the app to Heroku, navigate to [Heroku.com](https://www.heroku.com "heroku.com") and login into your account or create one if needed. Upon entering your dashboard, create a new app and set the location.
-
 <br>
 
 ## Credits
@@ -157,6 +162,7 @@ To deploy the app to Heroku, navigate to [Heroku.com](https://www.heroku.com "he
 ### Sources Used
 
 [Python Docs](https://docs.python.org/3.10/ "docs.python.org")
+
 [Django REST framework Docs](https://www.django-rest-framework.org/ "django-rest-framework.org")
 
 <br>
