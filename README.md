@@ -53,25 +53,57 @@ The data model built for this project laid the foundation for how the app should
 
 ### Scope
 
-What features,(nvp), both ability and desires?
-
 #### Minimum viable product
 
+The minimum this app should include:
+
+1. The ability to handle API HTTP errors gracefully.
+2. The ability to handle API Errors gracefully.
+3. The ability for admin to be able to delete user content.
+4. Email capability.
+5. All database models.
+
 #### Desired features
+
+The desired features this would want:
+
+1. API scalability effectivly.
+2. API flexibility to be able to easily expand upon.
 
 <br>
 
 ### Strategy
 
-Cotal-drf is the backend for Cotal aiming to fulfill and satisfy all requests about the users, posts, likes, follows, connections between users, and more.
+App Goal:
 
-<br>
+   -  Cotal-drf is the backend for Cotal aiming to fulfill and satisfy all requests about the users, posts, likes, follows, connections between users, and more.
+
+   <br>
+
+Agile Development:
+
+   -  Agile development methodology was used for this project, planning, developing, and delivering in small sprints. There were 2 Epic's in total spaced out over 15 days with:
+      -  epic 1 - 2/3 of the total time.
+      -  epic 2 - 1/3 of the total time.
+
+      <br>
+
+   I assigned all epics labels and I prioritized all sprints according to their labeling.
+
+      -  must-have.
+      -  should have.
+      -  could have.
+      -  nice to have.
+      
+      <br>
+
+The Kanban board used was created using Github projects and can be seen [here](https://github.com/users/MTraveller/projects/3)
 
 ## Development
 
 #### Languages Used
 
-- [Python](https://en.wikipedia.org/wiki/Python_(programming_language)"Wikipedia's Python page")
+- [Python](https://en.wikipedia.org/wiki/Python_(programming_language) "Wikipedia's Python page")
 
 <br>
 
