@@ -1,7 +1,16 @@
 from rest_framework import serializers
+from .models import *
 
 
-class ProfileSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    image = serializers.ImageField()
-    status = serializers.CharField(max_length=255)
+class ProfileLinkSerializer(serializers.Serializer):
+    class Meta:
+        model = ProfileLink
+        fields = ['id', 'external', 'social']
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['id', 'image', 'status']
+    
+    profile_links = ProfileLinkSerializer()
