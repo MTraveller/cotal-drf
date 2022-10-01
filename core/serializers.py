@@ -11,6 +11,5 @@ class ProfileLinkSerializer(serializers.Serializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['id', 'image', 'status']
-    
-    profile_links = ProfileLinkSerializer()
+        fields = ['id', 'image', 'status', 'link']
+        
