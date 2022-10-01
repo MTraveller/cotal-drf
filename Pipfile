@@ -9,6 +9,8 @@ django-cloudinary-storage = "*"
 dj-database-url = "*"
 pillow = "*"
 djangorestframework = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 autopep8 = "*"
