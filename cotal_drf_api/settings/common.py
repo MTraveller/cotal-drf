@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'cloudinary',
+    'userprofile',
 ]
 
 MIDDLEWARE = [
@@ -102,9 +103,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-# https://docs.djangoproject.com/en/4.1/ref/models/fields/#django.db.models.FileField.upload%5Fto
-# TODO: Files uploads folder based on user
 
 MEDIA_URL = 'media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
