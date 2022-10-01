@@ -1,4 +1,4 @@
-""" UserProfile App Models """
+""" Core App Models """
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
@@ -15,10 +15,8 @@ def user_directory_path(instance, filename):
     return f'user_{0}/{1}'.format(instance.user.id, filename)
 
 
-class ProfileLink(models.Model):
-    """ User Profile Link class """
-
-    class Link(models.TextChoices):
+class SocialUsername(models.Model):
+    class SocialMedia(models.TextChoices):
         """ User Profile Link Choices """
         INSTAGRAM = 'IG', _('Instagram')
         FACEBOOK = 'FB', _('Facebook')
@@ -34,9 +32,16 @@ class ProfileLink(models.Model):
 
         __empty__ = _('(Unknown)')
 
+    social_media = models.CharField(max_length=2, choices=SocialMedia.choices, default=SocialMedia.__empty__)
+    social_username = models.CharField(max_length=255)
+
+
+class ProfileLink(models.Model):
+    """ User Profile Link class """
     external = models.CharField(max_length=200, validators=[URLValidator])
-    social = models.CharField(
-        max_length=2, choices=Link.choices, default=Link.__empty__)
+    social = models.ForeignKey(SocialUsername, on_delete=models.CASCADE)
+
+    
 
 
 class Profile(models.Model):
