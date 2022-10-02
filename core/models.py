@@ -12,6 +12,8 @@ class User(AbstractUser):
 
 def user_directory_path(instance, filename):
     """ file/image will be uploaded to MEDIA_ROOT/user_<id>/<filename> """
+    # Source:
+    # https://docs.djangoproject.com/en/4.1/ref/models/fields/#django.db.models.FileField.upload_to
     return f'user_{0}/{1}'.format(instance.user.id, filename)
 
 
@@ -22,25 +24,29 @@ class Profile(models.Model):
 
     class Status(models.TextChoices):
         """ Profile Status Choices """
-        EMPLOYEE = 'EP', _('Employee')
-        JOB_SEEKER = 'JS', _('Job Seeker')
-        OPEN_TO_COLLABORATE = 'OC', _('Open To Collaborate')
-        OWNER = 'OW', _('Owner')
+        # Easily adding TextChoices source:
+        # https://docs.djangoproject.com/en/4.1/ref/models/fields/#enumeration-types
+        EMPLOYEE = 'Employee', _('Employee')
+        JOB_SEEKER = 'Job Seeker', _('Job Seeker')
+        OPEN_TO_COLLABORATE = 'Open To Collaborate', _('Open To Collaborate')
+        OWNER = 'Owner', _('Owner')
 
-    status = models.CharField(
-        max_length=2, blank=True, null=True, choices=Status.choices)
+    status = models.CharField(default='Not Specified', 
+        max_length=19, blank=True, null=True, choices=Status.choices)
     location = models.CharField(max_length=255, blank=True, null=True)
 
 
 class Link(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='links')
-    title = models.CharField(max_length=255, blank=True, null=True)
-    link = models.CharField(max_length=255, blank=True, null=True, validators=[URLValidator])
+    title = models.CharField(max_length=255)
+    link = models.CharField(max_length=255, validators=[URLValidator])
 
 
 class Social(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='socials')
 
+    # Easily adding TextChoices source:
+    # https://docs.djangoproject.com/en/4.1/ref/models/fields/#enumeration-types
     class SocialMedia(models.TextChoices):
         """ User Profile Link Choices """
         INSTAGRAM = 'Instagram', _('Instagram')
@@ -55,5 +61,5 @@ class Social(models.Model):
         SOUNDCLOUD = 'SoundCloud', _('SoundCloud')
         DEVIANTART = 'DeviantArt', _('DeviantArt')
 
-    name = models.CharField(max_length=10, blank=True, null=True, choices=SocialMedia.choices)
-    username = models.CharField(max_length=255, blank=True, null=True)
+    name = models.CharField(max_length=10, choices=SocialMedia.choices)
+    username = models.CharField(max_length=255)
