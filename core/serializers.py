@@ -4,27 +4,41 @@ from .models import *
 
 
 class UserCreateSerializer(BaseUserCreateSerializer):
+    first_name = serializers.CharField(allow_blank=False)
+    last_name = serializers.CharField(allow_blank=False)
+
     class Meta(BaseUserCreateSerializer.Meta):
         fields = ['id', 'username', 'password', 'email', 'first_name', 'last_name']
 
 
-class ProfileSocialLink(serializers.ModelSerializer):
+class ProfileSocialSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SocialUsername
-        fields = ['id', 'social_media', 'social_username']
+        model = Social
+        fields = ['id', 'name', 'username']
+    
+    def create(self, validated_data):
+        profile_id = self.context['profile_id']
+        return Link.objects.create(profile_id=profile_id, **validated_data)
 
 
 class ProfileLinkSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ProfileLink
-        fields = ['id', 'external', 'social_id', 'social_links']
+        model = Link
+        fields = ['id', 'title', 'link']
 
-    social_links = ProfileSocialLink()
+    def create(self, validated_data):
+        profile_id = self.context['profile_id']
+        return Link.objects.create(profile_id=profile_id, **validated_data)
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    user_id = serializers.IntegerField()
+    links = ProfileLinkSerializer(many=True, read_only=True)
+    socials = ProfileSocialSerializer(many=True, read_only=True)
+
     class Meta:
         model = Profile
-        fields = ['id', 'user_id', 'image', 'status', 'location', 'link_id', 'profile_links']
-
-    profile_links = ProfileLinkSerializer()
+        fields = [
+            'id', 'user_id', 'image', 'status', 'location', 
+            'links', 'socials'
+        ]    
