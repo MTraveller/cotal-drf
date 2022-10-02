@@ -19,10 +19,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('core/', include('core.urls')),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.jwt')),
-    path('admin/', admin.site.urls),
+    path(r'api/v1/', include([
+        path('core/', include('core.urls')),
+        path('auth/', include('djoser.urls')),
+        path('auth/', include('djoser.urls.jwt')),
+        path('admin/', admin.site.urls),
+    ])),
 ]
 
 if settings.DEBUG:
