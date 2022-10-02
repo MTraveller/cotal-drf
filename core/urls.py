@@ -1,10 +1,13 @@
 from django.urls import path
-from rest_framework.routers import SimpleRouter
+from rest_framework_nested import routers
 from . import views
 
-router = SimpleRouter()
+router = routers.DefaultRouter()
 router.register('profiles', views.ProfileViewSet)
-router.urls
+
+profiles_router = routers.NestedDefaultRouter(router, 'profiles', lookup='profile')
+profiles_router.register('links', views.LinkViewSet, basename='profile-links')
+profiles_router.register('socials', views.LinkViewSet, basename='profile-socials')
 
 # URLConf
-urlpatterns = router.urls
+urlpatterns = router.urls + profiles_router.urls
