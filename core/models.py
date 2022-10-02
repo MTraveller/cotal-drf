@@ -19,8 +19,10 @@ def user_directory_path(instance, filename):
 
 class Profile(models.Model):
     """ Profile model """
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    image = models.ImageField(
+        upload_to=user_directory_path, blank=True, null=True)
 
     class Status(models.TextChoices):
         """ Profile Status Choices """
@@ -39,13 +41,15 @@ class Profile(models.Model):
 
 
 class Link(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='links')
+    profile = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='links')
     title = models.CharField(max_length=255)
     link = models.CharField(max_length=255, validators=[URLValidator])
 
 
 class Social(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='socials')
+    profile = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='socials')
 
     # Easily adding TextChoices source:
     # https://docs.djangoproject.com/en/4.1/ref/models/fields/#enumeration-types

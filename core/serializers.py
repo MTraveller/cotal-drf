@@ -8,14 +8,15 @@ class UserCreateSerializer(BaseUserCreateSerializer):
     last_name = serializers.CharField(allow_blank=False)
 
     class Meta(BaseUserCreateSerializer.Meta):
-        fields = ['id', 'username', 'password', 'email', 'first_name', 'last_name']
+        fields = ['id', 'username', 'password',
+                  'email', 'first_name', 'last_name']
 
 
 class ProfileSocialSerializer(serializers.ModelSerializer):
     class Meta:
         model = Social
         fields = ['id', 'name', 'username']
-    
+
     def create(self, validated_data):
         profile_id = self.context['profile_id']
         return Social.objects.create(profile_id=profile_id, **validated_data)
@@ -40,6 +41,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = [
-            'id', 'user_id', 'image', 'status', 
+            'id', 'user_id', 'image', 'status',
             'location', 'links', 'socials'
-        ]    
+        ]

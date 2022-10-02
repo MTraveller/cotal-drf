@@ -27,4 +27,3 @@ class SocialViewSet(ModelViewSet):
 
     def get_serializer_context(self):
         return {'profile_id': self.kwargs['profile_pk']}
-        
