@@ -18,7 +18,7 @@ class ProfileSocialSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         profile_id = self.context['profile_id']
-        return Link.objects.create(profile_id=profile_id, **validated_data)
+        return Social.objects.create(profile_id=profile_id, **validated_data)
 
 
 class ProfileLinkSerializer(serializers.ModelSerializer):
