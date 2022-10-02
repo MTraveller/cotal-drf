@@ -33,12 +33,13 @@ class ProfileLinkSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField()
+    # https://www.django-rest-framework.org/api-guide/relations/#nested-relationships
     links = ProfileLinkSerializer(many=True, read_only=True)
     socials = ProfileSocialSerializer(many=True, read_only=True)
 
     class Meta:
         model = Profile
         fields = [
-            'id', 'user_id', 'image', 'status', 'location', 
-            'links', 'socials'
+            'id', 'user_id', 'image', 'status', 
+            'location', 'links', 'socials'
         ]    
