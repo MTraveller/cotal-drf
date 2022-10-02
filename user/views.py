@@ -1,12 +1,28 @@
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from .models import Profile, Link, Social
-from .serializers import ProfileSerializer, ProfileLinkSerializer, ProfileSocialSerializer
+from .serializers import ProfileSerializer, ProfileLinkSerializer, ProfileSocialSerializer, UserSerializer
+from user import serializers
 
 
 class ProfileViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+    # https://www.django-rest-framework.org/api-guide/viewsets/#marking-extra-actions-for-routing
+    @action(detail=False, methods=['GET', 'PUT'])
+    def me(self, request):
+        (profile, created) = Profile.objects.get_or_create(id=request.user.id)
+        if request.method == 'GET':
+            serializer = ProfileSerializer(profile)
+            return Response(serializer.data)
+        elif request.method == 'PUT':
+            serializer = ProfileSerializer(profile, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
 
 
 class LinkViewSet(ModelViewSet):
