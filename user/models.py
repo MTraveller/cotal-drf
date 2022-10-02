@@ -69,3 +69,9 @@ class Social(models.Model):
 
     name = models.CharField(max_length=10, choices=SocialMedia.choices)
     username = models.CharField(max_length=255)
+
+
+class Follow(models.Model):
+    profile = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='follows')
+    username = models.CharField(max_length=255)
