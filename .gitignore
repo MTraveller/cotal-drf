@@ -1,6 +1,6 @@
 .vscode/
 __pycache__/
-core.python*
+user.python*
 *.pyc
 *.py[cod]
 dev.py

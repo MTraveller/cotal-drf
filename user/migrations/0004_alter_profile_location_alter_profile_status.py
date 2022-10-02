@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0003_alter_link_link_alter_link_title_and_more'),
+        ('user', '0003_alter_link_link_alter_link_title_and_more'),
     ]
 
     operations = [
@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='profile',
             name='status',
-            field=models.CharField(choices=[(None, 'Not Specified'), ('Employee', 'Employee'), ('Job Seeker', 'Job Seeker'), ('Open To Collaborate', 'Open To Collaborate'), ('Owner', 'Owner')], default='Not Specified', max_length=19, null=True),
+            field=models.CharField(choices=[(None, 'Not Specified'), ('Employee', 'Employee'), ('Job Seeker', 'Job Seeker'), (
+                'Open To Collaborate', 'Open To Collaborate'), ('Owner', 'Owner')], default='Not Specified', max_length=19, null=True),
         ),
     ]

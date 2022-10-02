@@ -7,14 +7,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0002_alter_social_name'),
+        ('user', '0002_alter_social_name'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='link',
             name='link',
-            field=models.CharField(max_length=255, validators=[django.core.validators.URLValidator]),
+            field=models.CharField(max_length=255, validators=[
+                                   django.core.validators.URLValidator]),
         ),
         migrations.AlterField(
             model_name='link',
@@ -24,12 +25,14 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='profile',
             name='status',
-            field=models.CharField(blank=True, choices=[('Employee', 'Employee'), ('Job Seeker', 'Job Seeker'), ('Open To Collaborate', 'Open To Collaborate'), ('Owner', 'Owner')], default='Not Specified', max_length=19, null=True),
+            field=models.CharField(blank=True, choices=[('Employee', 'Employee'), ('Job Seeker', 'Job Seeker'), (
+                'Open To Collaborate', 'Open To Collaborate'), ('Owner', 'Owner')], default='Not Specified', max_length=19, null=True),
         ),
         migrations.AlterField(
             model_name='social',
             name='name',
-            field=models.CharField(choices=[('Instagram', 'Instagram'), ('Facebook', 'Facebook'), ('Twitter', 'Twitter'), ('Snapchat', 'Snapchat'), ('TikTok', 'TikTok'), ('Telegram', 'Telegram'), ('Dribble', 'Dribble'), ('Pinterest', 'Pinterest'), ('Reddit', 'Reddit'), ('SoundCloud', 'SoundCloud'), ('DeviantArt', 'DeviantArt')], max_length=10),
+            field=models.CharField(choices=[('Instagram', 'Instagram'), ('Facebook', 'Facebook'), ('Twitter', 'Twitter'), ('Snapchat', 'Snapchat'), ('TikTok', 'TikTok'), (
+                'Telegram', 'Telegram'), ('Dribble', 'Dribble'), ('Pinterest', 'Pinterest'), ('Reddit', 'Reddit'), ('SoundCloud', 'SoundCloud'), ('DeviantArt', 'DeviantArt')], max_length=10),
         ),
         migrations.AlterField(
             model_name='social',
