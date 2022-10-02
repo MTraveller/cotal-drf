@@ -31,9 +31,11 @@ class Profile(models.Model):
         OPEN_TO_COLLABORATE = 'Open To Collaborate', _('Open To Collaborate')
         OWNER = 'Owner', _('Owner')
 
-    status = models.CharField(default='Not Specified', 
-        max_length=19, blank=True, null=True, choices=Status.choices)
-    location = models.CharField(max_length=255, blank=True, null=True)
+        __empty__ = _('Not Specified')
+
+    status = models.CharField(
+        max_length=19, choices=Status.choices, default=Status.__empty__, null=True)
+    location = models.CharField(max_length=255, null=True)
 
 
 class Link(models.Model):
