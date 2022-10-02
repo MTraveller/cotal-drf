@@ -15,7 +15,32 @@ def user_directory_path(instance, filename):
     return f'user_{0}/{1}'.format(instance.user.id, filename)
 
 
-class SocialUsername(models.Model):
+class Profile(models.Model):
+    """ Profile model """
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
+
+    class Status(models.TextChoices):
+        """ Profile Status Choices """
+        EMPLOYEE = 'EP', _('Employee')
+        JOB_SEEKER = 'JS', _('Job Seeker')
+        OPEN_TO_COLLABORATE = 'OC', _('Open To Collaborate')
+        OWNER = 'OW', _('Owner')
+
+    status = models.CharField(
+        max_length=2, blank=True, null=True, choices=Status.choices)
+    location = models.CharField(max_length=255, blank=True, null=True)
+
+
+class Link(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='links')
+    title = models.CharField(max_length=255, blank=True, null=True)
+    link = models.CharField(max_length=255, blank=True, null=True, validators=[URLValidator])
+
+
+class Social(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='socials')
+
     class SocialMedia(models.TextChoices):
         """ User Profile Link Choices """
         INSTAGRAM = 'IG', _('Instagram')
@@ -30,37 +55,5 @@ class SocialUsername(models.Model):
         SOUNDCLOUD = 'SC', _('SoundCloud')
         DEVIANTART = 'DA', _('DeviantArt')
 
-        __empty__ = _('(Unknown)')
-
-    social_media = models.CharField(max_length=2, choices=SocialMedia.choices, default=SocialMedia.__empty__)
-    social_username = models.CharField(max_length=255)
-
-
-class ProfileLink(models.Model):
-    """ User Profile Link class """
-    external = models.CharField(max_length=200, validators=[URLValidator])
-    social = models.ForeignKey(SocialUsername, on_delete=models.CASCADE)
-
-    
-
-
-class Profile(models.Model):
-    """ Profile model """
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
-
-    class Status(models.TextChoices):
-        """ Profile Status Choices """
-        EMPLOYEE = 'EP', _('Employee')
-        JOB_SEEKER = 'JS', _('Job Seeker')
-        OPEN_TO_COLLABORATE = 'OC', _('Open To Collaborate')
-        OWNER = 'OW', _('Owner')
-
-        __empty__ = _('(Unknown)')
-
-    status = models.CharField(
-        max_length=2, choices=Status.choices, default=Status.__empty__)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    location = models.CharField(max_length=255)
-    link = models.ForeignKey(ProfileLink, blank=True, null=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=2, blank=True, null=True, choices=SocialMedia.choices)
+    username = models.CharField(max_length=255, blank=True, null=True)
