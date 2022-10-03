@@ -8,12 +8,14 @@ from .serializers import ProfileSerializer, ProfileLinkSerializer, ProfileSocial
 
 
 def try_match(self):
+    """
+    Function to get user id and check against request user id.
+    """
     kwargs = self.request.resolver_match.kwargs
-    print(kwargs)
     value = dict((value, key)
-                 for key, value in kwargs.items()).get(str(self.request.user.id))
-    print(value)
-    print(kwargs[value])
+                 for key, value in kwargs
+                 .items())\
+        .get(str(self.request.user.id))
     try:
         return bool(self.request.user.id == int(kwargs[value]))
     except KeyError:
@@ -21,17 +23,20 @@ def try_match(self):
 
 
 def get_permissions(self):
+    """
+    Function to get the appropiate permission.
+    """
     if try_match(self):
-        print("true")
-        print(IsObjectUser().__dict__)
         return [IsObjectUser()]
     elif self.request.resolver_match.url_name == 'profile-me':
         return [IsAuthenticated()]
-    print("Not Object User")
     return [DjangoModelPermissions()]
 
 
 class ProfileViewSet(ModelViewSet):
+    """
+    Profile view set with appropiate permission handling.
+    """
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
@@ -58,6 +63,9 @@ class ProfileViewSet(ModelViewSet):
 
 
 class LinkViewSet(ModelViewSet):
+    """
+    Profile link view set with appropiate permission handling.
+    """
     serializer_class = ProfileLinkSerializer
 
     def get_permissions(self):
@@ -71,6 +79,9 @@ class LinkViewSet(ModelViewSet):
 
 
 class SocialViewSet(ModelViewSet):
+    """
+    Profile social view set with appropiate permission handling.
+    """
     serializer_class = ProfileSocialSerializer
 
     def get_permissions(self):
