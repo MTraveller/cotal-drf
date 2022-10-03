@@ -3,7 +3,7 @@ from django.conf import settings
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from rest_framework.response import Response
-from .models import Profile, User
+from .models import Profile
 
 
 USER = settings.AUTH_USER_MODEL
@@ -21,4 +21,4 @@ def delete_user(sender, instance, **kwargs):
     user = instance.user
     user.delete()
 
-    return Response("Deleted")
+    return Response("User has been successfully deleted")
