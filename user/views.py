@@ -5,7 +5,6 @@ from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Profile, Link, Social
 from .serializers import ProfileSerializer, ProfileLinkSerializer, ProfileSocialSerializer, UserSerializer
-from user import serializers
 
 
 class ProfileViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
