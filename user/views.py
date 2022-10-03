@@ -2,6 +2,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Profile, Link, Social
 from .serializers import ProfileSerializer, ProfileLinkSerializer, ProfileSocialSerializer, UserSerializer
 from user import serializers
@@ -10,6 +11,11 @@ from user import serializers
 class ProfileViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        return [IsAuthenticated()]
 
     # https://www.django-rest-framework.org/api-guide/viewsets/#marking-extra-actions-for-routing
     @action(detail=False, methods=['GET', 'PUT'])
