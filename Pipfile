@@ -12,6 +12,7 @@ djangorestframework = "*"
 djoser = "*"
 djangorestframework-simplejwt = "*"
 drf-nested-routers = "*"
+django-filter = "*"
 
 [dev-packages]
 autopep8 = "*"
