@@ -16,10 +16,13 @@ Including another URLconf
 
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.views.generic import RedirectView
+from . import views
 
 urlpatterns = [
-    path(r'api/v1/', include([
+    path('api/v1/', include([
+        path('', views.api_root),
         path('user/', include('user.urls')),
         path('auth/', include('djoser.urls')),
         path('auth/', include('djoser.urls.jwt')),
@@ -32,3 +35,5 @@ if settings.DEBUG:
     urlpatterns += [
         path('__debug__/', include('debug_toolbar.urls'))
     ]
+
+handler404 = views.handler404
