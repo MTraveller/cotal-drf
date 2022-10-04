@@ -9,7 +9,6 @@ services:
     repo: https://github.com/MTraveller/cotal-drf.git
     version: 1.0.0
     branch: main
-    healthCheckPath: /
     autoDeploy: false
     envVars:
         - key: PYTHON_VERSION
