@@ -6,3 +6,4 @@ core.python*
 dev.py
 db.sqlite3
 data/
+cotal-drf-firebase.json
