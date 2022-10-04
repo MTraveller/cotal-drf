@@ -107,8 +107,8 @@ class Award(models.Model):
         Profile, on_delete=models.CASCADE, related_name='awards')
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
-    title = models.CharField(max_length=500)
-    description = models.CharField(max_length=None)
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=500)
     link = models.CharField(max_length=255, validators=[
                             URLValidator], blank=True, null=True)
 
@@ -118,7 +118,7 @@ class Certificate(models.Model):
     Profile Certificate model
     """
     profile = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name='awards')
+        Profile, on_delete=models.CASCADE, related_name='certificates')
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
     title = models.CharField(max_length=255)
@@ -144,4 +144,4 @@ class ProfileSetting(models.Model):
     User Profile Settings
     """
     profile = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name='links')
+        Profile, on_delete=models.CASCADE, related_name='settings')
