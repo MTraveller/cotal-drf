@@ -11,21 +11,28 @@ class User(AbstractUser):
 
 
 def user_directory_path(instance, filename):
-    """ file/image will be uploaded to MEDIA_ROOT/user_<id>/<filename> """
+    """
+    file/image will be uploaded to 
+    MEDIA_ROOT/user_<id>/instance/<filename>
+    """
     # Source:
     # https://docs.djangoproject.com/en/4.1/ref/models/fields/#django.db.models.FileField.upload_to
-    return f'user_{0}/{1}'.format(instance.user.id, filename)
+    return f'user_{0}/{1}/{2}'.format(instance.user.id, instance, filename)
 
 
 class Profile(models.Model):
-    """ Profile model """
+    """
+    Profile model
+    """
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
 
     class Status(models.TextChoices):
-        """ Profile Status Choices """
+        """
+        Profile Status Choices
+        """
         # Easily adding TextChoices source:
         # https://docs.djangoproject.com/en/4.1/ref/models/fields/#enumeration-types
         EMPLOYEE = 'Employee', _('Employee')
@@ -41,6 +48,9 @@ class Profile(models.Model):
 
 
 class Link(models.Model):
+    """
+    Profile Link model
+    """
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='links')
     title = models.CharField(max_length=255)
@@ -48,13 +58,18 @@ class Link(models.Model):
 
 
 class Social(models.Model):
+    """
+    Profile Social link model
+    """
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='socials')
 
     # Easily adding TextChoices source:
     # https://docs.djangoproject.com/en/4.1/ref/models/fields/#enumeration-types
     class SocialMedia(models.TextChoices):
-        """ User Profile Link Choices """
+        """
+        User Profile Social Choices
+        """
         INSTAGRAM = 'Instagram', _('Instagram')
         FACEBOOK = 'Facebook', _('Facebook')
         TWITTER = 'Twitter', _('Twitter')
@@ -71,7 +86,62 @@ class Social(models.Model):
     username = models.CharField(max_length=255)
 
 
-class Follow(models.Model):
+class Portfolio(models.Model):
+    """
+    Profile Portfolio model
+    """
     profile = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name='follows')
-    username = models.CharField(max_length=255)
+        Profile, on_delete=models.CASCADE, related_name='portfolios')
+    image = models.ImageField(
+        upload_to=user_directory_path, blank=True, null=True)
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=500)
+    link = models.CharField(max_length=255, validators=[URLValidator])
+
+
+class Award(models.Model):
+    """
+    Profile Award model
+    """
+    profile = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='awards')
+    image = models.ImageField(
+        upload_to=user_directory_path, blank=True, null=True)
+    title = models.CharField(max_length=500)
+    description = models.CharField(max_length=None)
+    link = models.CharField(max_length=255, validators=[
+                            URLValidator], blank=True, null=True)
+
+
+class Certificate(models.Model):
+    """
+    Profile Certificate model
+    """
+    profile = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='awards')
+    image = models.ImageField(
+        upload_to=user_directory_path, blank=True, null=True)
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=500)
+    link = models.CharField(max_length=255, validators=[
+                            URLValidator], blank=True, null=True)
+
+
+class Creative(models.Model):
+    """
+    Profile Creative model
+    """
+    profile = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='creatives')
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=500)
+    link = models.CharField(max_length=255, validators=[
+                            URLValidator], blank=True, null=True)
+
+
+class ProfileSetting(models.Model):
+    """
+    User Profile Settings
+    """
+    profile = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='links')
