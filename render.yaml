@@ -11,7 +11,7 @@ services:
     healthCheckPath: /
     autoDeploy: false
     envVars:
-        - PYTHON_VERSION: 3.10.7
+        - python_version: 3.10.7
         - key: WEB_CONCURRENCY
           value: 4
         - key: DATABASE_URL
