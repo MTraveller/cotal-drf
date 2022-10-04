@@ -13,7 +13,6 @@ djoser = "*"
 djangorestframework-simplejwt = "*"
 drf-nested-routers = "*"
 django-filter = "*"
-firebase-admin = "*"
 
 [dev-packages]
 autopep8 = "*"
