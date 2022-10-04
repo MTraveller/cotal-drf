@@ -19,9 +19,7 @@ CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('DJANGO_CLOUDINARY_URL')
 }
 
-ALLOWED_HOSTS = [
-    'https://cotal.vercel.app',
-]
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS')
 
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
