@@ -1,15 +1,12 @@
-""" User Signals """
+""" Core Signals """
 from django.conf import settings
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from rest_framework.response import Response
-from .models import Profile
+from ..models import Profile
 
 
-USER = settings.AUTH_USER_MODEL
-
-
-@receiver(post_save, sender=USER)
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_profile(sender, instance, **kwargs):
     """ Signal to create profile on user creation """
     Profile.objects.create(user=instance)

@@ -23,7 +23,7 @@ from . import views
 urlpatterns = [
     path('api/v1/', include([
         path('', views.api_root),
-        path('user/', include('user.urls')),
+        path('core/', include('core.urls')),
         path('auth/', include('djoser.urls')),
         path('auth/', include('djoser.urls.jwt')),
         path('admin/', admin.site.urls),

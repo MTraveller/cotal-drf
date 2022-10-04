@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'djoser',
     'cloudinary',
-    'user',
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -125,12 +125,12 @@ REST_FRAMEWORK = {
     ]
 }
 
-AUTH_USER_MODEL = 'user.User'
+AUTH_USER_MODEL = 'core.User'
 
 DJOSER = {
     'SERIALIZERS': {
-        'user_create': 'user.serializers.UserCreateSerializer',
-        'current_user': 'user.serializers.UserSerializer',
+        'user_create': 'core.serializers.UserCreateSerializer',
+        'current_user': 'core.serializers.UserSerializer',
     }
 }
 
