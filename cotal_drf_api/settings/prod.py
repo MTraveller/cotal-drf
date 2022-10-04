@@ -2,7 +2,6 @@
 import os
 import dj_database_url
 from .common import *
-print('Prod Settings Loaded')
 
 DEBUG = os.environ.get('DEBUG')
 
@@ -20,6 +19,7 @@ CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('DJANGO_CLOUDINARY_URL')
 }
 
+print(os.environ.get('DJANGO_ALLOWED_HOSTS'))
 ALLOWED_HOSTS = [
     os.environ.get('DJANGO_ALLOWED_HOSTS'),
 ]
