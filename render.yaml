@@ -18,6 +18,8 @@ services:
           value: cotal_drf_api.settings.prod
         - key: DJANGO_SECRET_KEY
           generateValue: true
+        - key: DEBUG
+          value: False
         - key: DJANGO_CLOUDINARY_URL
           generateValue: true
         - key: DJANGO_ADMIN_URL
