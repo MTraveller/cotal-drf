@@ -16,8 +16,7 @@ Including another URLconf
 
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path, include, re_path
-from django.views.generic import RedirectView
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -29,12 +28,5 @@ urlpatterns = [
         path('admin/', admin.site.urls),
     ])),
 ]
-
-if settings.DEBUG:
-    print(settings.DEBUG)
-    import debug_toolbar
-    urlpatterns += [
-        path('__debug__/', include('debug_toolbar.urls'))
-    ]
 
 handler404 = views.handler404
