@@ -23,7 +23,6 @@ services:
           generateValue: true
         - key: DJANGO_SETTINGS_MODULE
           value: config.settings.production
-    startCommand: python manage.py migrate
 
 databases:
   - name: cotal-api
