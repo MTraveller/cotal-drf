@@ -12,7 +12,7 @@ services:
     autoDeploy: false
     envVars:
         - key: PYTHON_VERSION
-          value: 3.10.7
+          value: 3.10
         - key: WEB_CONCURRENCY
           value: 4
         - key: DATABASE_URL
