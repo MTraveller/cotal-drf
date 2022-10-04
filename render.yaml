@@ -1,6 +1,6 @@
 databases:
   - name: cotal-db
-    databaseName: cotal-api-db
+    databaseName: cotal_api_db
 
 services: 
   - type: web
