@@ -13,6 +13,7 @@ djoser = "*"
 djangorestframework-simplejwt = "*"
 drf-nested-routers = "*"
 django-filter = "*"
+gunicorn = "*"
 
 [dev-packages]
 autopep8 = "*"
