@@ -1,7 +1,6 @@
 databases:
-  - name: cotal-drf-db
-    databaseName: cotal-drf-db
-    user: cotal-drf
+  - name: cotal-db
+    databaseName: cotal-api-db
 
 services: 
   - type: web
