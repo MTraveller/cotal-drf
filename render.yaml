@@ -3,7 +3,6 @@ services:
   - type: web
     name: cotal-api
     env: python
-      - PYTHON_VERSION: 3.10.7
     region: Frankfurt
     buildCommand: "./build.sh"
     startCommand: gunicorn cotal_drf_api.wsgi:application
@@ -12,6 +11,7 @@ services:
     healthCheckPath: /
     autoDeploy: false
     envVars:
+        - PYTHON_VERSION: 3.10.7
         - key: WEB_CONCURRENCY
           value: 4
         - key: DATABASE_URL
@@ -23,7 +23,7 @@ services:
         - key: DJANGO_ADMIN_URL
           generateValue: true
         - key: DJANGO_SETTINGS_MODULE
-          value: config.settings.production
+          value: cotal_drf_api.settings.prod
 
 databases:
   - name: cotal-api
