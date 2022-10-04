@@ -1,0 +1,12 @@
+services: 
+- type: web
+  name: cotal-drf
+  env: python
+  buildCommand: "./build.sh"
+  startCommand: cd cotal-drf && gunicorn mysite.wsgi:application
+  plan: free
+  healthCheckPath: /
+  autoDeploy: false
+  envVars:
+  - key: DJANGO_SECRET_KEY
+    generateValue: true
