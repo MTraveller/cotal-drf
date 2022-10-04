@@ -15,16 +15,18 @@ services:
           value: 3.10
         - key: WEB_CONCURRENCY
           value: 4
+        - key: DJANGO_SETTINGS_MODULE
+          value: cotal_drf_api.settings.prod
+        - key: DJANGO_SECRET_KEY
+          generateValue: true
+        - key: DJANGO_CLOUDINARY_URL
+          generateValue: true
+        - key: DJANGO_ADMIN_URL
+          generateValue: true
         - key: DATABASE_URL
           fromDatabase:
             name: cotal-api
             property: connectionString
-        - key: DJANGO_SECRET_KEY
-          generateValue: true
-        - key: DJANGO_ADMIN_URL
-          generateValue: true
-        - key: DJANGO_SETTINGS_MODULE
-          value: cotal_drf_api.settings.prod
 
 databases:
   - name: cotal-api
