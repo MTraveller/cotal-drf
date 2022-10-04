@@ -19,7 +19,7 @@ CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('DJANGO_CLOUDINARY_URL')
 }
 
-print(os.environ.get('DJANGO_ALLOWED_HOSTS'))
+print(list(os.environ.get('DJANGO_ALLOWED_HOSTS')))
 ALLOWED_HOSTS = list(os.environ.get('DJANGO_ALLOWED_HOSTS'))
 
 DATABASES = {
