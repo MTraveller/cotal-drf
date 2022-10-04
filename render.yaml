@@ -1,5 +1,6 @@
 databases:
   - name: cotal-db
+    plan: starter
     databaseName: cotal_api_db
 
 services: 
