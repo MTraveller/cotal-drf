@@ -1,7 +1,7 @@
 
 services: 
   - type: web
-    name: cotal-drf
+    name: cotal-api
     env: python
     region: Frankfurt
     plan: starter
@@ -16,7 +16,7 @@ services:
           value: 4
         - key: DATABASE_URL
           fromDatabase:
-            name: cotal_api_db
+            name: cotal-api
             property: connectionString
         - key: DJANGO_SECRET_KEY
           generateValue: true
@@ -26,6 +26,7 @@ services:
           value: config.settings.production
 
 databases:
-  - name: cotal-db
+  - name: cotal-api
     plan: starter
-    databaseName: cotal_api_db
+    databaseName: cotal
+    user: cotal
