@@ -7,7 +7,6 @@ services:
     buildCommand: "./build.sh"
     startCommand: gunicorn cotal_drf_api.wsgi:application
     repo: https://github.com/MTraveller/cotal-drf.git
-    version: 1.0.0
     branch: main
     autoDeploy: false
     envVars:
