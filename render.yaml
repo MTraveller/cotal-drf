@@ -14,5 +14,5 @@ services:
       generateValue: true
 
 databases:
-  - name: elephant
-    databaseName: cotal-drf
+  - name: cotal-drf-db
+    databaseName: cotal-drf-db
