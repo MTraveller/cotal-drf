@@ -1,12 +1,18 @@
 services: 
-- type: web
-  name: cotal-drf
-  env: python
-  buildCommand: "./build.sh"
-  startCommand: cd cotal-drf && gunicorn mysite.wsgi:application
-  plan: free
-  healthCheckPath: /
-  autoDeploy: false
-  envVars:
-  - key: DJANGO_SECRET_KEY
-    generateValue: true
+  - type: web
+    name: cotal-drf
+    env: python
+    region: Frankfurt
+    buildCommand: "true"
+    startCommand: cd cotal-drf && gunicorn mysite.wsgi:application
+    repo: https://github.com/MTraveller/cotal-drf.git
+    branch: main
+    healthCheckPath: /
+    autoDeploy: false
+    envVars:
+    - key: DJANGO_SECRET_KEY
+      generateValue: true
+
+databases:
+  - name: elephant
+    databaseName: cotal-drf
