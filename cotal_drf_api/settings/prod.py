@@ -20,7 +20,7 @@ CLOUDINARY_STORAGE = {
 }
 
 ALLOWED_HOSTS = [
-    '',
+    'https://cotal.vercel.app',
 ]
 
 DATABASES = {
