@@ -1,5 +1,4 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from rest_framework.response import Response
 
 
 def handler404(request, *args, **kwargs):
