@@ -5,7 +5,7 @@ services:
     env: python
     region: Frankfurt
     buildCommand: "true"
-    startCommand: gunicorn mysite.wsgi:application && python manage.py migrate
+    startCommand: gunicorn cotal_drf_api.wsgi:application && python manage.py migrate
     repo: https://github.com/MTraveller/cotal-drf.git
     branch: main
     healthCheckPath: /
