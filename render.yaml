@@ -2,7 +2,7 @@
 services: 
   - type: web
     name: cotal-api
-    env: python
+    env: python:3.10.7
     region: Frankfurt
     buildCommand: "./build.sh"
     startCommand: gunicorn cotal_drf_api.wsgi:application
