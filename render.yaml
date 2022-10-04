@@ -11,7 +11,7 @@ services:
     autoDeploy: false
     envVars:
         - key: PYTHON_VERSION
-          value: 3.10
+          value: 3.10.7
         - key: WEB_CONCURRENCY
           value: 4
         - key: DJANGO_SETTINGS_MODULE
