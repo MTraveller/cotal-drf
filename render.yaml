@@ -30,5 +30,6 @@ services:
 
 databases:
   - name: cotal-api
+    region: Frankfurt
     databaseName: cotal
     user: cotal
