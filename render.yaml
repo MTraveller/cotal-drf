@@ -4,7 +4,7 @@ services:
     name: cotal-api
     env: python
     region: Frankfurt
-    buildCommand: "./build.sh"
+    buildCommand: "true"
     startCommand: gunicorn mysite.wsgi:application && python manage.py migrate
     repo: https://github.com/MTraveller/cotal-drf.git
     branch: main
