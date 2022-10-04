@@ -5,7 +5,7 @@ services:
     env: python
     region: Frankfurt
     buildCommand: "true"
-    startCommand: gunicorn cotal_drf_api.wsgi:application && python manage.py migrate
+    startCommand: gunicorn cotal_drf_api.wsgi:application
     repo: https://github.com/MTraveller/cotal-drf.git
     branch: main
     healthCheckPath: /
@@ -23,6 +23,7 @@ services:
           generateValue: true
         - key: DJANGO_SETTINGS_MODULE
           value: config.settings.production
+    startCommand: python manage.py migrate
 
 databases:
   - name: cotal-api
