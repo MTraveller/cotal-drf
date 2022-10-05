@@ -1,8 +1,11 @@
+import os
+from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 
 
 def handle_redirect(request, *args, **kwargs):
-    return HttpResponseRedirect('/api/v1/')
+
+    return HttpResponseRedirect(settings.API_ENDPOINT)
 
 
 def api_root(request):
