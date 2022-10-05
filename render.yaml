@@ -1,9 +1,9 @@
 
 services: 
   - type: web
-    name: cotal-api
+    name: cotal-api # The subdomain of the url app-name.onrender.com
     env: python
-    region: Frankfurt
+    region: Frankfurt # Change the location to one of the available locations on render.com
     buildCommand: "./build.sh"
     startCommand: gunicorn cotal_drf_api.wsgi
     repo: https://github.com/MTraveller/cotal-drf.git
@@ -11,26 +11,26 @@ services:
     autoDeploy: false
     envVars:
         - key: PYTHON_VERSION
-          value: 3.10.7
+          value: 3.10.7 # Choose any python version from 3.7 and up
         - key: WEB_CONCURRENCY
-          value: 4
+          value: 4 # Number of webworkers
         - key: DJANGO_SETTINGS_MODULE
-          value: cotal_drf_api.settings.prod
+          value: cotal_drf_api.settings.prod # Change this to current project
         - key: DJANGO_SECRET_KEY
           generateValue: true
         - key: DJANGO_CLOUDINARY_URL
           value: cloudinary:// # Add the remaining secret key
         - key: DJANGO_ALLOWED_HOSTS
-          value: .onrender.com
+          value: .onrender.com # If needed change this to full host or a [] list
         - key: DATABASE_URL
           fromDatabase:
-            name: cotal-api
+            name: cotal-api # Change to the below database alias
             property: connectionString
         - key: API_ENDPOINT
-          value: insert endpoint value
+          value: insert endpoint value # Change this value on render after deploy then re-deploy
 
 databases:
-  - name: cotal-api
-    region: Frankfurt
-    databaseName: cotal
+  - name: cotal-api # Alias inside render !not database name
+    region: Frankfurt # Should be in the same location as the web service
+    databaseName: cotal # Database name
     user: cotal
