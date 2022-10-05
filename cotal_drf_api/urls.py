@@ -33,9 +33,6 @@ urlpatterns = [
     path('api/v1/', include(patterns)),
 ]
 
-
-print(urlpatterns)
-
 if 'dev' in os.environ.get('DJANGO_SETTINGS_MODULE'):
     import debug_toolbar
 
