@@ -3,15 +3,15 @@ import os
 import dj_database_url
 from .common import *
 
-DEBUG = os.environ.get('DEBUG')
+DEBUG = False
 
-# SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 
-# CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
-# X_FRAME_OPTIONS = 'SAMEORIGIN'
+CSRF_COOKIE_SECURE = True
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
@@ -19,11 +19,19 @@ CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('DJANGO_CLOUDINARY_URL')
 }
 
-print(os.environ.get('DJANGO_ALLOWED_HOSTS'))
 ALLOWED_HOSTS = [
     os.environ.get('DJANGO_ALLOWED_HOSTS'),
 ]
 
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+    )
 }
