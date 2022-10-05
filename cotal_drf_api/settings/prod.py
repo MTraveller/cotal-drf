@@ -19,7 +19,13 @@ CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('DJANGO_CLOUDINARY_URL')
 }
 
+API_ENDPOINT = os.environ.get('API_ENDPOINT')
+
 ALLOWED_HOSTS = [
+    os.environ.get('DJANGO_ALLOWED_HOSTS'),
+]
+
+CORS_ALLOWED_ORIGINS = [
     os.environ.get('DJANGO_ALLOWED_HOSTS'),
 ]
 
@@ -30,5 +36,3 @@ DATABASES = {
 REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = (
     'rest_framework.renderers.JSONRenderer',
 )
-
-API_ENDPOINT = os.environ.get('API_ENDPOINT')
