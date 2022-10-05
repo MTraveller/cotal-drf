@@ -187,6 +187,8 @@ See [project cloning](https://github.com/cotal#clone)
 
 ### Deploy
 
+To Add: After setting API_ENPOINT re-deploy
+
 <br>
 
 ## Credits
