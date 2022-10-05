@@ -15,6 +15,7 @@ drf-nested-routers = "*"
 django-filter = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 autopep8 = "*"
