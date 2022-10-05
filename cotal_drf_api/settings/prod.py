@@ -15,6 +15,7 @@ CSRF_COOKIE_SECURE = True
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
+
 CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('DJANGO_CLOUDINARY_URL')
 }
@@ -30,3 +31,5 @@ DATABASES = {
 REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = (
     'rest_framework.renderers.JSONRenderer',
 )
+
+API_ENDPOINT = os.environ.get('API_ENDPOINT')
