@@ -15,6 +15,7 @@ Including another URLconf
 """
 
 import os
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from . import views
@@ -30,7 +31,7 @@ patterns = ([
 
 urlpatterns = [
     path('', views.handle_redirect),
-    path('api/v1/', include(patterns)),
+    path(settings.API_ENDPOINT, include(patterns)),
 ]
 
 if 'dev' in os.environ.get('DJANGO_SETTINGS_MODULE'):
