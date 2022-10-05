@@ -26,6 +26,8 @@ services:
           fromDatabase:
             name: cotal-api
             property: connectionString
+        - key: API_ENDPOINT
+          value: insert endpoint value
 
 databases:
   - name: cotal-api
