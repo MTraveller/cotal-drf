@@ -139,7 +139,7 @@ class Creative(models.Model):
                             URLValidator], blank=True, null=True)
 
 
-class ProfileSetting(models.Model):
+class Setting(models.Model):
     """
     User Profile Settings
     """
