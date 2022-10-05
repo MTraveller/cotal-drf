@@ -29,7 +29,7 @@ urlpatterns = [
     ])),
 ]
 
-handler404 = views.handler404
+handler404 = 'cotal_drf_api.views.handle_404_redirect'
 
 if 'dev' in os.environ.get('DJANGO_SETTINGS_MODULE'):
     import debug_toolbar
