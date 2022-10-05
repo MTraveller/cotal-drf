@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 
 
-def handle_404_redirect(request, *args, **kwargs):
+def handle_redirect(request, *args, **kwargs):
     return HttpResponseRedirect('/api/v1/')
 
 
