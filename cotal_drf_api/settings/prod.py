@@ -32,8 +32,6 @@ ALLOWED_HOSTS = [
     )
 ]
 
-print(ALLOWED_HOSTS)
-
 CORS_ALLOWED_ORIGINS = [
     f"https://{host}" for host in json.loads(
         os.environ['DJANGO_ALLOWED_HOSTS']
