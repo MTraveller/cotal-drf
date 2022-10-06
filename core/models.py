@@ -54,7 +54,7 @@ class Link(models.Model):
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='links')
     title = models.CharField(max_length=255)
-    link = models.URLField(max_length=255)
+    link = models.URLField(max_length=255, blank=True, null=True)
 
 
 class Social(models.Model):
