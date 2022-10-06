@@ -113,7 +113,7 @@ class ProfileSettingSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     # https://www.django-rest-framework.org/api-guide/relations/#nested-relationships
     user = ProfileUserSerializer(read_only=True)
-    linktree = ProfileLinktreeSerializer(read_only=True)
+    linktrees = ProfileLinktreeSerializer(read_only=True)
     socials = ProfileSocialSerializer(many=True, read_only=True)
     portfolios = ProfilePortfolioSerializer(many=True, read_only=True)
     awards = ProfileAwardSerializer(many=True, read_only=True)
@@ -125,7 +125,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = [
             'user', 'image', 'status',
-            'location', 'linktree', 'socials',
+            'location', 'linktrees', 'socials',
             'portfolios', 'awards', 'certificates',
             'creatives', 'settings'
         ]
