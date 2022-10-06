@@ -22,8 +22,6 @@ services:
           fromDatabase:
             name: cotal-api # Change to the below database alias
             property: connectionString
-        - key: API_ENDPOINT
-          value: insert endpoint value # Change this value on render after deploy then re-deploy
 
 databases:
   - name: cotal-api # Alias inside render !not database name
