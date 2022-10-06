@@ -18,10 +18,6 @@ services:
           value: cotal_drf_api.settings.prod # Change this to current project
         - key: DJANGO_SECRET_KEY
           generateValue: true
-        - key: DJANGO_CLOUDINARY_URL
-          value: cloudinary:// # Add the remaining secret key
-        - key: DJANGO_ALLOWED_HOSTS
-          value: .onrender.com # Must change host to full url e.g. app-name.render.com without http
         - key: DATABASE_URL
           fromDatabase:
             name: cotal-api # Change to the below database alias
