@@ -29,6 +29,8 @@ print(API_ENDPOINT)
 
 ENV_ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS')
 
+print(ENV_ALLOWED_HOSTS)
+
 ALLOWED_HOSTS = []
 
 for host in ENV_ALLOWED_HOSTS:
