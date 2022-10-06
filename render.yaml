@@ -1,4 +1,4 @@
-
+# Open .env file before DEPLOY!
 services: 
   - type: web
     name: cotal-api # The subdomain of the url app-name.onrender.com
