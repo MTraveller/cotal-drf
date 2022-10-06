@@ -54,7 +54,7 @@ class Link(models.Model):
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='links')
     title = models.CharField(max_length=255)
-    link = models.CharField(max_length=255, validators=[URLValidator])
+    link = models.URLField(max_length=255)
 
 
 class Social(models.Model):
@@ -96,7 +96,7 @@ class Portfolio(models.Model):
         upload_to=user_directory_path, blank=True, null=True)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=500)
-    link = models.CharField(max_length=255, validators=[URLValidator])
+    link = models.URLField(max_length=255, blank=True, null=True)
 
 
 class Award(models.Model):
@@ -109,8 +109,7 @@ class Award(models.Model):
         upload_to=user_directory_path, blank=True, null=True)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=500)
-    link = models.CharField(max_length=255, validators=[
-                            URLValidator], blank=True, null=True)
+    link = models.URLField(max_length=255, blank=True, null=True)
 
 
 class Certificate(models.Model):
@@ -123,8 +122,7 @@ class Certificate(models.Model):
         upload_to=user_directory_path, blank=True, null=True)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=500)
-    link = models.CharField(max_length=255, validators=[
-                            URLValidator], blank=True, null=True)
+    link = models.URLField(max_length=255, blank=True, null=True)
 
 
 class Creative(models.Model):
@@ -135,8 +133,7 @@ class Creative(models.Model):
         Profile, on_delete=models.CASCADE, related_name='creatives')
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=500)
-    link = models.CharField(max_length=255, validators=[
-                            URLValidator], blank=True, null=True)
+    link = models.URLField(max_length=255, blank=True, null=True)
 
 
 class Setting(models.Model):
