@@ -12,6 +12,16 @@ profile_router = routers.NestedDefaultRouter(
 profile_router.register('links', views.LinkViewSet, basename='profile-links')
 profile_router.register('socials', views.SocialViewSet,
                         basename='profile-socials')
+profile_router.register('portfolios', views.PortfolioViewSet,
+                        basename='profile-portfolios')
+profile_router.register('awards', views.AwardViewSet,
+                        basename='profile-awards')
+profile_router.register('certificates', views.CertificateViewSet,
+                        basename='profile-certificates')
+profile_router.register('creatives', views.CreativeViewSet,
+                        basename='profile-creatives')
+profile_router.register('settings', views.SettingViewSet,
+                        basename='profile-settings')
 
 # URLConf
 urlpatterns = router.urls + profile_router.urls
