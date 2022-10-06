@@ -26,8 +26,6 @@ CLOUDINARY_STORAGE = {
 
 API_ENDPOINT = os.environ.get('API_ENDPOINT')
 
-ENV_ALLOWED_HOSTS = [host for host in os.environ.get('DJANGO_ALLOWED_HOSTS')]
-
 ALLOWED_HOSTS = [
     host for host in json.loads(
         os.environ['DJANGO_ALLOWED_HOSTS']
