@@ -1,8 +1,9 @@
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
-from .permissions import IsObjectUser
+from rest_framework.permissions import (
+    IsAuthenticated, IsAuthenticatedOrReadOnly, DjangoModelPermissions)
+from .permissions import IsObjectUser, IsNotObjectUserOrReadOnly
 from .models import *
 from .serializers import *
 
@@ -14,8 +15,7 @@ def try_match(self):
     kwargs = self.request.resolver_match.kwargs
     value = dict((value, key)
                  for key, value in kwargs
-                 .items())\
-        .get(str(self.request.user.id))
+                 .items()).get(str(self.request.user.id))
     try:
         return bool(self.request.user.id == int(kwargs[value]))
     except KeyError:
@@ -30,6 +30,8 @@ def get_permissions(self):
         return [IsObjectUser()]
     elif self.request.resolver_match.url_name == 'profile-me':
         return [IsAuthenticated()]
+    elif self.request.resolver_match.url_name == 'profile-detail':
+        return [IsNotObjectUserOrReadOnly()]
     return [DjangoModelPermissions()]
 
 
@@ -44,7 +46,7 @@ class ProfileViewSet(ModelViewSet):
         return get_permissions(self)
 
     # https://www.django-rest-framework.org/api-guide/viewsets/#marking-extra-actions-for-routing
-    @ action(detail=False, methods=['GET', 'PUT', 'DELETE'])
+    @action(detail=False, methods=['GET', 'PUT', 'DELETE'])
     # Add djoser's /me endpoint to /profile endpoint
     def me(self, request):
         if request.user.id:
@@ -66,13 +68,13 @@ class LinkViewSet(ModelViewSet):
     """
     Profile link view set with appropiate permission handling.
     """
-    serializer_class = ProfileLinkSerializer
+    serializer_class = ProfileLinktreeSerializer
 
     def get_permissions(self):
         return get_permissions(self)
 
     def get_queryset(self):
-        return Link.objects.filter(profile_id=self.kwargs['profile_pk'])
+        return Linktree.objects.filter(profile_id=self.kwargs['profile_pk'])
 
     def get_serializer_context(self):
         return {'profile_id': self.kwargs['profile_pk']}
