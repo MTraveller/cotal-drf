@@ -85,26 +85,26 @@ class ProfileSettingSerializer(serializers.ModelSerializer):
         model = Setting
         fields = []
 
-    def create(self, validated_data):
-        profile_id = self.context['profile_id']
-        return Setting.objects.create(profile_id=profile_id, **validated_data)
+    # def create(self, validated_data):
+    #     profile_id = self.context['profile_id']
+    #     return Setting.objects.create(profile_id=profile_id, **validated_data)
 
 
 class ProfileSerializer(serializers.ModelSerializer):
     # https://www.django-rest-framework.org/api-guide/relations/#nested-relationships
     links = ProfileLinkSerializer(many=True, read_only=True)
     socials = ProfileSocialSerializer(many=True, read_only=True)
-    portfolio = ProfilePortfolioSerializer(many=True, read_only=True)
-    award = ProfileAwardSerializer(many=True, read_only=True)
-    certificate = ProfileCertificateSerializer(many=True, read_only=True)
-    creative = ProfileCreativeSerializer(many=True, read_only=True)
-    setting = ProfileSettingSerializer(many=True, read_only=True)
+    portfolios = ProfilePortfolioSerializer(many=True, read_only=True)
+    awards = ProfileAwardSerializer(many=True, read_only=True)
+    certificates = ProfileCertificateSerializer(many=True, read_only=True)
+    creatives = ProfileCreativeSerializer(many=True, read_only=True)
+    settings = ProfileSettingSerializer(many=True, read_only=True)
 
     class Meta:
         model = Profile
         fields = [
             'user_id', 'image', 'status',
             'location', 'links', 'socials',
-            'portfolio', 'award', 'certificate',
-            'creative', 'setting'
+            'portfolios', 'awards', 'certificates',
+            'creatives', 'settings'
         ]
