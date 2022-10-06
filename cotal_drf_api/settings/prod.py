@@ -26,7 +26,7 @@ CLOUDINARY_STORAGE = {
 API_ENDPOINT = os.environ.get('API_ENDPOINT')
 
 ALLOWED_HOSTS = [
-    f'https://{host}' for host in os.environ.get('DJANGO_CLOUDINARY_URL')
+    host for host in os.environ.get('DJANGO_CLOUDINARY_URL')
 ]
 
 print(ALLOWED_HOSTS)
