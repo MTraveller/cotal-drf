@@ -72,6 +72,17 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='Linktree',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(default='Linktree', max_length=8)),
+                ('username', models.CharField(max_length=50)),
+                ('profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='linktrees', to='core.profile')),
+            ],
+        ),
+        migrations.CreateModel(
             name='Social',
             fields=[
                 ('id', models.BigAutoField(auto_created=True,
@@ -81,18 +92,6 @@ class Migration(migrations.Migration):
                 ('username', models.CharField(blank=True, max_length=255, null=True)),
                 ('profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
                  related_name='socials', to='core.profile')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Link',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True,
-                 primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(blank=True, max_length=255, null=True)),
-                ('link', models.CharField(blank=True, max_length=255,
-                 null=True, validators=[django.core.validators.URLValidator])),
-                ('profile', models.ForeignKey(
-                    on_delete=django.db.models.deletion.CASCADE, related_name='links', to='core.profile')),
             ],
         ),
     ]
