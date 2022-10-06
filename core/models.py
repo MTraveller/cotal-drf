@@ -51,9 +51,9 @@ class Linktree(models.Model):
     Profile Linktree model
     """
     profile = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name='linktree')
+        Profile, on_delete=models.CASCADE, related_name='linktrees')
     title = models.CharField(max_length=8, default='Linktree')
-    username = models.CharField(max_length=50, blank=False, null=False)
+    username = models.CharField(max_length=50)
 
 
 class Social(models.Model):
@@ -82,7 +82,7 @@ class Social(models.Model):
         DEVIANTART = 'DeviantArt', _('DeviantArt')
 
     name = models.CharField(max_length=10, choices=SocialMedia.choices)
-    username = models.CharField(max_length=255)
+    username = models.CharField(max_length=50)
 
 
 class Portfolio(models.Model):
