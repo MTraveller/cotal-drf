@@ -69,6 +69,7 @@ class Migration(migrations.Migration):
                 ('location', models.CharField(blank=True, max_length=255, null=True)),
                 ('user', models.OneToOneField(
                     on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('slug', models.SlugField()),
             ],
         ),
         migrations.CreateModel(
