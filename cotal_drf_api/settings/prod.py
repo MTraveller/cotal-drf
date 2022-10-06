@@ -1,7 +1,11 @@
 """ Production Settings """
 import os
+from dotenv import load_dotenv
 import dj_database_url
 from .common import *
+
+
+load_dotenv()
 
 DEBUG = False
 
@@ -21,9 +25,7 @@ CLOUDINARY_STORAGE = {
 
 API_ENDPOINT = os.environ.get('API_ENDPOINT')
 
-ALLOWED_HOSTS = [
-    os.environ.get('DJANGO_ALLOWED_HOSTS'),
-]
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS')
 
 CORS_ALLOWED_ORIGINS = []
 
