@@ -25,16 +25,6 @@ class ProfileUserSerializer(BaseUserSerializer):
         fields = ['first_name', 'last_name']
 
 
-class ProfileSocialSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Social
-        fields = ['id', 'name', 'username']
-
-    def create(self, validated_data):
-        profile_id = self.context['profile_id']
-        return Social.objects.create(profile_id=profile_id, **validated_data)
-
-
 class ProfileLinktreeSerializer(serializers.ModelSerializer):
     title = serializers.ReadOnlyField()
 
@@ -45,7 +35,7 @@ class ProfileLinktreeSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         profile_id = self.context['profile_id']
         return Linktree.objects\
-                       .create(profile_id=profile_id, **validated_data)
+            .create(profile_id=profile_id, **validated_data)
 
     def save(self, *args, **kwargs):
         profile_id = self.context['profile_id']
@@ -55,6 +45,16 @@ class ProfileLinktreeSerializer(serializers.ModelSerializer):
             })
         else:
             super().save(*args, **kwargs)
+
+
+class ProfileSocialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Social
+        fields = ['id', 'name', 'username']
+
+    def create(self, validated_data):
+        profile_id = self.context['profile_id']
+        return Social.objects.create(profile_id=profile_id, **validated_data)
 
 
 class ProfilePortfolioSerializer(serializers.ModelSerializer):
