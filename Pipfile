@@ -16,6 +16,7 @@ django-filter = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
 django-cors-headers = "*"
+python-dotenv = "*"
 
 [dev-packages]
 autopep8 = "*"
