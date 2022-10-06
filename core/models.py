@@ -3,6 +3,7 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
+from django.template.defaultfilters import slugify
 
 
 class User(AbstractUser):
@@ -25,6 +26,7 @@ class Profile(models.Model):
     """
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    slug = models.SlugField()
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
 
@@ -44,6 +46,10 @@ class Profile(models.Model):
     status = models.CharField(
         max_length=19, choices=Status.choices, default=Status.__empty__, null=True)
     location = models.CharField(max_length=255, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.user.username)
+        super().save(*args, **kwargs)
 
 
 class Linktree(models.Model):
