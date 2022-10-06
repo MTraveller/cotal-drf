@@ -25,13 +25,19 @@ CLOUDINARY_STORAGE = {
 
 API_ENDPOINT = os.environ.get('API_ENDPOINT')
 
-ALLOWED_HOSTS = [os.environ.get('DJANGO_ALLOWED_HOSTS')]
+ENV_ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS')
+
+ALLOWED_HOSTS = []
+
+for host in ENV_ALLOWED_HOSTS:
+    url = f"https://{host}"
+    ALLOWED_HOSTS.append(url)
 
 CORS_ALLOWED_ORIGINS = []
 
 for host in ALLOWED_HOSTS:
-    string = f"https://{os.environ.get('DJANGO_ALLOWED_HOSTS')}"
-    CORS_ALLOWED_ORIGINS.append(string)
+    url = f"https://{os.environ.get('DJANGO_ALLOWED_HOSTS')}"
+    CORS_ALLOWED_ORIGINS.append(url)
 
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
