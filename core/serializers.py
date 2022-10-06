@@ -20,6 +20,11 @@ class UserSerializer(BaseUserSerializer):
         fields = ['id', 'username', 'email', 'first_name', 'last_name']
 
 
+class ProfileUserSerializer(BaseUserSerializer):
+    class Meta(BaseUserSerializer.Meta):
+        fields = ['first_name', 'last_name']
+
+
 class ProfileSocialSerializer(serializers.ModelSerializer):
     class Meta:
         model = Social
@@ -30,14 +35,26 @@ class ProfileSocialSerializer(serializers.ModelSerializer):
         return Social.objects.create(profile_id=profile_id, **validated_data)
 
 
-class ProfileLinkSerializer(serializers.ModelSerializer):
+class ProfileLinktreeSerializer(serializers.ModelSerializer):
+    title = serializers.ReadOnlyField()
+
     class Meta:
-        model = Link
-        fields = ['id', 'title', 'link']
+        model = Linktree
+        fields = ['id', 'title', 'username']
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
-        return Link.objects.create(profile_id=profile_id, **validated_data)
+        return Linktree.objects\
+                       .create(profile_id=profile_id, **validated_data)
+
+    def save(self, *args, **kwargs):
+        profile_id = self.context['profile_id']
+        if Linktree.objects.filter(profile_id=profile_id).count() >= 1:
+            raise serializers.ValidationError({
+                'detail': 'You can only have 1 %s link' % Linktree.__name__
+            })
+        else:
+            super().save(*args, **kwargs)
 
 
 class ProfilePortfolioSerializer(serializers.ModelSerializer):
@@ -47,7 +64,8 @@ class ProfilePortfolioSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
-        return Portfolio.objects.create(profile_id=profile_id, **validated_data)
+        return Portfolio.objects\
+                        .create(profile_id=profile_id, **validated_data)
 
 
 class ProfileAwardSerializer(serializers.ModelSerializer):
@@ -67,7 +85,8 @@ class ProfileCertificateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
-        return Certificate.objects.create(profile_id=profile_id, **validated_data)
+        return Certificate.objects\
+                          .create(profile_id=profile_id, **validated_data)
 
 
 class ProfileCreativeSerializer(serializers.ModelSerializer):
@@ -77,7 +96,8 @@ class ProfileCreativeSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
-        return Creative.objects.create(profile_id=profile_id, **validated_data)
+        return Creative.objects\
+                       .create(profile_id=profile_id, **validated_data)
 
 
 class ProfileSettingSerializer(serializers.ModelSerializer):
@@ -92,7 +112,8 @@ class ProfileSettingSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     # https://www.django-rest-framework.org/api-guide/relations/#nested-relationships
-    links = ProfileLinkSerializer(many=True, read_only=True)
+    user = ProfileUserSerializer(read_only=True)
+    linktree = ProfileLinktreeSerializer(read_only=True)
     socials = ProfileSocialSerializer(many=True, read_only=True)
     portfolios = ProfilePortfolioSerializer(many=True, read_only=True)
     awards = ProfileAwardSerializer(many=True, read_only=True)
@@ -103,8 +124,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = [
-            'user_id', 'image', 'status',
-            'location', 'links', 'socials',
+            'user', 'image', 'status',
+            'location', 'linktree', 'socials',
             'portfolios', 'awards', 'certificates',
             'creatives', 'settings'
         ]
