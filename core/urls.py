@@ -10,7 +10,7 @@ router.register('profile', views.ProfileViewSet)
 profile_router = routers.NestedDefaultRouter(
     router, 'profile', lookup='profile')
 profile_router.register('linktree', views.LinkViewSet,
-                        basename='profile-linktree')
+                        basename='profile-linktrees')
 profile_router.register('socials', views.SocialViewSet,
                         basename='profile-socials')
 profile_router.register('portfolios', views.PortfolioViewSet,
