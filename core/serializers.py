@@ -124,7 +124,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = [
-            'user', 'image', 'status',
+            'user', 'slug', 'image', 'status',
             'location', 'linktrees', 'socials',
             'portfolios', 'awards', 'certificates',
             'creatives', 'settings'
