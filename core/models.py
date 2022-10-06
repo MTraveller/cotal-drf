@@ -3,7 +3,6 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import URLValidator
 
 
 class User(AbstractUser):
@@ -47,14 +46,14 @@ class Profile(models.Model):
     location = models.CharField(max_length=255, null=True)
 
 
-class Link(models.Model):
+class Linktree(models.Model):
     """
-    Profile Link model
+    Profile Linktree model
     """
     profile = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name='links')
-    title = models.CharField(max_length=255)
-    link = models.URLField(max_length=255, blank=True, null=True)
+        Profile, on_delete=models.CASCADE, related_name='linktree')
+    title = models.CharField(max_length=8, default='Linktree')
+    username = models.CharField(max_length=50, blank=False, null=False)
 
 
 class Social(models.Model):
