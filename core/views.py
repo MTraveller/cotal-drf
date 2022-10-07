@@ -2,7 +2,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import (
-    IsAuthenticated, IsAuthenticatedOrReadOnly, DjangoModelPermissions)
+    IsAuthenticated, DjangoModelPermissions)
 from .permissions import IsObjectUser, IsNotObjectUserOrReadOnly
 from .models import *
 from .serializers import *
@@ -22,7 +22,7 @@ def try_match(self):
         return False
 
 
-def get_permissions(self):
+def do_permissions(self):
     """
     Function to get the appropiate permission.
     """
@@ -43,14 +43,15 @@ class ProfileViewSet(ModelViewSet):
     serializer_class = ProfileSerializer
 
     def get_permissions(self):
-        return get_permissions(self)
+        return do_permissions(self)
 
     # https://www.django-rest-framework.org/api-guide/viewsets/#marking-extra-actions-for-routing
     @action(detail=False, methods=['GET', 'PUT', 'DELETE'])
     # Add djoser's /me endpoint to /profile endpoint
     def me(self, request):
         if request.user.id:
-            profile = Profile.objects.get(id=request.user.id)
+            profile = Profile.objects\
+                .get(id=request.user.id)
             if request.method == 'GET':
                 serializer = ProfileSerializer(profile)
                 return Response(serializer.data)
@@ -71,7 +72,7 @@ class LinkViewSet(ModelViewSet):
     serializer_class = ProfileLinktreeSerializer
 
     def get_permissions(self):
-        return get_permissions(self)
+        return do_permissions(self)
 
     def get_queryset(self):
         return Linktree.objects.filter(profile_id=self.kwargs['profile_pk'])
@@ -87,7 +88,7 @@ class SocialViewSet(ModelViewSet):
     serializer_class = ProfileSocialSerializer
 
     def get_permissions(self):
-        return get_permissions(self)
+        return do_permissions(self)
 
     def get_queryset(self):
         return Social.objects.filter(profile_id=self.kwargs['profile_pk'])
@@ -103,7 +104,7 @@ class PortfolioViewSet(ModelViewSet):
     serializer_class = ProfilePortfolioSerializer
 
     def get_permissions(self):
-        return get_permissions(self)
+        return do_permissions(self)
 
     def get_queryset(self):
         return Portfolio.objects.filter(profile_id=self.kwargs['profile_pk'])
@@ -119,7 +120,7 @@ class AwardViewSet(ModelViewSet):
     serializer_class = ProfileAwardSerializer
 
     def get_permissions(self):
-        return get_permissions(self)
+        return do_permissions(self)
 
     def get_queryset(self):
         return Award.objects.filter(profile_id=self.kwargs['profile_pk'])
@@ -135,7 +136,7 @@ class CertificateViewSet(ModelViewSet):
     serializer_class = ProfileCertificateSerializer
 
     def get_permissions(self):
-        return get_permissions(self)
+        return do_permissions(self)
 
     def get_queryset(self):
         return Certificate.objects.filter(profile_id=self.kwargs['profile_pk'])
@@ -151,7 +152,7 @@ class CreativeViewSet(ModelViewSet):
     serializer_class = ProfileCreativeSerializer
 
     def get_permissions(self):
-        return get_permissions(self)
+        return do_permissions(self)
 
     def get_queryset(self):
         return Creative.objects.filter(profile_id=self.kwargs['profile_pk'])
@@ -167,7 +168,7 @@ class SettingViewSet(ModelViewSet):
     serializer_class = ProfileSettingSerializer
 
     def get_permissions(self):
-        return get_permissions(self)
+        return do_permissions(self)
 
     def get_queryset(self):
         return Setting.objects.filter(profile_id=self.kwargs['profile_pk'])
