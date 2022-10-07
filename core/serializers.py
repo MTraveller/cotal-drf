@@ -121,6 +121,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     creatives = ProfileCreativeSerializer(many=True, read_only=True)
     settings = ProfileSettingSerializer(many=True, read_only=True)
 
+    slug = serializers.CharField(read_only=True)
+
     class Meta:
         model = Profile
         fields = [
