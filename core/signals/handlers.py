@@ -1,11 +1,11 @@
 """ Core Signals """
 from django.conf import settings
-from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-from rest_framework.response import Response
+from django.db.models.signals import post_save, post_delete
 import cloudinary
+import cloudinary.api
 from ..models import Profile
-from . import media_uploaded, instance_deleted
+from . import profile_deleted, media_uploaded, instance_deleted
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
@@ -19,9 +19,35 @@ def delete_user(sender, instance, **kwargs):
     """ Signal to delete user on profile deletion """
     user = instance.user
     user.delete()
-    cloudinary.uploader.destroy(str(user))
 
-    return Response("User has been successfully deleted")
+
+@receiver(profile_deleted)
+def delete_user_cloudinary(sender, **kwargs):
+    user_root_folder = f"\
+        {settings.MEDIA_URL}user_{str(kwargs['user'])}"\
+        [1:]
+
+    user_folders = cloudinary.api.subfolders(
+        f"{settings.MEDIA_URL}user_{str(kwargs['user'])}"
+    )['folders']
+
+    for folder in user_folders:
+        path = folder['path']
+
+        try:
+            cloudinary.api.delete_folder(folder['path'])
+        except cloudinary.exceptions.BadRequest:
+            print("Folder not empty")
+
+            folder_resources = cloudinary.api.resources(
+                type='upload', prefix=path)
+
+            for asset in folder_resources['resources']:
+                cloudinary.uploader.destroy(asset['public_id'])
+
+        cloudinary.api.delete_folder(folder['path'])
+
+    cloudinary.api.delete_folder(user_root_folder)
 
 
 @receiver(media_uploaded)
