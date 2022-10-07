@@ -1,4 +1,6 @@
-# Open .env file in config folder before DEPLOY!
+##################################################
+# Open .env file in config folder before DEPLOY! #
+##################################################
 services: 
   - type: web
     name: cotal-api # The subdomain of the url app-name.onrender.com
@@ -15,7 +17,7 @@ services:
         - key: WEB_CONCURRENCY
           value: 4 # Number of webworkers
         - key: DJANGO_SETTINGS_MODULE
-          value: cotal_drf_api.settings.prod # Change this to current project settings file
+          value: cotal_drf_api.settings.prod # Change this to your current project settings file
         - key: DJANGO_SECRET_KEY
           generateValue: true
         - key: DATABASE_URL
