@@ -103,11 +103,11 @@ class ProfileCreativeSerializer(serializers.ModelSerializer):
 class ProfileSettingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Setting
-        fields = []
+        fields = ['activity']
 
-    # def create(self, validated_data):
-    #     profile_id = self.context['profile_id']
-    #     return Setting.objects.create(profile_id=profile_id, **validated_data)
+    def create(self, validated_data):
+        profile_id = self.context['profile_id']
+        return Setting.objects.create(profile_id=profile_id, **validated_data)
 
 
 class ProfileSerializer(serializers.ModelSerializer):
