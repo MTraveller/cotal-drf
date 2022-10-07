@@ -4,7 +4,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save, post_delete
 import cloudinary
 import cloudinary.api
-from ..models import Profile
+from ..models import Profile, Setting
 from . import profile_deleted, media_uploaded, instance_deleted
 
 
@@ -12,6 +12,7 @@ from . import profile_deleted, media_uploaded, instance_deleted
 def create_profile(sender, instance, **kwargs):
     """ Signal to create profile on user creation """
     Profile.objects.create(user=instance)
+    Setting.objects.create(profile_id=instance.id)
 
 
 @receiver(post_delete, sender=Profile)
