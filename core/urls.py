@@ -4,10 +4,10 @@ from . import views
 # Guide source:
 # https://github.com/alanjds/drf-nested-routers#quickstart
 router = routers.DefaultRouter()
-router.register('profile', views.ProfileViewSet)
+router.register('profiles', views.ProfileViewSet)
 
 profile_router = routers.NestedDefaultRouter(
-    router, 'profile', lookup='profile')
+    router, 'profiles', lookup='profiles')
 
 
 # URLConf
