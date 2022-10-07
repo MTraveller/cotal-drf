@@ -188,3 +188,12 @@ class Setting(models.Model):
     """
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='settings')
+
+    class Activity(models.TextChoices):
+        """
+        User Profile Activity Choices
+        """
+        SHOW = 1, _('Show')
+        HIDE = 0, _('Hide')
+
+    activity = models.CharField(max_length=1, choices=Activity.choices)
