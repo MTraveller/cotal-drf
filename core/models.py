@@ -5,7 +5,7 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 from django.template.defaultfilters import slugify
-from .signals import media_uploaded, instance_deleted
+from .signals import media_uploaded, profile_deleted, instance_deleted
 
 
 def user_directory_path(instance, filename):
@@ -29,11 +29,11 @@ def user_directory_path(instance, filename):
     instance_name = instance.__class__.__name__.lower()
 
     if instance_name == 'profile':
-        return 'user{0}/{1}/{2}'.format(
+        return 'user_{0}/{1}/{2}'.format(
             instance.user.id, instance_name, filename
         )
 
-    return 'user{0}/{1}/{2}'.format(
+    return 'user_{0}/{1}/{2}'.format(
         instance.profile_id, instance_name, filename
     )
 
@@ -72,6 +72,10 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.user.username)
         super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        profile_deleted.send_robust(self.__class__, user=self.user_id)
+        super().delete(*args, **kwargs)
 
 
 class Linktree(models.Model):
