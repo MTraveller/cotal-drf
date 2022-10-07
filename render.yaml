@@ -5,8 +5,8 @@ services:
     env: python
     region: Frankfurt # Change the location to one of the available locations on render.com
     buildCommand: "./build.sh"
-    startCommand: gunicorn cotal_drf_api.wsgi
-    repo: https://github.com/MTraveller/cotal-drf.git
+    startCommand: gunicorn cotal_drf_api.wsgi # Change the name of the project e.g. your-project-name.wsgi
+    repo: https://github.com/MTraveller/cotal-drf.git # Change the repo to your repo
     branch: main
     autoDeploy: false
     envVars:
@@ -15,7 +15,7 @@ services:
         - key: WEB_CONCURRENCY
           value: 4 # Number of webworkers
         - key: DJANGO_SETTINGS_MODULE
-          value: cotal_drf_api.settings.prod # Change this to current project
+          value: cotal_drf_api.settings.prod # Change this to current project settings file
         - key: DJANGO_SECRET_KEY
           generateValue: true
         - key: DATABASE_URL
@@ -27,4 +27,4 @@ databases:
   - name: cotal-api # Alias inside render !not database name
     region: Frankfurt # Should be in the same location as the web service
     databaseName: cotal # Database name
-    user: cotal
+    user: cotal # Database user
