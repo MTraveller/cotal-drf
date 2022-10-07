@@ -1,5 +1,4 @@
 """ Core App Models """
-from email.mime import image
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
@@ -196,5 +195,6 @@ class Setting(models.Model):
         SHOW = 1, _('Show')
         HIDE = 0, _('Hide')
 
+    title = models.CharField(max_length=16, default='Profile Activity')
     activity = models.CharField(
         max_length=1, choices=Activity.choices, default=Activity.SHOW)
