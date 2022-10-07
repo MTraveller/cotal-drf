@@ -73,6 +73,8 @@ class Migration(migrations.Migration):
                  primary_key=True, serialize=False, verbose_name='ID')),
                 ('profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
                  related_name='settings', to='core.profile')),
+                ('activity', models.CharField(choices=[
+                 ('1', 'Show'), ('0', 'Hide')], default=1, max_length=1)),
             ],
         ),
     ]
