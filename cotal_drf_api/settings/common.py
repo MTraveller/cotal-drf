@@ -105,7 +105,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# Change MEDIA_URL value to your choosing, this will be reflected on cloudinary e.g. <project-name>/<user_{id}>/sub-folders being this the <project-name>/
+
+# Change MEDIA_URL value to your choosing, this will be reflected on
+# cloudinary e.g. <project-name>/<user_{id}>/sub-folders
+# this the <project-name>/
 MEDIA_URL = 'cotal-api/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
