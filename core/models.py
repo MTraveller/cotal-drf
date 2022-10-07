@@ -196,4 +196,5 @@ class Setting(models.Model):
         SHOW = 1, _('Show')
         HIDE = 0, _('Hide')
 
-    activity = models.CharField(max_length=1, choices=Activity.choices)
+    activity = models.CharField(
+        max_length=1, choices=Activity.choices, default=Activity.SHOW)
