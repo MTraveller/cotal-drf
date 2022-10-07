@@ -1,13 +1,11 @@
 """ Core App Models """
+from email.mime import image
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 from django.template.defaultfilters import slugify
-
-
-class User(AbstractUser):
-    email = models.EmailField(unique=True)
+from .signals import media_uploaded, instance_deleted
 
 
 def user_directory_path(instance, filename):
@@ -17,7 +15,31 @@ def user_directory_path(instance, filename):
     """
     # Source:
     # https://docs.djangoproject.com/en/4.1/ref/models/fields/#django.db.models.FileField.upload_to
-    return f'user_{0}/{1}/{2}'.format(instance.user.id, instance, filename)
+    try:
+        """ try block automatically targets only 'PUT' requests """
+        previous_image = instance.__class__.objects.get(
+            id=instance.id).image
+
+        media_uploaded.send_robust(
+            instance.__class__, image=previous_image)
+
+    except:
+        pass
+
+    instance_name = instance.__class__.__name__.lower()
+
+    if instance_name == 'profile':
+        return 'user{0}/{1}/{2}'.format(
+            instance.user.id, instance_name, filename
+        )
+
+    return 'user{0}/{1}/{2}'.format(
+        instance.profile_id, instance_name, filename
+    )
+
+
+class User(AbstractUser):
+    email = models.EmailField(unique=True)
 
 
 class Profile(models.Model):
@@ -103,6 +125,11 @@ class Portfolio(models.Model):
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
 
+    def delete(self, *args, **kwargs):
+        instance_deleted.send_robust(
+            self.__class__, image=self.image)
+        super().delete(*args, **kwargs)
+
 
 class Award(models.Model):
     """
@@ -116,6 +143,11 @@ class Award(models.Model):
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
 
+    def delete(self, *args, **kwargs):
+        instance_deleted.send_robust(
+            self.__class__, image=self.image)
+        super().delete(*args, **kwargs)
+
 
 class Certificate(models.Model):
     """
@@ -128,6 +160,11 @@ class Certificate(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
+
+    def delete(self, *args, **kwargs):
+        instance_deleted.send_robust(
+            self.__class__, image=self.image)
+        super().delete(*args, **kwargs)
 
 
 class Creative(models.Model):
