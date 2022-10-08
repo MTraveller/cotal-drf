@@ -18,12 +18,16 @@ import os
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
+
+
 from . import views
 
 
 patterns = ([
     path('', views.api_root),
-    path('core/', include('core.urls')),
+    path('core/', include([
+        path('', include('profiles.urls')),
+    ])),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
     path('admin/', admin.site.urls),
@@ -38,4 +42,5 @@ if 'dev' in os.environ.get('DJANGO_SETTINGS_MODULE'):
     import debug_toolbar
 
     urlpatterns = [
-        path('__debug__/', include('debug_toolbar.urls'))] + urlpatterns
+        path('__debug__/', include('debug_toolbar.urls'))
+    ] + urlpatterns

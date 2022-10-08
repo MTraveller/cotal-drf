@@ -1,14 +1,8 @@
-from rest_framework_nested import routers
-from . import views
-
-# Guide source:
-# https://github.com/alanjds/drf-nested-routers#quickstart
-router = routers.DefaultRouter()
-router.register('profiles', views.ProfileViewSet)
-
-profile_router = routers.NestedDefaultRouter(
-    router, 'profiles', lookup='profiles')
+from django.urls import path, include
+# from profiles.urls import profiles_urlpatterns
 
 
 # URLConf
-urlpatterns = router.urls + profile_router.urls
+# urlpatterns = [
+#     path('', include(profiles_urlpatterns)),
+# ]
