@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from core.serializers import ProfileUserSerializer
 from .models import *
 
 
@@ -85,3 +86,26 @@ class ProfileSettingSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         profile_id = self.context['profile_id']
         return Setting.objects.create(profile_id=profile_id, **validated_data)
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    # https://www.django-rest-framework.org/api-guide/relations/#nested-relationships
+    user = ProfileUserSerializer(read_only=True)
+    linktrees = ProfileLinktreeSerializer(many=True, read_only=True)
+    socials = ProfileSocialSerializer(many=True, read_only=True)
+    portfolios = ProfilePortfolioSerializer(many=True, read_only=True)
+    awards = ProfileAwardSerializer(many=True, read_only=True)
+    certificates = ProfileCertificateSerializer(many=True, read_only=True)
+    creatives = ProfileCreativeSerializer(many=True, read_only=True)
+    settings = ProfileSettingSerializer(many=True, read_only=True)
+
+    slug = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = [
+            'user', 'slug', 'image', 'status',
+            'location', 'linktrees', 'socials',
+            'portfolios', 'awards', 'certificates',
+            'creatives', 'settings'
+        ]
