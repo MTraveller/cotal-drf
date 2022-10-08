@@ -1,4 +1,3 @@
-import profile
 from django.db import models
 from django.template.defaultfilters import slugify
 from core.upload_to import user_directory_path
