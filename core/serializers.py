@@ -3,7 +3,6 @@ from djoser.serializers import (
     UserSerializer as BaseUserSerializer,
     UserCreateSerializer as BaseUserCreateSerializer
 )
-from profiles.serializers import *
 from .models import *
 
 
@@ -24,26 +23,3 @@ class UserSerializer(BaseUserSerializer):
 class ProfileUserSerializer(BaseUserSerializer):
     class Meta(BaseUserSerializer.Meta):
         fields = ['first_name', 'last_name']
-
-
-class ProfileSerializer(serializers.ModelSerializer):
-    # https://www.django-rest-framework.org/api-guide/relations/#nested-relationships
-    user = ProfileUserSerializer(read_only=True)
-    linktrees = ProfileLinktreeSerializer(many=True, read_only=True)
-    socials = ProfileSocialSerializer(many=True, read_only=True)
-    portfolios = ProfilePortfolioSerializer(many=True, read_only=True)
-    awards = ProfileAwardSerializer(many=True, read_only=True)
-    certificates = ProfileCertificateSerializer(many=True, read_only=True)
-    creatives = ProfileCreativeSerializer(many=True, read_only=True)
-    settings = ProfileSettingSerializer(many=True, read_only=True)
-
-    slug = serializers.CharField(read_only=True)
-
-    class Meta:
-        model = Profile
-        fields = [
-            'user', 'slug', 'image', 'status',
-            'location', 'linktrees', 'socials',
-            'portfolios', 'awards', 'certificates',
-            'creatives', 'settings'
-        ]
