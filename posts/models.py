@@ -10,8 +10,6 @@ class Post(models.Model):
         Profile, on_delete=models.CASCADE, related_name='posts')
 
     title = models.CharField(max_length=80)
-    image = models.ImageField(
-        upload_to=user_directory_path, blank=True, null=True)
     post = models.TextField()
     slug = models.SlugField()
 
@@ -21,7 +19,8 @@ class Post(models.Model):
 
 
 class PostImage(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    profile = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='postimages')
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
     image = models.ImageField(
@@ -29,7 +28,8 @@ class PostImage(models.Model):
 
 
 class Comment(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    profile = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='postcomments')
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
     comment = models.CharField(max_length=300)
