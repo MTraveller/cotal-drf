@@ -1,12 +1,11 @@
 from rest_framework_nested import routers
-from core.views import ProfileViewSet
 from . import views
 
 
 # Guide source:
 # https://github.com/alanjds/drf-nested-routers#quickstart
 router = routers.DefaultRouter()
-router.register('profiles', ProfileViewSet)
+router.register('profiles', views.ProfileViewSet)
 profile_router = routers.NestedDefaultRouter(
     router, 'profiles', lookup='profiles'
 )
