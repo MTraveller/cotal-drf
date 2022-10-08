@@ -10,7 +10,16 @@ class ProfileViewSet(ModelViewSet):
     """
     Profile view set with appropiate permission handling.
     """
-    queryset = Profile.objects.all()
+    queryset = Profile.objects \
+        .prefetch_related('user') \
+        .prefetch_related('linktrees') \
+        .prefetch_related('socials') \
+        .prefetch_related('portfolios') \
+        .prefetch_related('awards') \
+        .prefetch_related('certificates') \
+        .prefetch_related('creatives') \
+        .prefetch_related('settings') \
+        .all()
     serializer_class = ProfileSerializer
 
     def get_permissions(self):
