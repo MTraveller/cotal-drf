@@ -14,10 +14,11 @@ class LinkViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        return Linktree.objects.filter(profile_id=self.kwargs['profile_pk'])
+        print(self.kwargs)
+        return Linktree.objects.filter(profile_id=self.kwargs['profiles_pk'])
 
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profile_pk']}
+        return {'profile_id': self.kwargs['profiles_pk']}
 
 
 class SocialViewSet(ModelViewSet):
@@ -30,10 +31,10 @@ class SocialViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        return Social.objects.filter(profile_id=self.kwargs['profile_pk'])
+        return Social.objects.filter(profile_id=self.kwargs['profiles_pk'])
 
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profile_pk']}
+        return {'profile_id': self.kwargs['profiles_pk']}
 
 
 class PortfolioViewSet(ModelViewSet):
@@ -46,10 +47,10 @@ class PortfolioViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        return Portfolio.objects.filter(profile_id=self.kwargs['profile_pk'])
+        return Portfolio.objects.filter(profile_id=self.kwargs['profiles_pk'])
 
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profile_pk']}
+        return {'profile_id': self.kwargs['profiles_pk']}
 
 
 class AwardViewSet(ModelViewSet):
@@ -62,10 +63,10 @@ class AwardViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        return Award.objects.filter(profile_id=self.kwargs['profile_pk'])
+        return Award.objects.filter(profile_id=self.kwargs['profiles_pk'])
 
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profile_pk']}
+        return {'profile_id': self.kwargs['profiles_pk']}
 
 
 class CertificateViewSet(ModelViewSet):
@@ -78,10 +79,10 @@ class CertificateViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        return Certificate.objects.filter(profile_id=self.kwargs['profile_pk'])
+        return Certificate.objects.filter(profile_id=self.kwargs['profiles_pk'])
 
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profile_pk']}
+        return {'profile_id': self.kwargs['profiles_pk']}
 
 
 class CreativeViewSet(ModelViewSet):
@@ -94,10 +95,10 @@ class CreativeViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        return Creative.objects.filter(profile_id=self.kwargs['profile_pk'])
+        return Creative.objects.filter(profile_id=self.kwargs['profiles_pk'])
 
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profile_pk']}
+        return {'profile_id': self.kwargs['profiles_pk']}
 
 
 class SettingViewSet(ModelViewSet):
@@ -110,7 +111,7 @@ class SettingViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        return Setting.objects.filter(profile_id=self.kwargs['profile_pk'])
+        return Setting.objects.filter(profile_id=self.kwargs['profiles_pk'])
 
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profile_pk']}
+        return {'profile_id': self.kwargs['profiles_pk']}
