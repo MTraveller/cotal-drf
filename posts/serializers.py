@@ -6,15 +6,13 @@ from .models import *
 class PostCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = ['comment']
-        read_only_fields = ['id']
+        fields = ['id', 'comment']
 
 
 class PostImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostImage
-        fields = ['image']
-        read_only_fields = ['id']
+        fields = ['id', 'image']
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -23,7 +21,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'title', 'post', 'images', 'comments']
+        fields = ['id', 'title', 'slug', 'post', 'images', 'comments']
         read_only_fields = ['slug']
 
     def create(self, validated_data):
