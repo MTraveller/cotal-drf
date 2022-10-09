@@ -5,14 +5,20 @@ from . import views
 # Guide source:
 # https://github.com/alanjds/drf-nested-routers#quickstart
 router = routers.DefaultRouter()
-router.register('profiles', views.ProfileViewSet)
+router.register('', views.ProfilePostViewSet)
 post_router = routers.NestedDefaultRouter(
-    router, 'profiles', lookup='profiles'
+    router, '', lookup='profiles'
 )
 
 
 post_router.register(
     'posts', views.PostViewSet, basename='profile-posts'
+)
+post_router.register(
+    'post-images', views.PostImageViewSet, basename='profile-postimages'
+)
+post_router.register(
+    'post-comments', views.PostCommentViewSet, basename='profile-postcomments'
 )
 
 
