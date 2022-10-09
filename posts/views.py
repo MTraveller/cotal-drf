@@ -1,3 +1,4 @@
+from django.db.models import Prefetch
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -7,15 +8,16 @@ from .models import *
 from .serializers import *
 
 
-class ProfileViewSet(ModelViewSet):
+class ProfilePostViewSet(ModelViewSet):
     """
     Profile view set with appropiate permission handling.
     """
+    # https://docs.djangoproject.com/en/4.1/ref/models/querysets/#django.db.models.Prefetch
     queryset = Profile.objects \
-        .prefetch_related('user') \
+        .select_related('user') \
         .prefetch_related('posts') \
-        .prefetch_related('postimages') \
-        .prefetch_related('postcomments') \
+        .prefetch_related(Prefetch('posts__postimages')) \
+        .prefetch_related(Prefetch('posts__postcomments')) \
         .all()
     serializer_class = ProfileSerializer
 
@@ -33,7 +35,42 @@ class PostViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        return Post.objects.filter(profile_id=self.kwargs['profiles_pk'])
+        return Post.objects \
+            .prefetch_related('postimages') \
+            .prefetch_related('postcomments') \
+            .filter(profile_id=self.kwargs['profiles_pk'])
 
     def get_serializer_context(self):
+        return {'profile_id': self.kwargs['profiles_pk']}
+
+
+class PostImageViewSet(ModelViewSet):
+    """
+    Profile post view set with appropiate permission handling.
+    """
+    serializer_class = PostImageSerializer
+
+    def get_permissions(self):
+        return do_permissions(self)
+
+    def get_queryset(self):
+        return PostImage.objects.filter(profile_id=self.kwargs['profiles_pk'])
+
+    def get_extra_context(self):
+        return {'profile_id': self.kwargs['profiles_pk']}
+
+
+class PostCommentViewSet(ModelViewSet):
+    """
+    Profile post view set with appropiate permission handling.
+    """
+    serializer_class = PostCommentSerializer
+
+    def get_permissions(self):
+        return do_permissions(self)
+
+    def get_queryset(self):
+        return PostComment.objects.filter(profile_id=self.kwargs['profiles_pk'])
+
+    def get_extra_context(self):
         return {'profile_id': self.kwargs['profiles_pk']}
