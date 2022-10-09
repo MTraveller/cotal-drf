@@ -5,7 +5,7 @@ from .models import *
 
 class PostCommentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Comment
+        model = PostComment
         fields = ['id', 'comment']
 
 
@@ -14,19 +14,31 @@ class PostImageSerializer(serializers.ModelSerializer):
         model = PostImage
         fields = ['id', 'image']
 
+    # TODO: Test post images creation on frontend!
+    # def create(self, validated_data):
+    #     profile_id = self.context['profile_id']
+    #     return PostImage.objects.create(profile_id=profile_id, **validated_data)
 
+
+# https://www.django-rest-framework.org/api-guide/relations/#writable-nested-serializers
 class PostSerializer(serializers.ModelSerializer):
-    images = PostImageSerializer(many=True, read_only=True)
-    comments = PostCommentSerializer(many=True, read_only=True)
+    postimages = PostImageSerializer(many=True, required=False)
+    postcomments = PostCommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
-        fields = ['id', 'title', 'slug', 'post', 'images', 'comments']
+        fields = ['id', 'title', 'slug', 'post', 'postimages', 'postcomments']
         read_only_fields = ['slug']
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
-        return Post.objects.create(profile_id=profile_id, **validated_data)
+        post = Post.objects.create(profile_id=profile_id, **validated_data)
+        if 'postimages' in validated_data:
+            images_data = validated_data.pop('postimages')
+            for image_data in images_data:
+                PostImage.objects.create(
+                    profile_id=profile_id, post=post, **image_data)
+        return post
 
 
 class ProfileSerializer(serializers.ModelSerializer):
