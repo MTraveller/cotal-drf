@@ -19,16 +19,18 @@ class Post(models.Model):
 
 class PostImage(models.Model):
     profile = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name='postimages')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+        Profile, on_delete=models.CASCADE)
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name='postimages')
 
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
 
 
-class Comment(models.Model):
+class PostComment(models.Model):
     profile = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name='postcomments')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+        Profile, on_delete=models.CASCADE)
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name='postcomments')
 
     comment = models.CharField(max_length=300)
