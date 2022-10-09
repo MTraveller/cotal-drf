@@ -25,9 +25,7 @@ from . import views
 
 patterns = ([
     path('', views.api_root),
-    path('core/', include([
-        path('', include('profiles.urls')),
-    ])),
+    path('profiles/', include('profiles.urls')),
     path('posts/', include('posts.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
