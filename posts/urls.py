@@ -6,20 +6,16 @@ from . import views
 # https://github.com/alanjds/drf-nested-routers#quickstart
 router = routers.DefaultRouter()
 router.register('profiles', views.ProfilePostViewSet)
-post_router = routers.NestedDefaultRouter(
-    router, 'profiles', lookup='profiles'
-)
+# https://github.com/alanjds/drf-nested-routers#infinite-depth-nesting
+post_router = routers.NestedDefaultRouter(router, 'profiles', lookup='profile')
+post_router.register('posts', views.PostViewSet, basename='profile-posts')
+post_router.register('post-images', views.PostImageViewSet,
+                     basename='profile-postimages')
+
+post_comments_router = routers.NestedDefaultRouter(
+    post_router, 'posts', lookup='post')
+post_comments_router.register(
+    'comments', views.PostCommentViewSet, basename='post-comments')
 
 
-post_router.register(
-    'posts', views.PostViewSet, basename='profile-posts'
-)
-post_router.register(
-    'post-images', views.PostImageViewSet, basename='profile-postimages'
-)
-post_router.register(
-    'post-comments', views.PostCommentViewSet, basename='profile-postcomments'
-)
-
-
-urlpatterns = router.urls + post_router.urls
+urlpatterns = router.urls + post_router.urls + post_comments_router.urls
