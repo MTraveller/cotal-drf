@@ -1,6 +1,4 @@
 from django.db.models import Prefetch
-from rest_framework.decorators import action
-from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from core.do_permissions import do_permissions
 from profiles.models import Profile
@@ -13,8 +11,7 @@ class ProfilePostViewSet(ModelViewSet):
     Profile post view set with appropiate permission handling.
     """
     queryset = Profile.objects \
-        .select_related('user') \
-        .prefetch_related('profileposts') \
+        .select_related('user__profile') \
         .prefetch_related('profileposts__postimages') \
         .prefetch_related('profileposts__postcomments') \
         .all()
@@ -33,11 +30,17 @@ class PostViewSet(ModelViewSet):
     def get_permissions(self):
         return do_permissions(self)
 
+    # https://docs.djangoproject.com/en/4.1/ref/models/querysets/#django.db.models.Prefetch
     def get_queryset(self):
         return Post.objects \
-            .select_related('profile__user') \
-            .prefetch_related('postimages') \
-            .prefetch_related('postcomments') \
+            .prefetch_related(Prefetch(
+                'profile',
+                queryset=Profile.objects.select_related(
+                    'user'
+                )
+            )) \
+            .prefetch_related('postimages__profile') \
+            .prefetch_related('postcomments__profile') \
             .filter(profile_id=self.kwargs['profile_pk'])
 
     def get_serializer_context(self):
