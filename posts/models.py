@@ -6,7 +6,7 @@ from profiles.models import Profile
 
 class Post(models.Model):
     profile = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name='posts')
+        Profile, on_delete=models.CASCADE, related_name='profilepost')
 
     title = models.CharField(max_length=80)
     post = models.TextField()
@@ -29,7 +29,7 @@ class PostImage(models.Model):
 
 class PostComment(models.Model):
     profile = models.ForeignKey(
-        Profile, on_delete=models.CASCADE)
+        Profile, on_delete=models.CASCADE, related_name='profilecomment')
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name='postcomments')
 
