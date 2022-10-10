@@ -12,12 +12,11 @@ class ProfilePostViewSet(ModelViewSet):
     """
     Profile post view set with appropiate permission handling.
     """
-    # https://docs.djangoproject.com/en/4.1/ref/models/querysets/#django.db.models.Prefetch
     queryset = Profile.objects \
         .select_related('user') \
-        .prefetch_related('posts') \
-        .prefetch_related(Prefetch('posts__postimages')) \
-        .prefetch_related(Prefetch('posts__postcomments')) \
+        .prefetch_related('profileposts') \
+        .prefetch_related('profileposts__postimages') \
+        .prefetch_related('profileposts__postcomments') \
         .all()
     serializer_class = ProfileSerializer
 
@@ -36,12 +35,13 @@ class PostViewSet(ModelViewSet):
 
     def get_queryset(self):
         return Post.objects \
+            .select_related('profile__user') \
             .prefetch_related('postimages') \
             .prefetch_related('postcomments') \
-            .filter(profile_id=self.kwargs['profiles_pk'])
+            .filter(profile_id=self.kwargs['profile_pk'])
 
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profiles_pk']}
+        return {'profile_id': self.kwargs['profile_pk']}
 
 
 class PostImageViewSet(ModelViewSet):
@@ -55,9 +55,10 @@ class PostImageViewSet(ModelViewSet):
 
     def get_queryset(self):
         return PostImage.objects \
+            .select_related('post') \
             .filter(profile_id=self.kwargs['profiles_pk'])
 
-    def get_extra_context(self):
+    def get_serializer_context(self):
         return {'profile_id': self.kwargs['profiles_pk']}
 
 
@@ -72,8 +73,11 @@ class PostCommentViewSet(ModelViewSet):
 
     def get_queryset(self):
         return PostComment.objects \
-            .select_related('profile') \
-            .filter(profile_id=self.kwargs['profiles_pk'])
+            .select_related('profile__user') \
+            .filter(post_id=self.kwargs['post_pk'])
 
-    def get_extra_context(self):
-        return {'profile_id': self.kwargs['profiles_pk']}
+    def get_serializer_context(self):
+        return {
+            'post_id': self.kwargs['post_pk'],
+            'user_id': self.request.user.id,
+        }
