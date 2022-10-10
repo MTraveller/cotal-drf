@@ -1,12 +1,20 @@
 from rest_framework import serializers
-from core.serializers import ProfileUserSerializer
+from core.serializers import BaseProfileSerializer, ProfileUserSerializer
 from .models import *
 
 
 class PostCommentSerializer(serializers.ModelSerializer):
+    profile = BaseProfileSerializer(read_only=True)
+
     class Meta:
         model = PostComment
-        fields = ['id', 'comment']
+        fields = ['id', 'profile', 'comment']
+        read_only_fields = ['profile']
+
+    def create(self, validated_data):
+        profile_id = self.context['user_id']
+        post_id = self.context['post_id']
+        return PostComment.objects.create(profile_id=profile_id, post_id=post_id, **validated_data)
 
 
 class PostImageSerializer(serializers.ModelSerializer):
