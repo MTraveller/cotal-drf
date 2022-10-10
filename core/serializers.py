@@ -4,6 +4,8 @@ from djoser.serializers import (
     UserCreateSerializer as BaseUserCreateSerializer
 )
 
+from profiles.models import Profile
+
 
 class UserCreateSerializer(BaseUserCreateSerializer):
     first_name = serializers.CharField(allow_blank=False)
@@ -22,3 +24,11 @@ class UserSerializer(BaseUserSerializer):
 class ProfileUserSerializer(BaseUserSerializer):
     class Meta(BaseUserSerializer.Meta):
         fields = ['first_name', 'last_name']
+
+
+class BaseProfileSerializer(serializers.ModelSerializer):
+    user = ProfileUserSerializer()
+
+    class Meta:
+        model = Profile
+        fields = ['id', 'user', 'slug', 'image']
