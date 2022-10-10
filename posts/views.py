@@ -10,7 +10,7 @@ from .serializers import *
 
 class ProfilePostViewSet(ModelViewSet):
     """
-    Profile view set with appropiate permission handling.
+    Profile post view set with appropiate permission handling.
     """
     # https://docs.djangoproject.com/en/4.1/ref/models/querysets/#django.db.models.Prefetch
     queryset = Profile.objects \
@@ -27,7 +27,7 @@ class ProfilePostViewSet(ModelViewSet):
 
 class PostViewSet(ModelViewSet):
     """
-    Profile post view set with appropiate permission handling.
+    Post view set with appropiate permission handling.
     """
     serializer_class = PostSerializer
 
@@ -46,7 +46,7 @@ class PostViewSet(ModelViewSet):
 
 class PostImageViewSet(ModelViewSet):
     """
-    Profile post view set with appropiate permission handling.
+    Post image view set with appropiate permission handling.
     """
     serializer_class = PostImageSerializer
 
@@ -54,7 +54,8 @@ class PostImageViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        return PostImage.objects.filter(profile_id=self.kwargs['profiles_pk'])
+        return PostImage.objects \
+            .filter(profile_id=self.kwargs['profiles_pk'])
 
     def get_extra_context(self):
         return {'profile_id': self.kwargs['profiles_pk']}
@@ -62,7 +63,7 @@ class PostImageViewSet(ModelViewSet):
 
 class PostCommentViewSet(ModelViewSet):
     """
-    Profile post view set with appropiate permission handling.
+    Post comment view set with appropiate permission handling.
     """
     serializer_class = PostCommentSerializer
 
@@ -70,7 +71,9 @@ class PostCommentViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        return PostComment.objects.filter(profile_id=self.kwargs['profiles_pk'])
+        return PostComment.objects \
+            .select_related('profile') \
+            .filter(profile_id=self.kwargs['profiles_pk'])
 
     def get_extra_context(self):
         return {'profile_id': self.kwargs['profiles_pk']}
