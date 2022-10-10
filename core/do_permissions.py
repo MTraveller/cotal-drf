@@ -23,7 +23,8 @@ def do_permissions(self):
     """
     if try_match(self):
         return [IsObjectUser()]
-    elif self.request.resolver_match.url_name == 'profile-me':
+    elif self.request.resolver_match.url_name == 'profile-me' \
+            or self.request.resolver_match.url_name == 'post-comments-list':
         return [IsAuthenticated()]
     elif self.request.resolver_match.url_name == 'profile-detail':
         return [IsNotObjectUserOrReadOnly()]
