@@ -5,9 +5,9 @@ from . import views
 # Guide source:
 # https://github.com/alanjds/drf-nested-routers#quickstart
 router = routers.DefaultRouter()
-router.register('', views.ProfilePostViewSet)
+router.register('profiles', views.ProfilePostViewSet)
 post_router = routers.NestedDefaultRouter(
-    router, '', lookup='profiles'
+    router, 'profiles', lookup='profiles'
 )
 
 
