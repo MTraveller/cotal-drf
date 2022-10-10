@@ -30,12 +30,14 @@ class PostImageSerializer(serializers.ModelSerializer):
 
 # https://www.django-rest-framework.org/api-guide/relations/#writable-nested-serializers
 class PostSerializer(serializers.ModelSerializer):
+    profile = BaseProfileSerializer(read_only=True)
     postimages = PostImageSerializer(many=True, required=False)
     postcomments = PostCommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
-        fields = ['id', 'title', 'slug', 'post', 'postimages', 'postcomments']
+        fields = ['id', 'profile', 'title', 'slug',
+                  'post', 'postimages', 'postcomments']
         read_only_fields = ['slug']
 
     def create(self, validated_data):
@@ -51,11 +53,10 @@ class PostSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     # https://www.django-rest-framework.org/api-guide/relations/#nested-relationships
+    # user_profile = BaseProfileSerializer(read_only=True)
     user = ProfileUserSerializer(read_only=True)
-    posts = PostSerializer(many=True, read_only=True)
+    profileposts = PostSerializer(many=True, read_only=True)
 
     class Meta:
-        model = Post
-        fields = [
-            'user', 'posts',
-        ]
+        model = Profile
+        fields = ['user', 'image', 'slug', 'profileposts']
