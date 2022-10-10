@@ -53,7 +53,6 @@ class PostSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     # https://www.django-rest-framework.org/api-guide/relations/#nested-relationships
-    # user_profile = BaseProfileSerializer(read_only=True)
     user = ProfileUserSerializer(read_only=True)
     profileposts = PostSerializer(many=True, read_only=True)
 
