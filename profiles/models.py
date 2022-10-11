@@ -38,7 +38,8 @@ class Profile(models.Model):
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
-        profile_deleted.send_robust(self.__class__, user=self.user_id)
+        profile_deleted.send_robust(
+            self.__class__, user=self.user_id)  # type: ignore
         super().delete(*args, **kwargs)
 
 
