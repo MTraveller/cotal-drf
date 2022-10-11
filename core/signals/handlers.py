@@ -37,16 +37,15 @@ def delete_user_cloudinary(sender, **kwargs):
 
         try:
             cloudinary.api.delete_folder(folder['path'])
-        except cloudinary.exceptions.BadRequest:
-            print("Folder not empty")
+        except cloudinary.exceptions.BadRequest:  # type: ignore
 
             folder_resources = cloudinary.api.resources(
                 type='upload', prefix=path)
 
             for asset in folder_resources['resources']:
-                cloudinary.uploader.destroy(asset['public_id'])
+                cloudinary.uploader.destroy(asset['public_id'])  # type: ignore
 
-        cloudinary.api.delete_folder(folder['path'])
+            cloudinary.api.delete_folder(folder['path'])
 
     cloudinary.api.delete_folder(user_root_folder)
 
@@ -54,9 +53,9 @@ def delete_user_cloudinary(sender, **kwargs):
 @receiver(media_uploaded)
 def delete_previous_image_cloudinary(sender, **kwargs):
     """ Signal to delete previous image on cloudinary """
-    cloudinary.uploader.destroy(str(kwargs['image']))
+    cloudinary.uploader.destroy(str(kwargs['image']))  # type: ignore
 
 
 @receiver(instance_deleted)
 def delete_instance_image_cloudinary(sender, **kwargs):
-    cloudinary.uploader.destroy(str(kwargs['image']))
+    cloudinary.uploader.destroy(str(kwargs['image']))  # type: ignore
