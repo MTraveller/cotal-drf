@@ -1,7 +1,5 @@
 from rest_framework.permissions import (
     IsAuthenticated, DjangoModelPermissions)
-
-from posts.models import PostComment
 from .permissions import IsObjectUser, IsNotObjectUserOrReadOnly
 
 
@@ -11,19 +9,7 @@ def try_match(self):
     """
     basename = self.request.resolver_match.url_name
     kwargs = self.request.resolver_match.kwargs
-    # print(kwargs)
-    # print(len(kwargs))
-    # for key, val in kwargs.items():
-    #     if len(kwargs) <= 2:
-    #         if key == 'profile_pk':
-    #             profile_pk = val
-    #             break
-    #     else:
-    #         if key == 'pk':
-    #             pk = val
-    #             break
 
-    print(basename)
     if self.request.user.is_authenticated:
         profile_id = 0
         match basename:
@@ -32,14 +18,12 @@ def try_match(self):
             case 'profile-posts-detail':
                 profile_id = kwargs['profile_pk']
             case 'post-comments-list':
-                print(basename)
                 if self.request.user and self.request.user.is_authenticated:
                     return [IsAuthenticated()]
                 else:
                     return False
             case 'post-comments-detail':
-                pk = kwargs['pk']
-                profile_id = PostComment.objects.get(id=pk).profile_id
+                profile_id = self.__dict__['comment_profile_id'].profile_id
 
         try:
             return bool(self.request.user.id == int(profile_id))
@@ -56,11 +40,6 @@ def do_permissions(self):
     url_name = self.request.resolver_match.url_name
     if try_match(self):
         return [IsObjectUser()]
-    elif url_name == 'profile-me':
-        return [IsAuthenticated()]
-    elif url_name == 'profile-detail' \
-            or url_name == 'profile-posts-detail' \
-            or url_name == 'post-comments-list' \
-            or url_name == 'post-comments-detail':
+    elif not self.request.user.is_authenticated:
         return [IsNotObjectUserOrReadOnly()]
     return [DjangoModelPermissions()]
