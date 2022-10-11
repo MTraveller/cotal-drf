@@ -55,7 +55,6 @@ class LinkViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        print(self.kwargs)
         return Linktree.objects.filter(profile_id=self.kwargs['profiles_pk'])
 
     def get_serializer_context(self):
