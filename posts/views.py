@@ -90,5 +90,5 @@ class PostCommentViewSet(ModelViewSet):
     def get_serializer_context(self):
         return {
             'post_id': self.kwargs['post_pk'],
-            'user_id': self.request.user.pk,
+            'user_id': self.request.user.id,  # type: ignore
         }
