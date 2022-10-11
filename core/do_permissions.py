@@ -13,12 +13,10 @@ def try_match(self):
     if self.request.user.is_authenticated:
         profile_id = 0
         if basename.startswith('profile-'):
-            basename_list = basename.endswith('-list')
-            basename_detail = basename.endswith('-detail')
-            match basename_list or basename_detail:
-                case basename:
-                    if not len(kwargs) == 0:
-                        profile_id = kwargs['profiles_pk']
+            if 'profiles_pk' in kwargs:
+                profile_id = kwargs['profiles_pk']
+            elif 'pk' in kwargs:
+                profile_id = kwargs['pk']
 
         elif basename.startswith('profiles-'):
             match basename:
@@ -46,7 +44,6 @@ def do_permissions(self):
     """
     Function to get the appropiate permission.
     """
-    url_name = self.request.resolver_match.url_name
     if try_match(self):
         return [IsObjectUser()]
     elif not self.request.user.is_authenticated:
