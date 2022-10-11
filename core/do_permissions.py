@@ -17,7 +17,8 @@ def try_match(self):
             basename_detail = basename.endswith('-detail')
             match basename_list or basename_detail:
                 case basename:
-                    profile_id = kwargs['profiles_pk']
+                    if not len(kwargs) == 0:
+                        profile_id = kwargs['profiles_pk']
 
         elif basename.startswith('profiles-'):
             match basename:
