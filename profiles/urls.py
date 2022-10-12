@@ -45,6 +45,9 @@ profile_router.register(
 profile_router.register(
     'follow', follows.FollowViewSet, basename='profile-follows'
 )
+profile_router.register(
+    'following', follows.FollowingViewSet, basename='profile-following'
+)
 
 
 urlpatterns = router.urls + profile_router.urls
