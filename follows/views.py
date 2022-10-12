@@ -14,7 +14,7 @@ class FollowViewSet(ModelViewSet):
     def get_permissions(self):
         queryset = Followed.objects \
             .filter(
-                followed_id=self.request.user.id  # type: ignore
+                followed_by_id=self.request.user.id  # type: ignore
             )
         self.__dict__['queryset'] = list(queryset)
         return do_permissions(self)
@@ -26,6 +26,6 @@ class FollowViewSet(ModelViewSet):
     def get_serializer_context(self):
         return {
             'profile_id': self.kwargs['profiles_pk'],
-            'followed_id': self.request.user.id,  # type: ignore
-            'following_id': self.kwargs['profiles_pk']
+            'followed_by_id': self.request.user.id,  # type: ignore
+            'followed_by_username': self.request.__dict__['_user'].username
         }
