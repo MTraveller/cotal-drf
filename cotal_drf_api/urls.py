@@ -24,7 +24,7 @@ from . import views
 
 
 patterns = ([
-    path('', views.api_root),
+    path('', views.api_root),  # type: ignore
     path('profiles/', include('profiles.urls')),
     path('posts/', include('posts.urls')),
     path('auth/', include('djoser.urls')),
@@ -37,7 +37,7 @@ urlpatterns = [
     path(settings.API_ENDPOINT, include(patterns)),
 ]
 
-if 'dev' in os.environ.get('DJANGO_SETTINGS_MODULE'):
+if 'dev' in os.environ.get('DJANGO_SETTINGS_MODULE'):  # type: ignore
     import debug_toolbar
 
     urlpatterns = [
