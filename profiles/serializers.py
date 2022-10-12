@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from connects.serializers import ConnecterSerializer, ConnectingSerializer
-from follows.serializers import FollowSerializer
+from follows.serializers import FollowSerializer, FollowingSerializer
 from core.serializers import ProfileUserSerializer
 from .models import *
 
@@ -102,7 +102,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     settings = ProfileSettingSerializer(many=True, read_only=True)
     connecters = ConnecterSerializer(many=True, read_only=True)
     connectings = ConnectingSerializer(many=True, read_only=True)
-    follows = FollowSerializer(many=True, read_only=True)
+    followers = FollowSerializer(many=True, read_only=True)
+    followings = FollowingSerializer(many=True, read_only=True)
 
     slug = serializers.CharField(read_only=True)
 
@@ -113,5 +114,5 @@ class ProfileSerializer(serializers.ModelSerializer):
             'location', 'linktrees', 'socials',
             'portfolios', 'awards', 'certificates',
             'creatives', 'settings', 'connecters',
-            'connectings', 'follows',
+            'connectings', 'followers', 'followings',
         ]
