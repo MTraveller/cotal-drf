@@ -4,7 +4,6 @@ from core.signals import profile_connect
 from profiles.models import Profile
 
 
-# https://docs.djangoproject.com/en/4.1/ref/contrib/contenttypes/#generic-relations
 class Connected(models.Model):
     connecter = models.ForeignKey(Profile,
                                   on_delete=models.CASCADE, related_name='connecter')
