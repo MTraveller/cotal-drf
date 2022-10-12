@@ -6,10 +6,10 @@ from profiles.models import Profile
 class Followed(models.Model):
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='follows')
-    followed_by_id = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, null=True, related_name='followed')
+    followed_by = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, null=True, related_name='followedby')
 
-    followed_by_slug = models.SlugField()
+    followed_by_username = models.CharField(max_length=150)
 
     class Follow(models.TextChoices):
         NO = 0, _('0')
