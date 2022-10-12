@@ -11,8 +11,17 @@ def try_match(self):
     kwargs = self.request.resolver_match.kwargs
 
     if self.request.user.is_authenticated:
-        if basename == 'profile-connecter-list':
-            if not len(self.queryset) >= 1:
+        profile_id = 0
+        if basename == 'profile-me':
+            return [IsAuthenticated()]
+
+        if basename in [
+            'profile-connecter-list',
+            'profile-connecting-list'
+        ]:
+            if not len(self.queryset) >= 1 \
+                and not \
+                    int(kwargs['profiles_pk']) == self.request.user.id:
                 return [IsAuthenticated()]
             return False
         elif basename == 'profile-connecter-detail':
@@ -20,7 +29,6 @@ def try_match(self):
                 return [IsAuthenticated()]
             return False
 
-        profile_id = 0
         if basename.startswith('profile-'):
             if 'profiles_pk' in kwargs:
                 profile_id = kwargs['profiles_pk']
