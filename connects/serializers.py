@@ -6,7 +6,10 @@ class ConnecterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Connected
         fields = [
-            'id', 'connecter_choice',
+            'id', 'connecter_choice', 'connecting_choice'
+        ]
+        read_only_fields = [
+            'connecting_choice',
         ]
 
     def create(self, validated_data):
@@ -24,7 +27,8 @@ class ConnectingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Connected
         fields = [
-            'id', 'connecting_choice', 'connecter_username',
+            'id', 'connecter_choice', 'connecting_choice',
+            'connecter_choice', 'connecter_username',
         ]
         read_only_fields = [
             'connecter_username'
