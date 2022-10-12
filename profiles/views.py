@@ -1,6 +1,8 @@
+from django.db.models import Q
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from connects.models import Connected
 from core.do_permissions import do_permissions
 from .models import *
 from .serializers import *
@@ -11,14 +13,13 @@ class ProfileViewSet(ModelViewSet):
     Profile view set with appropiate permission handling.
     """
     queryset = Profile.objects \
-        .prefetch_related('user') \
-        .prefetch_related('linktrees') \
-        .prefetch_related('socials') \
-        .prefetch_related('portfolios') \
-        .prefetch_related('awards') \
-        .prefetch_related('certificates') \
-        .prefetch_related('creatives') \
-        .prefetch_related('settings') \
+        .prefetch_related(
+            'user',
+            'linktrees', 'socials',
+            'portfolios', 'awards',
+            'certificates', 'creatives',
+            'settings', 'connecter', 'connecting'
+        ) \
         .all()
     serializer_class = ProfileSerializer
 
@@ -30,8 +31,20 @@ class ProfileViewSet(ModelViewSet):
     # Add djoser's /me endpoint to /profile endpoint
     def me(self, request):
         if request.user.id:
-            profile = Profile.objects\
-                .get(id=request.user.id)
+            # https://docs.djangoproject.com/en/4.1/ref/models/querysets/#or
+            profile = Profile.objects \
+                .prefetch_related(
+                    'user',
+                    'linktrees', 'socials',
+                    'portfolios', 'awards',
+                    'certificates', 'creatives',
+                    'settings', 'connecter', 'connecting'
+                ) \
+                .get(
+                    Q(id=request.user.id) |
+                    Q(connecter__connecter_id=request.user.id) |
+                    Q(connecting__connecting_id=request.user.id)
+                )
             if request.method == 'GET':
                 serializer = ProfileSerializer(profile)
                 return Response(serializer.data)
