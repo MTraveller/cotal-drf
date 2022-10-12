@@ -1,4 +1,5 @@
 from rest_framework_nested import routers
+from connects import views as connects
 from . import views
 
 
@@ -30,6 +31,13 @@ profile_router.register(
 )
 profile_router.register(
     'settings', views.SettingViewSet, basename='profile-settings'
+)
+
+profile_router.register(
+    'connecter', connects.ConnecterViewSet, basename='profile-connecter'
+)
+profile_router.register(
+    'connecting', connects.ConnectingViewSet, basename='profile-connecting'
 )
 
 
