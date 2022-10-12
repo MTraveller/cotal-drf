@@ -12,3 +12,6 @@ instance_deleted = Signal()
 
 # Signal for profile deleted
 profile_deleted = Signal()
+
+# Signal for profile connect
+profile_connect = Signal()
