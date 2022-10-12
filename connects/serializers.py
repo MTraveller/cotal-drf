@@ -5,7 +5,10 @@ from .models import *
 class ConnecterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Connected
-        fields = ['connecter_choice']
+        fields = [
+            'id', 'connecter_choice', 'connecting_choice',
+            'connecter_id', 'connecting_id',
+        ]
 
     def create(self, validated_data):
         connecter_id = self.context['connecter_id']
@@ -19,9 +22,12 @@ class ConnecterSerializer(serializers.ModelSerializer):
 class ConnectingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Connected
-        fields = ['connecting_choice']
+        fields = [
+            'id', 'connecter_choice', 'connecting_choice',
+            'connecter_id', 'connecting_id',
+        ]
 
-    def save(self, validated_data):
-        id = self.context['id']
-        connecting_id = self.context['connecting_id']
-        object = Connected.objects.get(id=id)
+    def update(self, instance, validated_data):
+        instance.connecting_choice = validated_data.get('connecting_choice')
+        instance.save()
+        return instance
