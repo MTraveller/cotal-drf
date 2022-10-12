@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from connects.serializers import ConnecterSerializer, ConnectingSerializer
 from core.serializers import ProfileUserSerializer
 from .models import *
 
@@ -91,6 +92,8 @@ class ProfileSettingSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     # https://www.django-rest-framework.org/api-guide/relations/#nested-relationships
     user = ProfileUserSerializer(read_only=True)
+    connecter = ConnecterSerializer()
+    connecting = ConnectingSerializer()
     linktrees = ProfileLinktreeSerializer(many=True, read_only=True)
     socials = ProfileSocialSerializer(many=True, read_only=True)
     portfolios = ProfilePortfolioSerializer(many=True, read_only=True)
@@ -107,5 +110,6 @@ class ProfileSerializer(serializers.ModelSerializer):
             'user', 'slug', 'image', 'status',
             'location', 'linktrees', 'socials',
             'portfolios', 'awards', 'certificates',
-            'creatives', 'settings'
+            'creatives', 'settings', 'connecter',
+            'connecting',
         ]
