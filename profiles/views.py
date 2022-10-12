@@ -18,7 +18,8 @@ class ProfileViewSet(ModelViewSet):
             'portfolios', 'awards',
             'certificates', 'creatives',
             'settings', 'connecters',
-            'connectings', 'follows',
+            'connectings', 'followers',
+            'followings',
         ) \
         .all()
     serializer_class = ProfileSerializer
@@ -39,7 +40,8 @@ class ProfileViewSet(ModelViewSet):
                     'portfolios', 'awards',
                     'certificates', 'creatives',
                     'settings', 'connecters',
-                    'connectings', 'follows',
+                    'connectings', 'followers',
+                    'followings',
                 ) \
                 .get(
                     Q(id=request.user.id) |
