@@ -16,11 +16,16 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Connected',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('connecter_choice', models.CharField(choices=[('0', '0'), ('1', '1')], default='0', max_length=1)),
-                ('connecting_choice', models.CharField(choices=[('0', '0'), ('1', '1')], default='0', max_length=1)),
-                ('connecter', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='connecter', to='profiles.profile')),
-                ('connecting', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='connecting', to='profiles.profile')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
+                ('connecter_choice', models.CharField(choices=[
+                 ('0', '0'), ('1', '1')], default='0', max_length=1)),
+                ('connecting_choice', models.CharField(choices=[
+                 ('0', '0'), ('1', '1')], default='0', max_length=1)),
+                ('connecter', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='connecters', to='profiles.profile')),
+                ('connecting', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='connectings', to='profiles.profile')),
             ],
         ),
     ]

@@ -6,9 +6,9 @@ from profiles.models import Profile
 
 class Connected(models.Model):
     connecter = models.ForeignKey(Profile,
-                                  on_delete=models.CASCADE, related_name='connecter')
+                                  on_delete=models.CASCADE, related_name='connecters')
     connecting = models.ForeignKey(Profile,
-                                   on_delete=models.CASCADE, related_name='connecting')
+                                   on_delete=models.CASCADE, related_name='connectings')
 
     class Connect(models.TextChoices):
         NO = 0, _('0')
