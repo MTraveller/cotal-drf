@@ -31,7 +31,8 @@ class ConnecterViewSet(ModelViewSet):
     def get_serializer_context(self):
         return {
             'connecter_id': self.request.user.id,  # type: ignore
-            'connecting_id': self.kwargs['profiles_pk']
+            'connecting_id': self.kwargs['profiles_pk'],
+            'connecter_username': self.request.__dict__['_user'].username,
         }
 
 
