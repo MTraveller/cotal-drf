@@ -5,7 +5,7 @@ from profiles.models import Profile
 
 class Followed(models.Model):
     profile = models.ForeignKey(Profile,
-                                on_delete=models.CASCADE, related_name='profilefollows')
+                                on_delete=models.CASCADE, related_name='follows')
     following = models.ForeignKey(Profile,
                                   on_delete=models.CASCADE, null=True, related_name='following')
     followed = models.ForeignKey(Profile,
