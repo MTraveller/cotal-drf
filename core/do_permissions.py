@@ -3,6 +3,18 @@ from rest_framework.permissions import (
 from .permissions import IsObjectUser, IsNotObjectUserOrReadOnly
 
 
+BASENAME_LIST = [
+    'profile-connecter-list',
+    'profile-connecting-list',
+    'profile-follows-list',
+]
+
+BASENAME_DETAIL = [
+    'profile-connecter-detail',
+    'profile-follows-detail',
+]
+
+
 def try_match(self):
     """
     Function to get user id and check against request user id.
@@ -15,18 +27,23 @@ def try_match(self):
         if basename == 'profile-me':
             return [IsAuthenticated()]
 
-        if basename in [
-            'profile-connecter-list',
-            'profile-connecting-list'
-        ]:
+        if basename in BASENAME_LIST:
             if not len(self.queryset) >= 1 \
                 and not \
                     int(kwargs['profiles_pk']) == self.request.user.id:
                 return [IsAuthenticated()]
             return False
-        elif basename == 'profile-connecter-detail':
-            if self.queryset[0].connecter_id == self.request.user.id:
-                return [IsAuthenticated()]
+
+        elif basename in BASENAME_DETAIL:
+            try:
+                queryset_dict = self.queryset[0].__dict__
+                if 'connecter_id' in queryset_dict and \
+                        queryset_dict['connecter_id'] == self.request.user.id or \
+                        queryset_dict['followed_id'] == self.request.user.id:
+                    return [IsAuthenticated()]
+            except IndexError:
+                pass
+
             return False
 
         if basename.startswith('profile-'):
@@ -35,11 +52,12 @@ def try_match(self):
             elif 'pk' in kwargs:
                 profile_id = kwargs['pk']
 
-        elif basename.startswith('profiles-'):
+        elif basename.startswith('posts-') or \
+                basename.startswith('post-'):
             match basename:
-                case 'profile-posts-list':
+                case 'posts-list':
                     profile_id = kwargs['profile_pk']
-                case 'profile-posts-detail':
+                case 'posts-detail':
                     profile_id = kwargs['profile_pk']
                 case 'post-comments-list':
                     if self.request.user and self.request.user.is_authenticated:
