@@ -17,7 +17,8 @@ class ProfileViewSet(ModelViewSet):
             'linktrees', 'socials',
             'portfolios', 'awards',
             'certificates', 'creatives',
-            'settings', 'connecter', 'connecting'
+            'settings', 'connecters',
+            'connectings', 'follows',
         ) \
         .all()
     serializer_class = ProfileSerializer
@@ -37,12 +38,13 @@ class ProfileViewSet(ModelViewSet):
                     'linktrees', 'socials',
                     'portfolios', 'awards',
                     'certificates', 'creatives',
-                    'settings', 'connecter', 'connecting'
+                    'settings', 'connecters',
+                    'connectings', 'follows',
                 ) \
                 .get(
                     Q(id=request.user.id) |
-                    Q(connecter__connecter_id=request.user.id) |
-                    Q(connecting__connecting_id=request.user.id)
+                    Q(connecters__connecter_id=request.user.id) |
+                    Q(connectings__connecting_id=request.user.id)
                 )
             if request.method == 'GET':
                 serializer = ProfileSerializer(profile)
