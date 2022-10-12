@@ -10,6 +10,8 @@ class Connected(models.Model):
     connecting = models.ForeignKey(Profile,
                                    on_delete=models.CASCADE, related_name='connectings')
 
+    connecter_username = models.CharField(max_length=150)
+
     class Connect(models.TextChoices):
         NO = 0, _('0')
         Yes = 1, _('1')
@@ -20,5 +22,6 @@ class Connected(models.Model):
         max_length=1, choices=Connect.choices, default=Connect.NO)
 
     def save(self, *args, **kwargs):
-        profile_connect.send_robust(self.__class__, self_dict=self.__dict__)
+        profile_connect.send_robust(
+            self.__class__, selfdict=self.__dict__, **kwargs)
         super().save(*args, **kwargs)
