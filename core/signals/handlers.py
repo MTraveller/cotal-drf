@@ -5,7 +5,7 @@ from django.db.models.signals import post_save, post_delete
 import cloudinary
 import cloudinary.api
 from profiles.models import Profile, Setting
-from . import profile_deleted, media_uploaded, instance_deleted
+from . import profile_deleted, media_uploaded, instance_deleted, profile_connect
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
@@ -59,3 +59,8 @@ def delete_previous_image_cloudinary(sender, **kwargs):
 @receiver(instance_deleted)
 def delete_instance_image_cloudinary(sender, **kwargs):
     cloudinary.uploader.destroy(str(kwargs['image']))  # type: ignore
+
+
+@receiver(profile_connect)
+def initiate_profile_connect(sender, **kwargs):
+    print("Connecting")
