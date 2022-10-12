@@ -39,7 +39,7 @@ def try_match(self):
                 queryset_dict = self.queryset[0].__dict__
                 if 'connecter_id' in queryset_dict and \
                         queryset_dict['connecter_id'] == self.request.user.id or \
-                        queryset_dict['followed_id'] == self.request.user.id:
+                        queryset_dict['followed_by_id'] == self.request.user.id:
                     return [IsAuthenticated()]
             except IndexError:
                 pass
