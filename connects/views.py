@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework.viewsets import ModelViewSet
 from core.do_permissions import do_permissions
 from .serializers import *
@@ -12,13 +13,20 @@ class ConnecterViewSet(ModelViewSet):
 
     def get_permissions(self):
         queryset = Connected.objects \
-            .filter(connecter_id=self.request.user.id)  # type: ignore
+            .filter(
+                # https://docs.djangoproject.com/en/4.1/ref/models/querysets/#or
+                Q(connecter_id=self.request.user.id) |  # type: ignore
+                Q(connecting_id=self.request.user.id)  # type: ignore
+            )
         self.__dict__['queryset'] = list(queryset)
         return do_permissions(self)
 
     def get_queryset(self):
         return Connected.objects \
-            .filter(connecting_id=self.kwargs['profiles_pk'])
+            .filter(
+                Q(connecter_id=self.request.user.id) |  # type: ignore
+                Q(connecting_id=self.request.user.id)  # type: ignore
+            )
 
     def get_serializer_context(self):
         return {
@@ -34,20 +42,11 @@ class ConnectingViewSet(ModelViewSet):
     serializer_class = ConnectingSerializer
 
     def get_permissions(self):
+        queryset = Connected.objects \
+            .filter(connecting_id=self.request.user.id)  # type: ignore
+        self.__dict__['queryset'] = list(queryset)
         return do_permissions(self)
 
     def get_queryset(self):
         return Connected.objects \
             .filter(connecting_id=self.request.user.id)  # type: ignore
-
-    def get_serializer_context(self):
-        basename = self.request.resolver_match.url_name
-        print(self.kwargs)
-        if basename == 'profile-connecting-detail':
-            return {
-                'id': self.kwargs['pk'],
-                'connecting_id': self.kwargs['profiles_pk']
-            }
-        return {
-            'connecting_id': self.kwargs['profiles_pk']
-        }
