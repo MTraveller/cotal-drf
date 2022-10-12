@@ -7,7 +7,7 @@ from .models import *
 
 class ConnecterViewSet(ModelViewSet):
     """
-    Profile view set with appropiate permission handling.
+    Connecter view set with appropiate permission handling.
     """
     serializer_class = ConnecterSerializer
 
@@ -37,7 +37,7 @@ class ConnecterViewSet(ModelViewSet):
 
 class ConnectingViewSet(ModelViewSet):
     """
-    Profile view set with appropiate permission handling.
+    Connecting view set with appropiate permission handling.
     """
     serializer_class = ConnectingSerializer
 
