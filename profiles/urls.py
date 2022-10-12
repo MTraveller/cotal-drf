@@ -33,6 +33,7 @@ profile_router.register(
     'settings', views.SettingViewSet, basename='profile-settings'
 )
 
+# Connects app urls
 profile_router.register(
     'connecter', connects.ConnecterViewSet, basename='profile-connecter'
 )
