@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'cloudinary',
     'djoser',
+    'tags',
     'follows',
     'connects',
     'profiles',
