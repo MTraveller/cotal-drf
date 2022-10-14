@@ -14,7 +14,7 @@ class Post(models.Model):
     post = models.TextField()
     slug = models.SlugField()
 
-    tags = GenericRelation(TaggedItem)
+    tags = GenericRelation(TaggedItem, related_query_name='tags')
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
