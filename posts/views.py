@@ -2,6 +2,7 @@ from django.db.models import Prefetch
 from rest_framework.viewsets import ModelViewSet
 from core.do_permissions import do_permissions
 from profiles.models import Profile
+from tags.models import TaggedItem
 from .models import *
 from .serializers import *
 
@@ -36,28 +37,34 @@ class PostViewSet(ModelViewSet):
             .prefetch_related('profile__user') \
             .prefetch_related('postimages__profileposts') \
             .prefetch_related('postcomments__profile__user') \
+            .prefetch_related(Prefetch(
+                'tags',
+                queryset=TaggedItem.objects
+                .select_related('tag')
+                .all()
+            )) \
             .filter(profile_id=self.kwargs['profile_pk'])
 
     def get_serializer_context(self):
         return {'profile_id': self.kwargs['profile_pk']}
 
 
-class PostImageViewSet(ModelViewSet):
-    """
-    Post image view set with appropiate permission handling.
-    """
-    serializer_class = PostImageSerializer
+# class PostImageViewSet(ModelViewSet):
+#     """
+#     Post image view set with appropiate permission handling.
+#     """
+#     serializer_class = PostImageSerializer
 
-    def get_permissions(self):
-        return do_permissions(self)
+#     def get_permissions(self):
+#         return do_permissions(self)
 
-    def get_queryset(self):
-        return PostImage.objects \
-            .select_related('post__profile__user') \
-            .filter(profile_id=self.kwargs['profiles_pk'])
+#     def get_queryset(self):
+#         return PostImage.objects \
+#             .select_related('post__profile__user') \
+#             .filter(profile_id=self.kwargs['profiles_pk'])
 
-    def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profiles_pk']}
+#     def get_serializer_context(self):
+#         return {'profile_id': self.kwargs['profiles_pk']}
 
 
 class PostCommentViewSet(ModelViewSet):
