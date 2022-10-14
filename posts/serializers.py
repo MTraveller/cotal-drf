@@ -96,6 +96,70 @@ class PostSerializer(serializers.ModelSerializer):
 
         return post
 
+    def update(self, instance, validated_data):
+        updated_tags = validated_data['tags']
+
+        validated_tags = []
+        for dict in updated_tags:
+            for inner_dict in dict.values():
+                for tag in inner_dict.values():
+                    validated_tags.append(tag)
+
+        queryset = TaggedItem.objects \
+            .get_tags_for(
+                Post,
+                instance.id
+            )
+
+        previous_tags = list(map(
+            lambda tag: [
+                tag._state.fields_cache['tag'].id,
+                tag._state.fields_cache['tag'].label
+            ], queryset
+        ))
+
+        previous_tags.sort()
+        validated_tags.sort()
+
+        if len(validated_tags):
+            for tag in previous_tags:
+                i = 0
+                if tag[1] == validated_tags[i]:
+                    continue
+                else:
+                    remove_tag = TaggedItem.objects \
+                        .get(tag__label=tag[1])
+                    TaggedItem.delete(remove_tag)
+                i += 1
+        else:
+            if len(previous_tags):
+                for tag in previous_tags:
+                    remove_tag = TaggedItem.objects \
+                        .get(tag__label=tag[1])
+                    TaggedItem.delete(remove_tag)
+
+        if 'add_tags' in validated_data:
+            new_tags = list(map(
+                lambda tag: tag.lower(), validated_data['add_tags']
+            ))
+
+            content_type_id = ContentType.objects.get(model="post").id
+
+            for label in new_tags:
+                tag = ""
+                try:
+                    tag = Tag.objects.get(label=label)
+                except ObjectDoesNotExist:
+                    tag = Tag.objects.create(label=label)
+
+                TaggedItem.objects.create(
+                    object_id=instance.id,  # type: ignore
+                    content_type_id=content_type_id,  # type: ignore
+                    tag_id=tag.id  # type: ignore
+                )
+
+        return instance
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     # https://www.django-rest-framework.org/api-guide/relations/#nested-relationships
