@@ -29,7 +29,7 @@ class Tag(models.Model):
 # https://docs.djangoproject.com/en/4.1/ref/contrib/contenttypes/#overview
 class TaggedItem(models.Model):
     objects = TaggedItemManager()
-    tags = models.ForeignKey(Tag, on_delete=models.CASCADE)
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name='tags')
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
