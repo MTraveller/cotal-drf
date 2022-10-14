@@ -1,7 +1,9 @@
 from django.db import models
+from django.contrib.contenttypes.fields import GenericRelation
 from django.template.defaultfilters import slugify
 from core.upload_to import user_directory_path
 from profiles.models import Profile
+from tags.models import TaggedItem
 
 
 class Post(models.Model):
@@ -11,6 +13,8 @@ class Post(models.Model):
     title = models.CharField(max_length=80)
     post = models.TextField()
     slug = models.SlugField()
+
+    tags = GenericRelation(TaggedItem)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
