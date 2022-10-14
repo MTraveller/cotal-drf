@@ -9,8 +9,8 @@ router.register('profiles', views.ProfilePostViewSet, basename='profiles')
 # https://github.com/alanjds/drf-nested-routers#infinite-depth-nesting
 post_router = routers.NestedDefaultRouter(router, 'profiles', lookup='profile')
 post_router.register('posts', views.PostViewSet, basename='posts')
-post_router.register('post-images', views.PostImageViewSet,
-                     basename='profile-postimages')
+# post_router.register('post-images', views.PostImageViewSet,
+#                      basename='profile-postimages')
 
 post_comments_router = routers.NestedDefaultRouter(
     post_router, 'posts', lookup='post')
