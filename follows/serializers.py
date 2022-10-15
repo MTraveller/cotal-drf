@@ -3,6 +3,9 @@ from .models import *
 
 
 class FollowSerializer(serializers.ModelSerializer):
+    """
+    Follow serializer to handle follow requests.
+    """
     class Meta:
         model = Followed
         fields = [
@@ -33,6 +36,9 @@ class FollowSerializer(serializers.ModelSerializer):
 
 
 class FollowingSerializer(serializers.ModelSerializer):
+    """
+    Following serializer to show current followings.
+    """
     class Meta:
         model = Followed
         fields = [
