@@ -4,6 +4,9 @@ from profiles.models import Profile
 
 
 class Followed(models.Model):
+    """
+    Followed model to store information about followings.
+    """
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='followers')
     followed_by = models.ForeignKey(
