@@ -27,11 +27,17 @@ class UserSerializer(BaseUserSerializer):
 
 
 class ProfileUserSerializer(BaseUserSerializer):
+    """
+    User first name, last name serializer.
+    """
     class Meta(BaseUserSerializer.Meta):
         fields = ['first_name', 'last_name']
 
 
 class BaseProfileSerializer(serializers.ModelSerializer):
+    """
+    User slug and image serializer extends ProfileUserSerializer.
+    """
     user = ProfileUserSerializer(read_only=True)
 
     class Meta:
