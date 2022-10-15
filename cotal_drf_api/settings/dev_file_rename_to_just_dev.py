@@ -1,5 +1,7 @@
 """ Development Settings """
-# This file is automatically ignored by git after renaming. Which means; this file is not uploaded to Github after renaming thus won't be on render or any other host.
+# This file is automatically ignored by git after renaming.
+# Which means; this file is not uploaded to Github after renaming
+# thus won't be on render or any other host.
 from .common import *
 
 DEBUG = True
