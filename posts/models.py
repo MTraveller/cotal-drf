@@ -7,6 +7,10 @@ from tags.models import TaggedItem
 
 
 class Post(models.Model):
+    """
+    Post model stores profile, post details and
+    has a generic relation to TaggedItem model.
+    """
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='profileposts')
 
@@ -22,6 +26,10 @@ class Post(models.Model):
 
 
 class PostImage(models.Model):
+    """
+    Post image model stores user, post which the 
+    image belows to and the image.
+    """
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE)
     post = models.ForeignKey(
@@ -32,6 +40,10 @@ class PostImage(models.Model):
 
 
 class PostComment(models.Model):
+    """
+    Post comment model stores user, post which the comment
+    were made on and the comment.
+    """
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='profilecomments')
     post = models.ForeignKey(
