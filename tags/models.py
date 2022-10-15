@@ -6,6 +6,10 @@ from django.template.defaultfilters import slugify
 
 # https://docs.djangoproject.com/en/4.1/topics/db/managers/#custom-managers
 class TaggedItemManager(models.Manager):
+    """
+    Class to overwrite the default object manager.
+    """
+
     def get_tags_for(self, obj_type, obj_id):
         content_type = ContentType.objects.get_for_model(obj_type)
 
@@ -18,6 +22,9 @@ class TaggedItemManager(models.Manager):
 
 
 class Tag(models.Model):
+    """
+    Tag model to store all tags made by all users.
+    """
     label = models.CharField(max_length=50)
     slug = models.SlugField()
 
@@ -28,6 +35,10 @@ class Tag(models.Model):
 
 # https://docs.djangoproject.com/en/4.1/ref/contrib/contenttypes/#overview
 class TaggedItem(models.Model):
+    """
+    TaggedItem model to store information about
+    tagged posts and which tags.
+    """
     objects = TaggedItemManager()
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name='tags')
 
