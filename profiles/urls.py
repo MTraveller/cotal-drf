@@ -13,40 +13,51 @@ profile_router = routers.NestedDefaultRouter(
 )
 
 profile_router.register(
-    'linktree', views.LinkViewSet, basename='profile-linktrees'
+    'linktree', views.LinkViewSet,
+    basename='profile-linktrees'
 )
 profile_router.register(
-    'socials', views.SocialViewSet, basename='profile-socials'
+    'socials', views.SocialViewSet,
+    basename='profile-socials'
 )
 profile_router.register(
-    'portfolios', views.PortfolioViewSet, basename='profile-portfolios'
+    'portfolios', views.PortfolioViewSet,
+    basename='profile-portfolios'
 )
 profile_router.register(
-    'awards', views.AwardViewSet, basename='profile-awards'
+    'awards', views.AwardViewSet,
+    basename='profile-awards'
 )
 profile_router.register(
-    'certificates', views.CertificateViewSet, basename='profile-certificates'
+    'certificates', views.CertificateViewSet,
+    basename='profile-certificates'
 )
 profile_router.register(
-    'creatives', views.CreativeViewSet, basename='profile-creatives'
+    'creatives', views.CreativeViewSet,
+    basename='profile-creatives'
 )
 profile_router.register(
-    'settings', views.SettingViewSet, basename='profile-settings'
+    'settings', views.SettingViewSet,
+    basename='profile-settings'
 )
 
 # Connects app routes
 profile_router.register(
-    'connecter', connects.ConnecterViewSet, basename='profile-connecter'
+    'connecter', connects.ConnecterViewSet,
+    basename='profile-connecter'
 )
 profile_router.register(
-    'connecting', connects.ConnectingViewSet, basename='profile-connecting'
+    'connecting', connects.ConnectingViewSet,
+    basename='profile-connecting'
 )
 # Follows app route
 profile_router.register(
-    'follow', follows.FollowViewSet, basename='profile-follows'
+    'follow', follows.FollowViewSet,
+    basename='profile-follows'
 )
 profile_router.register(
-    'following', follows.FollowingViewSet, basename='profile-following'
+    'following', follows.FollowingViewSet,
+    basename='profile-following'
 )
 
 
