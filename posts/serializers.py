@@ -123,20 +123,17 @@ class PostSerializer(serializers.ModelSerializer):
 
         if len(validated_tags):
             for tag in previous_tags:
-                i = 0
-                if tag[1] == validated_tags[i]:
+                if tag[1] in validated_tags:
                     continue
                 else:
                     remove_tag = TaggedItem.objects \
                         .get(tag__label=tag[1])
                     TaggedItem.delete(remove_tag)
-                i += 1
         else:
-            if len(previous_tags):
-                for tag in previous_tags:
-                    remove_tag = TaggedItem.objects \
-                        .get(tag__label=tag[1])
-                    TaggedItem.delete(remove_tag)
+            for tag in previous_tags:
+                remove_tag = TaggedItem.objects \
+                    .get(tag__label=tag[1])
+                TaggedItem.delete(remove_tag)
 
         if 'add_tags' in validated_data:
             new_tags = list(map(
