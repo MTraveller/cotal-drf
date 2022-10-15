@@ -6,6 +6,9 @@ from .models import *
 
 
 class ProfileLinktreeSerializer(serializers.ModelSerializer):
+    """
+    Profile linktree serializer.
+    """
     title = serializers.ReadOnlyField()
 
     class Meta:
@@ -28,6 +31,9 @@ class ProfileLinktreeSerializer(serializers.ModelSerializer):
 
 
 class ProfileSocialSerializer(serializers.ModelSerializer):
+    """
+    Profile social serializer.
+    """
     class Meta:
         model = Social
         fields = ['id', 'name', 'username']
@@ -39,6 +45,9 @@ class ProfileSocialSerializer(serializers.ModelSerializer):
 
 
 class ProfilePortfolioSerializer(serializers.ModelSerializer):
+    """
+    Profile portfolio serializer.
+    """
     class Meta:
         model = Portfolio
         fields = ['id', 'image', 'title', 'description', 'link']
@@ -50,6 +59,9 @@ class ProfilePortfolioSerializer(serializers.ModelSerializer):
 
 
 class ProfileAwardSerializer(serializers.ModelSerializer):
+    """
+    Profile award serializer.
+    """
     class Meta:
         model = Award
         fields = ['id', 'image', 'title', 'description', 'link']
@@ -61,6 +73,9 @@ class ProfileAwardSerializer(serializers.ModelSerializer):
 
 
 class ProfileCertificateSerializer(serializers.ModelSerializer):
+    """
+    Profile certificate serializer.
+    """
     class Meta:
         model = Certificate
         fields = ['id', 'image', 'title', 'description', 'link']
@@ -72,6 +87,9 @@ class ProfileCertificateSerializer(serializers.ModelSerializer):
 
 
 class ProfileCreativeSerializer(serializers.ModelSerializer):
+    """
+    Profile creative serializer.
+    """
     class Meta:
         model = Creative
         fields = ['id', 'title', 'description', 'link']
@@ -83,6 +101,9 @@ class ProfileCreativeSerializer(serializers.ModelSerializer):
 
 
 class ProfileSettingSerializer(serializers.ModelSerializer):
+    """
+    Profile setting serializer.
+    """
     class Meta:
         model = Setting
         fields = ['activity']
@@ -94,6 +115,10 @@ class ProfileSettingSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    """
+    Profile serializer that extends all above,
+    connecter, connecting, follow and following serializers.
+    """
     # https://www.django-rest-framework.org/api-guide/relations/#nested-relationships
     user = ProfileUserSerializer(read_only=True)
     linktrees = ProfileLinktreeSerializer(many=True, read_only=True)

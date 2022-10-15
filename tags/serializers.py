@@ -3,6 +3,9 @@ from .models import Tag, TaggedItem
 
 
 class TagSerializer(serializers.ModelSerializer):
+    """
+    Tag serializer.
+    """
     class Meta:
         model = Tag
         fields = [
@@ -12,6 +15,9 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class TaggedSerializer(serializers.ModelSerializer):
+    """
+    Tagged serializer extends tag serializer.
+    """
     tag = TagSerializer()
 
     class Meta:
