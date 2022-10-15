@@ -115,35 +115,32 @@ The Kanban board used was created using Github projects and can be seen [here](h
 
 <br>
 
-1. [Git:](https://git-scm.com/ "git-scm.com")
-   - Git was used for version control by utilizing the VSCode terminal to commit to Git and Push to GitHub.
-2. [GitHub:](https://github.com/ "github.com")
-   - GitHub is used to store the project's code after being pushed from Git.
+1. [Git](https://git-scm.com/ "git-scm.com")
+- Git was used for version control by utilizing the VSCode terminal to commit to Git and Push to GitHub.
+2. [GitHub](https://github.com/ "github.com")
+- GitHub is used to store the project's code after being pushed from Git.
 3. [Django](https://en.wikipedia.org/wiki/Django_(web_framework) "wikipedia.com")
-   - Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design.
+- Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design.
 4. [Django DRF](https://www.django-rest-framework.org/ "django-rest-framework.org")
-   - Django REST framework is a powerful and flexible toolkit for building Web APIs.
+- Django REST framework is a powerful and flexible toolkit for building Web APIs.
 5. [Cloudinary](https://cloudinary.com/ "cloudinary.com")
-   - Image & Video API Trusted by 1.3M+ Developers. Cut the complexity involved in optimizing, editing, and managing media for your app, e-commerce store, marketplace, or website.
+- Image & Video API Trusted by 1.3M+ Developers. Cut the complexity involved in optimizing, editing, and managing media for your app, e-commerce store, marketplace, or website.
 6. [Pillow](https://pypi.org/project/Pillow/ "pypi.org/project/Pillow/")
-   - The Python Imaging Library adds image processing capabilities to your Python interpreter.
+- The Python Imaging Library adds image processing capabilities to your Python interpreter.
 7. [DJ Database URL](https://pypi.org/project/django-database-url/ "pypi.org/project/django-database-url/")
-   - This simple Django utility allows you to utilize the 12factor-inspired DATABASE_URL environment variable to configure your Django application.
+- This simple Django utility allows you to utilize the 12factor-inspired DATABASE_URL environment variable to configure your Django application.
 8. [Django Debug Toolbar](https://pypi.org/project/django-debug-toolbar/ "pypi.org/project/django-debug-toolbar/")
-   - This simple Django utility allows you to utilize the 12factor-inspired DATABASE_URL environment variable to configure your Django application.
+- This simple Django utility allows you to utilize the 12factor-inspired DATABASE_URL environment variable to configure your Django application.
 9. [djoser](https://djoser.readthedocs.io/en/latest/ "djoser.readthedocs.io/")
-   - REST implementation of Django authentication system. djoser library provides a set of Django Rest Framework views to handle basic actions such as registration, login, logout, password reset and account activation. It works with custom user model.
+- REST implementation of Django authentication system. djoser library provides a set of Django Rest Framework views to handle basic actions such as registration, login, logout, password reset and account activation. It works with custom user model.
 10. [DRF nested routers](https://github.com/alanjds/drf-nested-routers "github.com/alanjds/drf-nested-routers")
-   - This package provides routers and fields to create nested resources in the Django Rest Framework.
+- This package provides routers and fields to create nested resources in the Django Rest Framework.
 11. [Mockup - Sketch UI & UX](https://apps.apple.com/us/app/mockup-sketch-ui-ux/id1527554407 "apps.apple.com")
-   - A simple but powerful UI & UX sketching app for iPad.
+- A simple but powerful UI & UX sketching app for iPad.
 12. [DataGrip](https://www.jetbrains.com/datagrip/ "jetbrains.com/datagrip")
-   - DataGrip is a database IDE tailored to suit professional SQL developers' specific needs.
+- DataGrip is a database IDE tailored to suit professional SQL developers' specific needs.
 13. [VScode](https://code.visualstudio.com "code.visualstudio.com")
-   - Visual Studio Code is a code editor redefined and optimized for building and debugging modern web and cloud applications. Visual Studio Code is free and available on your favorite platform - Linux, macOS, and Windows.
-00. []( "")
-   - 
-
+- Visual Studio Code is a code editor redefined and optimized for building and debugging modern web and cloud applications. Visual Studio Code is free and available on your favorite platform - Linux, macOS, and Windows.
 
    <br>
 
@@ -185,8 +182,6 @@ How to fork this repository:
 1. Log in to GitHub and navigate to [this repository](https://github.com/MTraveller/cotal-drf.git).
 2. You'll see a button called <b>Fork</b> on the top right side of the page. Click the button to create a copy of this repository to your own GitHub account.
 
-![Fork Project](https://github.com/MTraveller/cotal-drf.git)
-
 <br>
 
 ### Clone
@@ -211,30 +206,44 @@ How to clone this project:
 
    First create a folder anywhere you want to work with this repo. Inside this folder, follow the steps below.
 
-   1. In a terminal window do: `git clone https://github.com/MTraveller/cotal-drf.git`
-   2. cd into folder
+   Assuming you have a Github account, if not, sign-up for an Github account and continue with the below steps.
+   If you do not have an terminal app you can see which option there is for your operation system.
+
+   We will be using a terminal window to continue with the steps below.
+   I use: [Hyper](https://hyper.is "hyper.is")
+
+   `Do:` means to input the command `highlighted` into the terminal followed by "Enter" on the keyboard.
+   
+   1. Do: `git clone https://github.com/MTraveller/cotal-drf.git` "Press Enter"
+   2. cd into cloned folder `cotal-drf`.
    3. install [GitHub cli](https://cli.github.com "cli.github.com") if you don't have it.
-   4. Do: `gh repo create` - follow instruction "Choose: No license, no readme - just create an  empty repo".
+   4. Do: `gh repo create` "Press Enter"
+   - Choose:
+      - Create a new repository from scratch
+      - No license
+      - No readme
+      - Do not clone
+      - Make public
       <br>
-      1. Choose not to clone locally then continue the below assuming you are inside the working folder.
+   -  Continue the below assuming you are inside the working folder.
+      1. Do: `rm -rf .git` "Press Enter"
+      2. Do: `git init` "Press Enter"
       <!-- Step 3 - the repo you just created! -->
-      2. Do: `git remote add origin https://github.com/<user>/<repo>.git`
-         1. if you get an fatal: error.
-         2. Do: `rm -rf .git`
-         3. Do: `git init` and `git remote add origin https://github.com/<user>/<repo>.git`
-         4. Do: `git add .` and `git commit -m "Initial commit"`
-      3. Do: `git branch -M main`
-      4. Do: `git push -u origin main`
-      5. Wait until files are uploaded, can take some time.
-      6. Now this project is in your created repo.
+      3. Do: `git remote add origin https://github.com/<your-user-name>/<created-repo-name>.git` "Press Enter"
+      4. Do: `git add .` "Press Enter"
+      5. Do: `git commit -m "Initial commit"` "Press Enter"
+      6. Do: `git branch -M main` "Press Enter"
+      7. Do: `git push -u origin main` "Press Enter"
+      8. Wait until files are uploaded, usually takes a couple seconds.
+      9. Now this project is in your created repo.
       <br>
    1. Development:
       <!-- dev.py is automatically ignored by git -->
       1. Find and rename `cotal_drf_api/settings/dev_file_rename_to_just_dev.py` to dev.py
       2. Add a Django secret key from the provided website and add your cloudinary api `cloudinary://my_key:my_secret@my_cloud_name`.
       3. Open the terminal or a new one and cd to the cloned project folder.
-      3. Do: `python` or `python3 install -r requirements.txt`
-      4. Do: `python` or `python3 runserver 127.0.0.1:3000`
+      3. Do: `python` or `python3 install -r requirements.txt` "Press Enter"
+      4. Do: `python` or `python3 runserver 127.0.0.1:3000` "Press Enter"
       5. You should now be able to open project on 127.0.0.1:3000
       <br>
    2. Production:
@@ -245,10 +254,10 @@ How to clone this project:
       5. Create a new environment group for this project.
       6. Scroll down to "Secret Files" press "Add Secret" in key add: .env then press the eye and add all variables from the open text document you made in step 2 and save.
       7. In the same terminal window, or open a new one if closed and cd to project folder.
-      8. Do: `git add .`
-      9. Do: `git commit -m "Your Message"`
-      10. Do: `git push -u origin main`
-      11. Go to [render to add new blueprint](https://dashboard.render.com/select-repo?type=blueprint "dashboard.render.com/select-repo?type=blueprint")
+      8. Do: `git add .` "Press Enter"
+      9. Do: `git commit -m "Your Message"` "Press Enter"
+      10. Do: `git push -u origin main` "Press Enter"
+      11. Go to [render to add a new blueprint](https://dashboard.render.com/select-repo?type=blueprint "dashboard.render.com/select-repo?type=blueprint")
       12. Connect your github account and give render access to the repo.
       13. Connect repo and choose service name and press apply.
       14. The project should be live in a couple minutes.
