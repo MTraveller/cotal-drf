@@ -1,5 +1,4 @@
 """ Production Settings """
-import os
 import json
 from dotenv import load_dotenv
 import dj_database_url
