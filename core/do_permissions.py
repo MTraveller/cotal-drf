@@ -30,7 +30,9 @@ def try_match(self):
         if basename in BASENAME_LIST:
             if not len(self.queryset) >= 1 \
                 and not \
-                    int(kwargs['profiles_pk']) == self.request.user.id:
+                    int(kwargs[
+                        'profiles_pk'
+                    ]) == self.request.user.id:
                 return [IsAuthenticated()]
             return False
 
@@ -38,8 +40,12 @@ def try_match(self):
             try:
                 queryset_dict = self.queryset[0].__dict__
                 if 'connecter_id' in queryset_dict and \
-                        queryset_dict['connecter_id'] == self.request.user.id or \
-                        queryset_dict['followed_by_id'] == self.request.user.id:
+                        queryset_dict[
+                            'connecter_id'
+                        ] == self.request.user.id or \
+                        queryset_dict[
+                            'followed_by_id'
+                        ] == self.request.user.id:
                     return [IsAuthenticated()]
             except IndexError:
                 pass
@@ -55,17 +61,17 @@ def try_match(self):
         elif basename.startswith('posts-') or \
                 basename.startswith('post-'):
             match basename:
-                case 'posts-list':
-                    profile_id = kwargs['profile_pk']
-                case 'posts-detail':
+                case 'posts-list' | 'posts-detail':
                     profile_id = kwargs['profile_pk']
                 case 'post-comments-list':
-                    if self.request.user and self.request.user.is_authenticated:
+                    if self.request.user \
+                            and self.request.user.is_authenticated:
                         return [IsAuthenticated()]
                     else:
                         return False
                 case 'post-comments-detail':
-                    profile_id = self.__dict__['comment_profile_id'].profile_id
+                    profile_id = self.__dict__['comment_profile_id'] \
+                        .profile_id
 
         try:
             return bool(self.request.user.id == int(profile_id))
