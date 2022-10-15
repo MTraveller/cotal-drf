@@ -8,6 +8,9 @@ from profiles.models import Profile
 
 
 class UserCreateSerializer(BaseUserCreateSerializer):
+    """
+    User create serializer to be used on signup.
+    """
     first_name = serializers.CharField(allow_blank=False)
     last_name = serializers.CharField(allow_blank=False)
 
@@ -19,6 +22,9 @@ class UserCreateSerializer(BaseUserCreateSerializer):
 
 
 class UserSerializer(BaseUserSerializer):
+    """
+    User serializer to send user details.
+    """
     class Meta(BaseUserSerializer.Meta):
         fields = [
             'id', 'username', 'email',
