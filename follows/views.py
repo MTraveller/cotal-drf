@@ -39,7 +39,7 @@ class FollowViewSet(ModelViewSet):
 
 class FollowingViewSet(ModelViewSet):
     """
-    Connecting view set with appropiate permission handling.
+    Following view set with appropiate permission handling.
     """
     serializer_class = FollowingSerializer
 
