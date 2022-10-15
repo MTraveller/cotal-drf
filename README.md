@@ -218,10 +218,10 @@ How to clone this project:
       <br>
       1. Choose not to clone locally then continue the below assuming you are inside the working folder.
       <!-- Step 3 - the repo you just created! -->
-      2. Do: git remote add origin https://github.com/<user>/<repo>.git 
+      2. Do: git remote add origin `https://github.com/<user>/<repo>.git`
          1. if you get an fatal: error.
          2. Do: rm -rf .git
-         3. Do: git init and git remote add origin https://github.com/<user>/<repo>.git
+         3. Do: git init and git remote add origin `https://github.com/<user>/<repo>.git`
          4. Do: git add . and git commit -m "Initial commit"
       3. Do: git branch -M main
       4. Do: git push -u origin main
