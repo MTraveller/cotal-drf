@@ -22,11 +22,11 @@ services:
           generateValue: true
         - key: DATABASE_URL
           fromDatabase:
-            name: cotal-api # Change to the below database alias
+            name: cotal-api-db # Change to the below database alias
             property: connectionString
 
 databases:
-  - name: cotal-api # Alias inside render !not database name
+  - name: cotal-api-db # Alias inside render !not database name
     region: Frankfurt # Should be in the same location as the web service
     databaseName: cotal # Database name
     user: cotal # Database user
