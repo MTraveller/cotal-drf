@@ -3,6 +3,10 @@ from .models import *
 
 
 class ConnecterSerializer(serializers.ModelSerializer):
+    """
+    Connecter serializer to initiate the connection between
+    two profiles.
+    """
     class Meta:
         model = Connected
         fields = [
@@ -24,11 +28,15 @@ class ConnecterSerializer(serializers.ModelSerializer):
 
 
 class ConnectingSerializer(serializers.ModelSerializer):
+    """
+    Connecting serializer to handle the incomming connection
+    between two profiles.
+    """
     class Meta:
         model = Connected
         fields = [
-            'id', 'connecter_choice', 'connecting_choice',
-            'connecter_choice', 'connecter_username',
+            'id', 'connecter_choice',
+            'connecting_choice', 'connecter_username',
         ]
         read_only_fields = [
             'connecter_username'
