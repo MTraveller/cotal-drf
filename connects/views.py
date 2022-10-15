@@ -8,6 +8,7 @@ from .models import *
 class ConnecterViewSet(ModelViewSet):
     """
     Connecter view set with appropiate permission handling.
+    To initiate a connection to chosen user.
     """
     serializer_class = ConnecterSerializer
 
@@ -39,6 +40,7 @@ class ConnecterViewSet(ModelViewSet):
 class ConnectingViewSet(ModelViewSet):
     """
     Connecting view set with appropiate permission handling.
+    To get all initiated connecting to user.
     """
     serializer_class = ConnectingSerializer
 
