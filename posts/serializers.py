@@ -18,7 +18,12 @@ class PostCommentSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         profile_id = self.context['user_id']
         post_id = self.context['post_id']
-        return PostComment.objects.create(profile_id=profile_id, post_id=post_id, **validated_data)
+        return PostComment.objects \
+            .create(
+                profile_id=profile_id,
+                post_id=post_id,
+                **validated_data
+            )
 
 
 class PostImageSerializer(serializers.ModelSerializer):
@@ -53,8 +58,11 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'profile', 'title', 'slug',
-                  'post', 'tags', 'add_tags', 'postimages', 'postcomments']
+        fields = [
+            'id', 'profile', 'title', 'slug',
+            'post', 'tags', 'add_tags',
+            'postimages', 'postcomments'
+        ]
         read_only_fields = ['slug']
 
     def create(self, validated_data):
