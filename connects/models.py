@@ -5,10 +5,10 @@ from profiles.models import Profile
 
 
 class Connected(models.Model):
-    connecter = models.ForeignKey(Profile,
-                                  on_delete=models.CASCADE, related_name='connecters')
-    connecting = models.ForeignKey(Profile,
-                                   on_delete=models.CASCADE, related_name='connectings')
+    connecter = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='connecters')
+    connecting = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='connectings')
 
     connecter_username = models.CharField(max_length=150)
 

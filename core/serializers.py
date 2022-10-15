@@ -12,13 +12,18 @@ class UserCreateSerializer(BaseUserCreateSerializer):
     last_name = serializers.CharField(allow_blank=False)
 
     class Meta(BaseUserCreateSerializer.Meta):
-        fields = ['id', 'username', 'password',
-                  'email', 'first_name', 'last_name']
+        fields = [
+            'id', 'username', 'password',
+            'email', 'first_name', 'last_name'
+        ]
 
 
 class UserSerializer(BaseUserSerializer):
     class Meta(BaseUserSerializer.Meta):
-        fields = ['id', 'username', 'email', 'first_name', 'last_name']
+        fields = [
+            'id', 'username', 'email',
+            'first_name', 'last_name'
+        ]
 
 
 class ProfileUserSerializer(BaseUserSerializer):

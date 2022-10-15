@@ -35,6 +35,7 @@ class ConnectingSerializer(serializers.ModelSerializer):
         ]
 
     def update(self, instance, validated_data):
-        instance.connecting_choice = validated_data.get('connecting_choice')
+        instance.connecting_choice \
+            = validated_data.get('connecting_choice')
         instance.save()
         return instance
