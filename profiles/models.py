@@ -30,7 +30,9 @@ class Profile(models.Model):
         __empty__ = _('Not Specified')
 
     status = models.CharField(
-        max_length=19, choices=Status.choices, default=Status.__empty__, null=True)
+        max_length=19, choices=Status.choices,
+        default=Status.__empty__, null=True
+    )
     location = models.CharField(max_length=255, null=True)
 
     def save(self, *args, **kwargs):

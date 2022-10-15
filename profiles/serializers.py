@@ -34,7 +34,8 @@ class ProfileSocialSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
-        return Social.objects.create(profile_id=profile_id, **validated_data)
+        return Social.objects \
+                     .create(profile_id=profile_id, **validated_data)
 
 
 class ProfilePortfolioSerializer(serializers.ModelSerializer):
@@ -44,7 +45,7 @@ class ProfilePortfolioSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
-        return Portfolio.objects\
+        return Portfolio.objects \
                         .create(profile_id=profile_id, **validated_data)
 
 
@@ -55,7 +56,8 @@ class ProfileAwardSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
-        return Award.objects.create(profile_id=profile_id, **validated_data)
+        return Award.objects \
+                    .create(profile_id=profile_id, **validated_data)
 
 
 class ProfileCertificateSerializer(serializers.ModelSerializer):
@@ -65,7 +67,7 @@ class ProfileCertificateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
-        return Certificate.objects\
+        return Certificate.objects \
                           .create(profile_id=profile_id, **validated_data)
 
 
@@ -76,7 +78,7 @@ class ProfileCreativeSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
-        return Creative.objects\
+        return Creative.objects \
                        .create(profile_id=profile_id, **validated_data)
 
 
@@ -87,7 +89,8 @@ class ProfileSettingSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
-        return Setting.objects.create(profile_id=profile_id, **validated_data)
+        return Setting.objects \
+                      .create(profile_id=profile_id, **validated_data)
 
 
 class ProfileSerializer(serializers.ModelSerializer):
