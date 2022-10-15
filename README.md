@@ -211,42 +211,42 @@ How to clone this project:
 
    First create a folder anywhere you want to work with this repo. Inside this folder, follow the steps below.
 
-   1. In a terminal window do: git clone https://github.com/MTraveller/cotal-drf.git
+   1. In a terminal window do: `git clone https://github.com/MTraveller/cotal-drf.git`
    2. cd into folder
    3. install [GitHub cli](https://cli.github.com "cli.github.com") if you don't have it.
-   4. Do: gh repo create - follow instruction "Choose: No license, no readme - just create an  empty repo".
+   4. Do: `gh repo create` - follow instruction "Choose: No license, no readme - just create an  empty repo".
       <br>
       1. Choose not to clone locally then continue the below assuming you are inside the working folder.
       <!-- Step 3 - the repo you just created! -->
-      2. Do: git remote add origin `https://github.com/<user>/<repo>.git`
+      2. Do: `git remote add origin https://github.com/<user>/<repo>.git`
          1. if you get an fatal: error.
-         2. Do: rm -rf .git
-         3. Do: git init and git remote add origin `https://github.com/<user>/<repo>.git`
-         4. Do: git add . and git commit -m "Initial commit"
-      3. Do: git branch -M main
-      4. Do: git push -u origin main
+         2. Do: `rm -rf .git`
+         3. Do: `git init` and `git remote add origin https://github.com/<user>/<repo>.git`
+         4. Do: `git add .` and `git commit -m "Initial commit"`
+      3. Do: `git branch -M main`
+      4. Do: `git push -u origin main`
       5. Wait until files are uploaded, can take some time.
       6. Now this project is in your created repo.
       <br>
    1. Development:
-      1. Find and rename dev_file_rename_to_just_dev.py to dev.py
+      1. Find and rename `cotal_drf_api/settings/dev_file_rename_to_just_dev.py` to dev.py
       2. Add a Django secret key from the provided website and add your cloudinary api `cloudinary://my_key:my_secret@my_cloud_name`.
       3. Open the terminal or a new one and cd to the cloned project folder.
-      3. Do: python or python3 install -r requirements.txt
-      4. Do: python or python3 runserver 127.0.0.1:3000
+      3. Do: `python` or `python3 install -r requirements.txt`
+      4. Do: `python` or `python3 runserver 127.0.0.1:3000`
       5. You should now be able to open project on 127.0.0.1:3000
       <br>
    2. Production:
       1. Sign-in or signup for a [Render.com](https://render.com "render.com") account.
-      2. Open config/.env file copy all variables and change accordingly in a new text document "keep it open".
-      3. Open render.yaml and make any changes to reflect your project, like names, location etc.
+      2. Open `config/.env` file copy all variables and change accordingly in a new text document "keep it open".
+      3. Open `render.yaml` and make any changes to reflect your project, like names, location etc.
       4. Go to Render.com and go to [New Env Group](https://dashboard.render.com/new/env-group "dashboard.render.com/new/env-group")
       5. Create a new environment group for this project.
       6. Scroll down to "Secret Files" press "Add Secret" in key add: .env then press the eye and add all variables from the open text document you made in step 2 and save.
       7. In the same terminal window, or open a new one if closed and cd to project folder.
-      8. Do: git add .
-      9. Do: git commit -m "Your Message"
-      10. Do: git push
+      8. Do: `git add .`
+      9. Do: `git commit -m "Your Message"`
+      10. Do: `git push -u origin main`
       11. Go to [render to add new blueprint](https://dashboard.render.com/select-repo?type=blueprint "dashboard.render.com/select-repo?type=blueprint")
       12. Connect your github account and give render access to the repo.
       13. Connect repo and choose service name and press apply.
