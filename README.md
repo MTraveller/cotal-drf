@@ -216,6 +216,7 @@ How to clone this project:
    
    1. Do: `git clone https://github.com/MTraveller/cotal-drf.git` "Press Enter"
    2. cd into cloned folder `cotal-drf`.
+      -  Find the folder by Do: `find . -name "cotal-drf" -type d` on linux.
    3. install [GitHub cli](https://cli.github.com "cli.github.com") if you don't have it.
    4. Do: `gh repo create` "Press Enter"
    - Choose:
@@ -228,8 +229,8 @@ How to clone this project:
    -  Continue the below assuming you are inside the working folder.
       1. Do: `rm -rf .git` "Press Enter"
       2. Do: `git init` "Press Enter"
-      <!-- Step 3 - the repo you just created! -->
       3. Do: `git remote add origin https://github.com/<your-user-name>/<created-repo-name>.git` "Press Enter"
+         -  The repo you just created!
       4. Do: `git add .` "Press Enter"
       5. Do: `git commit -m "Initial commit"` "Press Enter"
       6. Do: `git branch -M main` "Press Enter"
@@ -238,8 +239,8 @@ How to clone this project:
       9. Now this project is in your created repo.
       <br>
    1. Development:
-      <!-- dev.py is automatically ignored by git -->
       1. Find and rename `cotal_drf_api/settings/dev_file_rename_to_just_dev.py` to dev.py
+         -  dev.py is automatically ignored by git
       2. Add a Django secret key from the provided website and add your cloudinary api `cloudinary://my_key:my_secret@my_cloud_name`.
       3. Open the terminal or a new one and cd to the cloned project folder.
       3. Do: `python` or `python3 install -r requirements.txt` "Press Enter"
