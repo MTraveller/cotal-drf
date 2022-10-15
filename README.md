@@ -229,6 +229,7 @@ How to clone this project:
       6. Now this project is in your created repo.
       <br>
    1. Development:
+      <!-- dev.py is automatically ignored by git -->
       1. Find and rename `cotal_drf_api/settings/dev_file_rename_to_just_dev.py` to dev.py
       2. Add a Django secret key from the provided website and add your cloudinary api `cloudinary://my_key:my_secret@my_cloud_name`.
       3. Open the terminal or a new one and cd to the cloned project folder.
