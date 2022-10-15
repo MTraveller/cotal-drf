@@ -4,7 +4,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 
 def handle_redirect(request, *args, **kwargs):
-
     return HttpResponseRedirect(settings.API_ENDPOINT)
 
 
