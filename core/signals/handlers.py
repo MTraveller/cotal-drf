@@ -13,6 +13,9 @@ from . import (
 )
 
 
+# Hack for adding initial db record for all models
+# for grapghQL to use on the frontend and by pass not shown
+# query options on build time
 @receiver(initial_db)
 def create_initial_db_for_frontend_graph_ql(sender, **kwargs):
     return do_initial_db_populate(**kwargs)
