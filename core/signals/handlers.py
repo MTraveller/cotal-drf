@@ -22,22 +22,6 @@ def create_initial_db_for_frontend_graph_ql(sender, **kwargs):
 def create_profile(sender, instance, **kwargs):
     """ Signal to create profile on user creation """
     Profile.objects.create(user=instance)
-    Linktree.objects.create(
-        profile_id=instance.id, username='')
-    Social.objects.create(
-        profile_id=instance.id, name='', username='')
-    Portfolio.objects.create(
-        profile_id=instance.id,
-        image='null', title='', description='', link='')
-    Award.objects.create(
-        profile_id=instance.id,
-        image='null', title='', description='', link='')
-    Certificate.objects.create(
-        profile_id=instance.id,
-        image='null', title='', description='', link='')
-    Creative.objects.create(
-        profile_id=instance.id,
-        title='', description='', link='')
     Setting.objects.create(profile_id=instance.id)
 
 
