@@ -4,11 +4,18 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save, post_delete
 import cloudinary
 import cloudinary.api
+from ..initial_db import do_initial_db_populate
 from profiles.models import *
 from . import (
+    initial_db,
     profile_deleted, media_uploaded,
     instance_deleted, profile_connect
 )
+
+
+@receiver(initial_db)
+def create_initial_db_for_frontend_graph_ql(sender, **kwargs):
+    return do_initial_db_populate(**kwargs)
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
@@ -20,13 +27,17 @@ def create_profile(sender, instance, **kwargs):
     Social.objects.create(
         profile_id=instance.id, name='', username='')
     Portfolio.objects.create(
-        profile_id=instance.id, title='', description='')
+        profile_id=instance.id,
+        image='null', title='', description='', link='')
     Award.objects.create(
-        profile_id=instance.id, title='', description='')
+        profile_id=instance.id,
+        image='null', title='', description='', link='')
     Certificate.objects.create(
-        profile_id=instance.id, title='', description='')
+        profile_id=instance.id,
+        image='null', title='', description='', link='')
     Creative.objects.create(
-        profile_id=instance.id, title='', description='')
+        profile_id=instance.id,
+        title='', description='', link='')
     Setting.objects.create(profile_id=instance.id)
 
 

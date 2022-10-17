@@ -1,6 +1,9 @@
 """ Core Custom Signals """
 from django.dispatch import Signal
 
+# Signal for initial db
+initial_db = Signal()
+
 # Signal for user created
 user_created = Signal()
 
