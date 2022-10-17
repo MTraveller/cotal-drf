@@ -17,17 +17,16 @@ class ProfileLinktreeSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
-        return Linktree.objects\
-            .create(profile_id=profile_id, **validated_data)
-
-    def save(self, *args, **kwargs):
-        profile_id = self.context['profile_id']
         if Linktree.objects.filter(profile_id=profile_id).count() >= 1:
             raise serializers.ValidationError({
                 'detail': 'You can only have 1 %s link' % Linktree.__name__
             })
         else:
-            super().save(*args, **kwargs)
+            return Linktree.objects\
+                .create(profile_id=profile_id, **validated_data)
+
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
 
 
 class ProfileSocialSerializer(serializers.ModelSerializer):
