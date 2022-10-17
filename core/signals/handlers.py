@@ -4,7 +4,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save, post_delete
 import cloudinary
 import cloudinary.api
-from profiles.models import Profile, Setting
+from profiles.models import *
 from . import (
     profile_deleted, media_uploaded,
     instance_deleted, profile_connect
@@ -15,6 +15,18 @@ from . import (
 def create_profile(sender, instance, **kwargs):
     """ Signal to create profile on user creation """
     Profile.objects.create(user=instance)
+    Linktree.objects.create(
+        profile_id=instance.id, username='')
+    Social.objects.create(
+        profile_id=instance.id, name='', username='')
+    Portfolio.objects.create(
+        profile_id=instance.id, title='', description='')
+    Award.objects.create(
+        profile_id=instance.id, title='', description='')
+    Certificate.objects.create(
+        profile_id=instance.id, title='', description='')
+    Creative.objects.create(
+        profile_id=instance.id, title='', description='')
     Setting.objects.create(profile_id=instance.id)
 
 
