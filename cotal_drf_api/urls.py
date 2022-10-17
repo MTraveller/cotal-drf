@@ -24,7 +24,7 @@ from . import views
 
 
 patterns = ([
-    path('', views.api_root),  # type: ignore
+    path('', views.api_start_endpoint),  # type: ignore
     path('profiles/', include('profiles.urls')),
     path('posts/', include('posts.urls')),
     path('auth/', include('djoser.urls')),
@@ -33,7 +33,7 @@ patterns = ([
 ])
 
 urlpatterns = [
-    path('', views.handle_redirect),
+    path('', views.api_root),  # type: ignore
     path(settings.API_ENDPOINT, include(patterns)),
 ]
 
