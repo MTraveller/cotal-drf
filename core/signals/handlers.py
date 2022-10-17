@@ -24,8 +24,9 @@ def create_initial_db_for_frontend_graph_ql(sender, **kwargs):
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_profile(sender, instance, **kwargs):
     """ Signal to create profile on user creation """
-    Profile.objects.create(user=instance)
-    Setting.objects.create(profile_id=instance.id)
+    if not instance.username == 'initial_user':
+        Profile.objects.create(user=instance)
+        Setting.objects.create(profile_id=instance.id)
 
 
 @receiver(post_delete, sender=Profile)
