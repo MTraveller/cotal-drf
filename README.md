@@ -196,7 +196,7 @@ How to clone this project:
 2. In the HTTPS tap, click on the clipboard icon to copy the given URL.
 3. In your IDE of choice, open git bash.
 4. Change the current working directory to where you want the cloned directory to be.
-5. Type git clone, paste the URL copied from GitHub - hhttps://github.com/MTraveller/cotal-drf.git.
+5. Type git clone, paste the URL copied from GitHub - https://github.com/MTraveller/cotal-drf.git.
 6. Press enter, and you are done.
 
 <br>
@@ -248,8 +248,9 @@ I use: [Hyper](https://hyper.is "hyper.is")
          7. Do: `git push -u origin main` "Press Enter"
          8. Wait until files are uploaded, usually takes a couple seconds.
          9. Now this project is in your created repo.
-            -  to push to GitHub you must use this command else to use git push.
-            -  Do: `git branch --set-upstream-to=origin/main main` "Press Enter"
+            -  to push to GitHub you must use the command from step 7
+            -  to push using only git push:
+               -  Do: `git branch --set-upstream-to=origin/main main` "Press Enter"
 
       <br>
    1. Development:
