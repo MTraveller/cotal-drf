@@ -216,7 +216,11 @@ I use: [Hyper](https://hyper.is "hyper.is")
    
    1. Do: `git clone https://github.com/MTraveller/cotal-drf.git` "Press Enter"
    2. cd into cloned folder `cotal-drf`.
-      -  Find the folder by Do: `find . -name "cotal-drf" -type d` on linux.
+      -  Find the folder: 
+         -  on linux: Do: `find . -name "cotal-drf" -type d` "Press Enter"
+         -  on windows Do: `dir "cotal-drf" /AD /s` "Press Enter"
+            -  in root - e.g. C:/
+            -  [read more here](https://superuser.com/questions/428088/find-a-directory-folder-with-cmd-without-knowing-full-path "superuser.com/questions/428088/find-a-directory-folder-with-cmd-without-knowing-full-path")
    3. install [GitHub cli](https://cli.github.com "cli.github.com") if you don't have it.
       -  Do: `gh auth login` "Press Enter"
          -  follow the instructions to connect the Github CLI to your Github account.
