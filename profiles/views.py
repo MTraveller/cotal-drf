@@ -23,6 +23,7 @@ class ProfileViewSet(ModelViewSet):
         ) \
         .all()
     serializer_class = ProfileSerializer
+    lookup_field = 'slug'
 
     def get_permissions(self):
         return do_permissions(self)

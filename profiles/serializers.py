@@ -142,3 +142,4 @@ class ProfileSerializer(serializers.ModelSerializer):
             'awards', 'certificates', 'creatives', 'settings',
             'connecters', 'connectings', 'followers', 'followings',
         ]
+        lookup_field = ['slug']
