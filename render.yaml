@@ -5,9 +5,9 @@ services:
   - type: web
     name: cotal-api # The subdomain of the url app-name.onrender.com
     env: python
-    region: Frankfurt # Change the location to one of the available locations on render.com
+    region: Frankfurt # Change the region to one of the available regions on render.com
     buildCommand: "./build.sh"
-    startCommand: gunicorn cotal_drf_api.wsgi # Change the name of the project e.g. your-project-name.wsgi
+    startCommand: gunicorn cotal_drf_api.wsgi # Change only if you know what you're doing!
     repo: https://github.com/MTraveller/cotal-drf.git # Change the repo to your repo
     branch: main
     autoDeploy: false
@@ -17,10 +17,10 @@ services:
         - key: WEB_CONCURRENCY
           value: 4 # Number of webworkers
         - key: DJANGO_SETTINGS_MODULE
-          value: cotal_drf_api.settings.prod # Change this to your current project settings file
+          value: cotal_drf_api.settings.prod # Change only if you know what you're doing!
         - key: DJANGO_SECRET_KEY
           generateValue: true
-        - fromGroup: Cotal # Change this to the created environment group on render.com
+        - fromGroup: Cotal # Change this to the created environment group on render.com - created in step 3 under Production
         - key: DATABASE_URL
           fromDatabase:
             name: cotal-api-db # Change to the below database alias
