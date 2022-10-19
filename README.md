@@ -218,28 +218,30 @@ I use: [Hyper](https://hyper.is "hyper.is")
    2. cd into cloned folder `cotal-drf`.
       -  Find the folder by Do: `find . -name "cotal-drf" -type d` on linux.
    3. install [GitHub cli](https://cli.github.com "cli.github.com") if you don't have it.
+      -  Do: `gh auth login` "Press Enter"
+         -  follow the instructions to connect the Github CLI to your Github account.
    4. Do: `gh repo create` "Press Enter"
-   - Choose:
-      - Create a new repository from scratch
-      - No license
-      - No readme
-      - Do not clone
-      - Make public
-      <br>
+      - Choose:
+         - Create a new repository from scratch
+         - No license
+         - No readme
+         - Do not clone
+         - Make public
+         <br>
 
-   -  Continue the below assuming you are inside the working folder.
-      1. Do: `rm -rf .git` "Press Enter"
-      2. Do: `git init` "Press Enter"
-      3. Do: `git remote add origin https://github.com/<your-user-name>/<created-repo-name>.git` "Press Enter"
-         -  The repo you just created!
-      4. Do: `git add .` "Press Enter"
-      5. Do: `git commit -m "Initial commit"` "Press Enter"
-      6. Do: `git branch -M main` "Press Enter"
-      7. Do: `git push -u origin main` "Press Enter"
-      8. Wait until files are uploaded, usually takes a couple seconds.
-      9. Now this project is in your created repo.
-         -  to push to GitHub you must use this command else to use git push.
-         -  Do: `git branch --set-upstream-to=origin/main main` "Press Enter"
+      -  Continue the below assuming you are inside the working folder.
+         1. Do: `rm -rf .git` "Press Enter"
+         2. Do: `git init` "Press Enter"
+         3. Do: `git remote add origin https://github.com/<your-user-name>/<created-repo-name>.git` "Press Enter"
+            -  The repo you just created!
+         4. Do: `git add .` "Press Enter"
+         5. Do: `git commit -m "Initial commit"` "Press Enter"
+         6. Do: `git branch -M main` "Press Enter"
+         7. Do: `git push -u origin main` "Press Enter"
+         8. Wait until files are uploaded, usually takes a couple seconds.
+         9. Now this project is in your created repo.
+            -  to push to GitHub you must use this command else to use git push.
+            -  Do: `git branch --set-upstream-to=origin/main main` "Press Enter"
 
       <br>
    1. Development:
