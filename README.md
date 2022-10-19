@@ -141,6 +141,10 @@ The Kanban board used was created using Github projects and can be seen [here](h
 - DataGrip is a database IDE tailored to suit professional SQL developers' specific needs.
 13. [VScode](https://code.visualstudio.com "code.visualstudio.com")
 - Visual Studio Code is a code editor redefined and optimized for building and debugging modern web and cloud applications. Visual Studio Code is free and available on your favorite platform - Linux, macOS, and Windows.
+14. [pipenv](https://pipenv.pypa.io/en/latest/ "pipenv.pypa.io/en/latest/")
+-  Pipenv is a tool that aims to bring the best of all packaging worlds (bundler, composer, npm, cargo, yarn, etc.) to the Python world. Windows is a first-class citizen, in our world.
+
+-  It automatically creates and manages a virtualenv for your projects, as well as adds/removes packages from your Pipfile as you install/uninstall packages. It also generates the ever-important Pipfile.lock, which is used to produce deterministic builds.
 
    <br>
 
@@ -254,6 +258,9 @@ I use: [Hyper](https://hyper.is "hyper.is")
          -  add a Django secret key from the provided website
          -  add your cloudinary api `cloudinary://my_key:my_secret@my_cloud_name`.
       2. Open the terminal or a new one and cd to the cloned project folder.
+         -  I recommend to continue with an virtual environment for more see:
+            -  [pipenv](https://pipenv.pypa.io/en/latest/ "pipenv.pypa.io/en/latest/")
+            -  just remember to set vscode python interpeter to the virtual environment used if vscode is used. For other programs you'll have to see their docs.
       3. Do: `python` or `python3 install -r requirements.txt` "Press Enter"
       4. Do: `python` or `python3 runserver 127.0.0.1:3000` "Press Enter"
       5. You should now be able to open the project on 127.0.0.1:3000
