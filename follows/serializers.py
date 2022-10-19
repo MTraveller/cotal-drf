@@ -9,7 +9,7 @@ class FollowSerializer(serializers.ModelSerializer):
     class Meta:
         model = Followed
         fields = [
-            'follower_choice', 'followed_by_name',
+            'id', 'follower_choice', 'followed_by_name',
             'followed_by_username',
         ]
         read_only_fields = [

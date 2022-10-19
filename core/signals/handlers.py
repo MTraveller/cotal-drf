@@ -4,27 +4,17 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save, post_delete
 import cloudinary
 import cloudinary.api
-from ..initial_db import do_initial_db_populate
 from profiles.models import *
 from . import (
-    initial_db,
     profile_deleted, media_uploaded,
     instance_deleted, profile_connect
 )
 
 
-# Hack for adding initial db record for all models
-# for grapghQL to use on the frontend and by pass not shown
-# query options on build time
-@receiver(initial_db)
-def create_initial_db_for_frontend_graph_ql(sender, **kwargs):
-    return do_initial_db_populate(**kwargs)
-
-
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_profile(sender, instance, **kwargs):
     """ Signal to create profile on user creation """
-    if not instance.username == 'initial_user':
+    if not instance.username == 'initial':
         Profile.objects.create(user=instance)
         Setting.objects.create(profile_id=instance.id)
 
@@ -75,6 +65,8 @@ def delete_instance_image_cloudinary(sender, **kwargs):
     cloudinary.uploader.destroy(str(kwargs['image']))  # type: ignore
 
 
+# Signal to send email on connect
 @receiver(profile_connect)
 def initiate_profile_connect(sender, **kwargs):
-    print("Connecting")
+    # print("Connecting")
+    return

@@ -7,6 +7,3 @@ class CoreConfig(AppConfig):
 
     def ready(self):
         import core.signals.handlers
-        from core.signals import initial_db
-
-        initial_db.send_robust(sender='initial', name='initial')
