@@ -199,20 +199,20 @@ How to clone this project:
 
 ### Deploy
 
-1. #### Development and Production
+#### Development and Production
 
--  This project was chosen to be hosted on render.com, if you choose to host else where please consult the docs of that host. Choosing to host on render then follow the steps below.
-   <br>
+This project was chosen to be hosted on render.com, if you choose to host else where please consult the docs of that host. Choosing to host on render then follow the steps below.
+<br>
 
-   First create a folder anywhere you want to work with this repo. Inside this folder, follow the steps below.
+First create a folder anywhere you want to work with this repo. Inside this folder, follow the steps below.
 
-   Assuming you have a Github account, if not, sign-up for an Github account and continue with the below steps.
-   If you do not have an terminal app you can see which option there is for your operation system.
+Assuming you have a Github account, if not, sign-up for an Github account and continue with the below steps.
+If you do not have an terminal app you can see which option there is for your operation system.
 
-   We will be using a terminal window to continue with the steps below.
-   I use: [Hyper](https://hyper.is "hyper.is")
+We will be using a terminal window to continue with the steps below.
+I use: [Hyper](https://hyper.is "hyper.is")
 
-   `Do:` means to input the command `highlighted` into the terminal followed by "Enter" on the keyboard.
+`Do:` means to input the command `highlighted` into the terminal followed by "Enter" on the keyboard.
    
    1. Do: `git clone https://github.com/MTraveller/cotal-drf.git` "Press Enter"
    2. cd into cloned folder `cotal-drf`.
@@ -226,6 +226,7 @@ How to clone this project:
       - Do not clone
       - Make public
       <br>
+
    -  Continue the below assuming you are inside the working folder.
       1. Do: `rm -rf .git` "Press Enter"
       2. Do: `git init` "Press Enter"
@@ -237,32 +238,41 @@ How to clone this project:
       7. Do: `git push -u origin main` "Press Enter"
       8. Wait until files are uploaded, usually takes a couple seconds.
       9. Now this project is in your created repo.
+         -  to push to GitHub you must use this command else to use git push.
+         -  Do: `git branch --set-upstream-to=origin/main main` "Press Enter"
+
       <br>
    1. Development:
       1. Find and rename `cotal_drf_api/settings/dev_file_rename_to_just_dev.py` to dev.py
          -  dev.py is automatically ignored by git
-      2. Add a Django secret key from the provided website and add your cloudinary api `cloudinary://my_key:my_secret@my_cloud_name`.
-      3. Open the terminal or a new one and cd to the cloned project folder.
+         -  add a Django secret key from the provided website
+         -  add your cloudinary api `cloudinary://my_key:my_secret@my_cloud_name`.
+      2. Open the terminal or a new one and cd to the cloned project folder.
       3. Do: `python` or `python3 install -r requirements.txt` "Press Enter"
       4. Do: `python` or `python3 runserver 127.0.0.1:3000` "Press Enter"
-      5. You should now be able to open project on 127.0.0.1:3000
+      5. You should now be able to open the project on 127.0.0.1:3000
       <br>
    2. Production:
       1. Sign-in or signup for a [Render.com](https://render.com "render.com") account.
       2. Open `config/.env` file copy all variables and change accordingly in a new text document "keep it open".
-      3. Open `render.yaml` and make any changes to reflect your project, like names, location etc.
-      4. Go to Render.com and go to [New Env Group](https://dashboard.render.com/new/env-group "dashboard.render.com/new/env-group")
-      5. Create a new environment group for this project.
-      6. Scroll down to "Secret Files" press "Add Secret" in key add: .env then press the eye and add all variables from the open text document you made in step 2 and save.
-      7. In the same terminal window, or open a new one if closed and cd to project folder.
-      8. Do: `git add .` "Press Enter"
-      9. Do: `git commit -m "Your Message"` "Press Enter"
-      10. Do: `git push -u origin main` "Press Enter"
-      11. Go to [render to add a new blueprint](https://dashboard.render.com/select-repo?type=blueprint "dashboard.render.com/select-repo?type=blueprint")
-      12. Connect your github account and give render access to the repo.
-      13. Connect repo and choose service name and press apply.
-      14. The project should be live in a couple minutes.
-      15. Press on "Dashboard" in the navigation bar to see the creation process.
+      3. Go to [New Env Group](https://dashboard.render.com/new/env-group "dashboard.render.com/new/env-group") and create a new environment group for this project.
+      4. Scroll down to "Secret Files" press "Add Secret":
+         -  in key input add:
+            - .env
+         -  press the eye and add:
+            - all variables from the open text document you made in step 2
+         -  press save.
+      5. Open `render.yaml` and make any changes to reflect your project, fromGroup(from step 3) names, region etc.
+         - find available [regions here](https://render.com/docs/regions "render.com/docs/regions")
+      6. In the same terminal window, or open a new one if closed and cd to project folder.
+      7. Do: `git add .` "Press Enter"
+      8. Do: `git commit -m "Your Message"` "Press Enter"
+      9. Do: `git push -u origin main` or `git push` if upstream is set "Press Enter"
+      10. Go to [render to add a new blueprint](https://dashboard.render.com/select-repo?type=blueprint "dashboard.render.com/select-repo?type=blueprint")
+      11. Connect your github account and give render access to the repo.
+      12. Connect repo and choose service name and press apply.
+      13. The project should be live in a couple minutes.
+      14. Press on "Dashboard" in the navigation bar to see the creation process.
 
 <br>
 
