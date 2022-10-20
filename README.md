@@ -262,6 +262,8 @@ I use: [Hyper](https://hyper.is "hyper.is")
          -  I recommend to continue with an virtual environment for more see:
             -  [pipenv](https://pipenv.pypa.io/en/latest/ "pipenv.pypa.io/en/latest/")
             -  just remember to set vscode python interpeter to the virtual environment used if vscode is used. For other programs you'll have to see their docs.
+            -  Activate a pipenv environment:
+               - Do: `pipenv shell` "Press Enter"
       -  Depending on your operating system or if pipenv is used:
          -  on windows use `python`
          -  on linux based systems use `python3`
