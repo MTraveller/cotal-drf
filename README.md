@@ -218,42 +218,43 @@ I use: [Hyper](https://hyper.is "hyper.is")
 
 `Do:` means to input the command `highlighted` into the terminal followed by "Enter" on the keyboard.
    
-   1. Do: `git clone https://github.com/MTraveller/cotal-drf.git` "Press Enter"
-   2. cd into cloned folder `cotal-drf`.
-      -  Find the folder: 
-         -  on linux: Do: `find . -name "cotal-drf" -type d` "Press Enter"
-         -  on windows Do: `dir "cotal-drf" /AD /s` "Press Enter"
-            -  in root - e.g. C:/
-            -  [read more here](https://superuser.com/questions/428088/find-a-directory-folder-with-cmd-without-knowing-full-path "superuser.com/questions/428088/find-a-directory-folder-with-cmd-without-knowing-full-path")
-   3. install [GitHub cli](https://cli.github.com "cli.github.com") if you don't have it.
-      -  Do: `gh auth login` "Press Enter"
-         -  follow the instructions to connect the Github CLI to your Github account.
-   4. Do: `gh repo create` "Press Enter"
-      - Choose:
-         - Create a new repository from scratch
-         - No license
-         - No readme
-         - Do not clone
-         - Make public
-         <br>
+   1. Prerequisite
+      1. Do: `git clone https://github.com/MTraveller/cotal-drf.git` "Press Enter"
+      2. cd into cloned folder `cotal-drf`.
+         -  Find the folder: 
+            -  on linux: Do: `find . -name "cotal-drf" -type d` "Press Enter"
+            -  on windows Do: `dir "cotal-drf" /AD /s` "Press Enter"
+               -  in root - e.g. C:/
+               -  [read more here](https://superuser.com/questions/428088/find-a-directory-folder-with-cmd-without-knowing-full-path "superuser.com/questions/428088/find-a-directory-folder-with-cmd-without-knowing-full-path")
+      3. install [GitHub cli](https://cli.github.com "cli.github.com") if you don't have it.
+         -  Do: `gh auth login` "Press Enter"
+            -  follow the instructions to connect the Github CLI to your Github account.
+      4. Do: `gh repo create` "Press Enter"
+         - Choose:
+            - Create a new repository from scratch
+            - No license
+            - No readme
+            - Do not clone
+            - Make public
+            <br>
 
-      -  Continue the below assuming you are inside the working folder.
-         1. Do: `rm -rf .git` "Press Enter"
-         2. Do: `git init` "Press Enter"
-         3. Do: `git remote add origin https://github.com/<your-user-name>/<created-repo-name>.git` "Press Enter"
-            -  The repo you just created!
-         4. Do: `git add .` "Press Enter"
-         5. Do: `git commit -m "Initial commit"` "Press Enter"
-         6. Do: `git branch -M main` "Press Enter"
-         7. Do: `git push -u origin main` "Press Enter"
-         8. Wait until files are uploaded, usually takes a couple seconds.
-         9. Now this project is in your created repo.
-            -  to push to GitHub you must use the command from step 7
-            -  to push using only git push:
-               -  Do: `git branch --set-upstream-to=origin/main main` "Press Enter"
+         -  Continue the below assuming you are inside the working folder.
+            1. Do: `rm -rf .git` "Press Enter"
+            2. Do: `git init` "Press Enter"
+            3. Do: `git remote add origin https://github.com/<your-user-name>/<created-repo-name>.git` "Press Enter"
+               -  The repo you just created!
+            4. Do: `git add .` "Press Enter"
+            5. Do: `git commit -m "Initial commit"` "Press Enter"
+            6. Do: `git branch -M main` "Press Enter"
+            7. Do: `git push -u origin main` "Press Enter"
+            8. Wait until files are uploaded, usually takes a couple seconds.
+            9. Now this project is in your created repo.
+               -  to push to GitHub you must use the command from step 7
+               -  to push using only git push:
+                  -  Do: `git branch --set-upstream-to=origin/main main` "Press Enter"
 
-      <br>
-   1. Development:
+                  <br>
+   2. Development:
       1. Find and rename `cotal_drf_api/settings/dev_file_rename_to_just_dev.py` to dev.py
          -  dev.py is automatically ignored by git
          -  add a Django secret key from the provided website
@@ -261,9 +262,9 @@ I use: [Hyper](https://hyper.is "hyper.is")
       2. Open the terminal or a new one and cd to the cloned project folder.
          -  I recommend to continue with an virtual environment for more see:
             -  [pipenv](https://pipenv.pypa.io/en/latest/ "pipenv.pypa.io/en/latest/")
-            -  just remember to set vscode python interpeter to the virtual environment used if vscode is used. For other programs you'll have to see their docs.
             -  Activate a pipenv environment:
                - Do: `pipenv shell` "Press Enter"
+            -  just remember to set vscode python interpeter to the virtual environment used if vscode is used. For other programs you'll have to see their docs.
       -  Depending on your operating system or if pipenv is used:
          -  on windows use `python`
          -  on linux based systems use `python3`
@@ -272,7 +273,7 @@ I use: [Hyper](https://hyper.is "hyper.is")
       4. Do: `python` or `python3` `manage.py runserver 127.0.0.1:3000` "Press Enter"
       5. You should now be able to open the project on 127.0.0.1:3000
       <br>
-   2. Production:
+   3. Production:
       1. Sign-in or signup for a [Render.com](https://render.com "render.com") account.
       2. Open `config/.env` file copy all variables and change accordingly in a new text document "keep it open".
       3. Go to [New Env Group](https://dashboard.render.com/new/env-group "dashboard.render.com/new/env-group") and create a new environment group for this project.
@@ -282,7 +283,7 @@ I use: [Hyper](https://hyper.is "hyper.is")
          -  press the eye and add:
             - all variables from the open text document you made in step 2
          -  press save.
-      5. Open `render.yaml` and make any changes to reflect your project, fromGroup(from step 3) names, region etc.
+      5. Open `render.yaml` and make any changes to reflect your project, fromGroup(env group name from step 3),  names, region etc.
          - find available [regions here](https://render.com/docs/regions "render.com/docs/regions")
       6. In the same terminal window, or open a new one if closed and cd to project folder.
       7. Do: `git add .` "Press Enter"
