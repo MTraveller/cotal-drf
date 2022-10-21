@@ -8,5 +8,8 @@ class User(AbstractUser):
     """
     email = models.EmailField(unique=True)
 
+    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'email'
+
     def __str__(self):
         return self.first_name + ' ' + self.last_name
