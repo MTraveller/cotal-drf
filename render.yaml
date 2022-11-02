@@ -3,6 +3,7 @@
 ##################################################
 services: 
   - type: web
+    plan: free
     name: cotal-api # The subdomain of the url app-name.onrender.com
     env: python
     region: Frankfurt # Change the region to one of the available regions on render.com
@@ -28,6 +29,7 @@ services:
 
 databases:
   - name: cotal-api-db # Alias inside render !not database name
+    plan: free
     region: Frankfurt # Should be in the same location as the web service
     databaseName: cotal # Database name
     user: cotal # Database user
