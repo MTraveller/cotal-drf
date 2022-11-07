@@ -39,6 +39,11 @@ MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
 #     'rest_framework.renderers.JSONRenderer',
 # )
 
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+}
+
 # This is the api endpoint e.g. 127.0.0.1:<port>/api/ <- Welcome Page.
 os.environ.setdefault('API_ENDPOINT', 'api/')
 
