@@ -28,11 +28,14 @@ def try_match(self):
             return [IsAuthenticated()]
 
         if basename in BASENAME_LIST:
+            print(kwargs)
+            print(self.request.user.profile.slug)
+            print(self.request.user.id)
             if not len(self.queryset) >= 1 \
                 and not \
-                    int(kwargs[
-                        'profiles_pk'
-                    ]) == self.request.user.id:
+                    (kwargs[
+                        'profiles_slug'
+                    ]) == self.request.user.profile.slug:
                 return [IsAuthenticated()]
             return False
 
