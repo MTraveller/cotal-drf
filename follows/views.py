@@ -22,18 +22,18 @@ class FollowViewSet(ModelViewSet):
 
     def get_queryset(self):
         return Followed.objects \
-            .filter(profile_id=self.kwargs['profiles_pk'])
+            .filter(profile__slug=self.kwargs['profiles_slug'])
 
     def get_serializer_context(self):
-        following_by_name = User.objects \
-            .get(id=self.kwargs['profiles_pk'])
+        user = User.objects \
+            .get(username=self.kwargs['profiles_slug'])
         return {
-            'profile_id': self.kwargs['profiles_pk'],
+            'profile_id': user.id,  # type: ignore
             'followed_by_id': self.request.user.id,  # type: ignore
             'followed_by_name': self.request.user,
             'followed_by_username': self.request.user.username,  # type: ignore
-            'following_by_name': following_by_name,
-            'following_by_username': following_by_name.username,
+            'following_by_name': user,
+            'following_by_username': user.username,
         }
 
 
