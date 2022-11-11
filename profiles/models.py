@@ -68,17 +68,11 @@ class Social(models.Model):
         """
         User Profile Social Choices
         """
-        INSTAGRAM = 'Instagram', _('Instagram')
-        FACEBOOK = 'Facebook', _('Facebook')
-        TWITTER = 'Twitter', _('Twitter')
-        SNAPCHAT = 'Snapchat', _('Snapchat')
-        TIKTOK = 'TikTok', _('TikTok')
-        TELEGRAM = 'Telegram', _('Telegram')
-        DRIBBLE = 'Dribble', _('Dribble')
-        PINTEREST = 'Pinterest', _('Pinterest')
-        REDDIT = 'Reddit', _('Reddit')
-        SOUNDCLOUD = 'SoundCloud', _('SoundCloud')
         DEVIANTART = 'DeviantArt', _('DeviantArt')
+        DRIBBLE = 'Dribble', _('Dribble')
+        GITHUB = 'GitHub', _('GitHub')
+        SOUNDCLOUD = 'SoundCloud', _('SoundCloud')
+        PINTEREST = 'Pinterest', _('Pinterest')
 
     name = models.CharField(max_length=10, choices=SocialMedia.choices)
     username = models.CharField(max_length=50)
