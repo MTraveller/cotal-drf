@@ -19,7 +19,7 @@ class ProfileViewSet(ModelViewSet):
             'certificates', 'creatives',
             'settings', 'connecters',
             'connectings', 'followers',
-            'followings',
+            'followings', 'profileposts',
         ) \
         .all()
     serializer_class = ProfileSerializer
@@ -72,11 +72,14 @@ class LinkViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
+        user = Profile.objects \
+                      .filter(slug=self.kwargs['profiles_slug'])
+
         return Linktree.objects \
-                       .filter(profile_id=self.kwargs['profiles_pk'])
+                       .filter(profile_id=list(user)[0].id)  # type: ignore
 
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profiles_pk']}
+        return {'profile_id': self.request.user.id}  # type: ignore
 
 
 class SocialViewSet(ModelViewSet):
@@ -89,11 +92,14 @@ class SocialViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
+        user = Profile.objects \
+                      .filter(slug=self.kwargs['profiles_slug'])
+
         return Social.objects \
-                     .filter(profile_id=self.kwargs['profiles_pk'])
+                     .filter(profile_id=list(user)[0].id)  # type: ignore
 
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profiles_pk']}
+        return {'profile_id': self.request.user.id}  # type: ignore
 
 
 class PortfolioViewSet(ModelViewSet):
@@ -106,11 +112,14 @@ class PortfolioViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
+        user = Profile.objects \
+                      .filter(slug=self.kwargs['profiles_slug'])
+
         return Portfolio.objects \
-                        .filter(profile_id=self.kwargs['profiles_pk'])
+                        .filter(profile_id=list(user)[0].id)  # type: ignore
 
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profiles_pk']}
+        return {'profile_id': self.request.user.id}  # type: ignore
 
 
 class AwardViewSet(ModelViewSet):
@@ -123,10 +132,14 @@ class AwardViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        return Award.objects.filter(profile_id=self.kwargs['profiles_pk'])
+        user = Profile.objects \
+                      .filter(slug=self.kwargs['profiles_slug'])
+
+        return Award.objects \
+                    .filter(profile_id=list(user)[0].id)  # type: ignore
 
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profiles_pk']}
+        return {'profile_id': self.request.user.id}  # type: ignore
 
 
 class CertificateViewSet(ModelViewSet):
@@ -139,11 +152,14 @@ class CertificateViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
+        user = Profile.objects \
+                      .filter(slug=self.kwargs['profiles_slug'])
+
         return Certificate.objects \
-                          .filter(profile_id=self.kwargs['profiles_pk'])
+                          .filter(profile_id=list(user)[0].id)  # type: ignore
 
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profiles_pk']}
+        return {'profile_id': self.request.user.id}  # type: ignore
 
 
 class CreativeViewSet(ModelViewSet):
@@ -156,11 +172,14 @@ class CreativeViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
+        user = Profile.objects \
+                      .filter(slug=self.kwargs['profiles_slug'])
+
         return Creative.objects \
-                       .filter(profile_id=self.kwargs['profiles_pk'])
+                       .filter(profile_id=list(user)[0].id)  # type: ignore
 
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profiles_pk']}
+        return {'profile_id': self.request.user.id}  # type: ignore
 
 
 class SettingViewSet(ModelViewSet):
@@ -173,8 +192,11 @@ class SettingViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
+        user = Profile.objects \
+                      .filter(slug=self.kwargs['profiles_slug'])
+
         return Setting.objects \
-                      .filter(profile_id=self.kwargs['profiles_pk'])
+                      .filter(profile_id=list(user)[0].id)  # type: ignore
 
     def get_serializer_context(self):
-        return {'profile_id': self.kwargs['profiles_pk']}
+        return {'profile_id': self.request.user.id}  # type: ignore
