@@ -22,15 +22,15 @@ def try_match(self):
     basename = self.request.resolver_match.url_name
     kwargs = self.request.resolver_match.kwargs
 
+    print("do_permissions")
+    print(kwargs)
+
     if self.request.user.is_authenticated:
-        profile_id = 0
+        profile_slug = ''
         if basename == 'profile-me':
             return [IsAuthenticated()]
 
         if basename in BASENAME_LIST:
-            print(kwargs)
-            print(self.request.user.profile.slug)
-            print(self.request.user.id)
             if not len(self.queryset) >= 1 \
                 and not \
                     (kwargs[
@@ -56,8 +56,8 @@ def try_match(self):
             return False
 
         if basename.startswith('profile-'):
-            if 'profiles_pk' in kwargs:
-                profile_id = kwargs['profiles_pk']
+            if 'profiles_slug' in kwargs:
+                profile_slug = kwargs['profiles_slug']
             elif 'pk' in kwargs:
                 profile_id = kwargs['pk']
 
@@ -65,7 +65,7 @@ def try_match(self):
                 basename.startswith('post-'):
             match basename:
                 case 'posts-list' | 'posts-detail':
-                    profile_id = kwargs['profile_pk']
+                    profile_slug = kwargs['profile_slug']
                 case 'post-comments-list':
                     if self.request.user \
                             and self.request.user.is_authenticated:
@@ -77,7 +77,7 @@ def try_match(self):
                         .profile_id
 
         try:
-            return bool(self.request.user.id == int(profile_id))
+            return bool(self.request.user.username == profile_slug)
         except KeyError:
             return False
 
