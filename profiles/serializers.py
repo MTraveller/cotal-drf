@@ -9,11 +9,10 @@ class ProfileLinktreeSerializer(serializers.ModelSerializer):
     """
     Profile linktree serializer.
     """
-    title = serializers.ReadOnlyField()
 
     class Meta:
         model = Linktree
-        fields = ['id', 'title', 'username']
+        fields = ['username']
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
@@ -22,8 +21,8 @@ class ProfileLinktreeSerializer(serializers.ModelSerializer):
                 'detail': 'You can only have 1 %s link' % Linktree.__name__
             })
         else:
-            return Linktree.objects\
-                .create(profile_id=profile_id, **validated_data)
+            return Linktree.objects \
+                           .create(profile_id=profile_id, **validated_data)
 
     def update(self, instance, validated_data):
         return super().update(instance, validated_data)
@@ -39,8 +38,17 @@ class ProfileSocialSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
-        return Social.objects \
-                     .create(profile_id=profile_id, **validated_data)
+
+        if Social.objects \
+                 .filter(profile_id=profile_id) \
+                 .filter(name=validated_data['name']).count() >= 1:
+            raise serializers.ValidationError({
+                'detail':
+                'You can only have 1 %s link' % validated_data['name']
+            })
+        else:
+            return Social.objects \
+                         .create(profile_id=profile_id, **validated_data)
 
 
 class ProfilePortfolioSerializer(serializers.ModelSerializer):
@@ -53,6 +61,7 @@ class ProfilePortfolioSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
+
         return Portfolio.objects \
                         .create(profile_id=profile_id, **validated_data)
 
@@ -67,6 +76,7 @@ class ProfileAwardSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
+
         return Award.objects \
                     .create(profile_id=profile_id, **validated_data)
 
@@ -81,6 +91,7 @@ class ProfileCertificateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
+
         return Certificate.objects \
                           .create(profile_id=profile_id, **validated_data)
 
@@ -95,6 +106,7 @@ class ProfileCreativeSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
+
         return Creative.objects \
                        .create(profile_id=profile_id, **validated_data)
 
@@ -108,9 +120,9 @@ class ProfileSettingSerializer(serializers.ModelSerializer):
         fields = ['activity']
 
     def create(self, validated_data):
-        profile_id = self.context['profile_id']
-        return Setting.objects \
-                      .create(profile_id=profile_id, **validated_data)
+        raise serializers.ValidationError({
+            'detail': 'You can only have 1 %s instance' % Setting.__name__
+        })
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -122,24 +134,24 @@ class ProfileSerializer(serializers.ModelSerializer):
     user = ProfileUserSerializer(read_only=True)
     linktrees = ProfileLinktreeSerializer(many=True, read_only=True)
     socials = ProfileSocialSerializer(many=True, read_only=True)
-    portfolios = ProfilePortfolioSerializer(many=True, read_only=True)
-    awards = ProfileAwardSerializer(many=True, read_only=True)
-    certificates = ProfileCertificateSerializer(many=True, read_only=True)
-    creatives = ProfileCreativeSerializer(many=True, read_only=True)
-    settings = ProfileSettingSerializer(many=True, read_only=True)
-    connecters = ConnecterSerializer(many=True, read_only=True)
-    connectings = ConnectingSerializer(many=True, read_only=True)
-    followers = FollowSerializer(many=True, read_only=True)
-    followings = FollowingSerializer(many=True, read_only=True)
+    # portfolios = ProfilePortfolioSerializer(many=True, read_only=True)
+    # awards = ProfileAwardSerializer(many=True, read_only=True)
+    # certificates = ProfileCertificateSerializer(many=True, read_only=True)
+    # creatives = ProfileCreativeSerializer(many=True, read_only=True)
+    # settings = ProfileSettingSerializer(many=True, read_only=True)
+    # connecters = ConnecterSerializer(many=True, read_only=True)
+    # connectings = ConnectingSerializer(many=True, read_only=True)
+    # followers = FollowSerializer(many=True, read_only=True)
+    # followings = FollowingSerializer(many=True, read_only=True)
 
     slug = serializers.CharField(read_only=True)
 
     class Meta:
         model = Profile
         fields = [
-            'id', 'user', 'slug', 'image', 'status',
-            'location', 'linktrees', 'socials', 'portfolios',
-            'awards', 'certificates', 'creatives', 'settings',
-            'connecters', 'connectings', 'followers', 'followings',
+            'id', 'user', 'slug', 'image', 'status', 'location', 'linktrees', 'socials',
+            # 'portfolios',
+            # 'awards', 'certificates', 'creatives', 'settings',
+            # 'connecters', 'connectings', 'followers', 'followings',
         ]
         lookup_field = ['slug']
