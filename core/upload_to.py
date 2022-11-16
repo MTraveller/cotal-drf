@@ -23,10 +23,10 @@ def user_directory_path(instance, filename):
     instance_name = instance.__class__.__name__.lower()
 
     if instance_name == 'profile':
-        return 'user_{0}/{1}/{2}'.format(
-            instance.user.id, instance_name, filename
+        return '{0}/{1}/{2}'.format(
+            instance.profile.slug, instance_name, filename
         )
 
-    return 'user_{0}/{1}/{2}'.format(
-        instance.profile_id, instance_name, filename
+    return '{0}/{1}/{2}'.format(
+        instance.profile.slug, instance_name, filename
     )
