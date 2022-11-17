@@ -17,9 +17,7 @@ class ProfileViewSet(ModelViewSet):
             'linktrees', 'socials',
             'portfolios', 'awards',
             'certificates', 'creatives',
-            'settings', 'connecters',
-            'connectings', 'followers',
-            'followings', 'profileposts',
+            'settings'
         ) \
         .all()
     serializer_class = ProfileSerializer
@@ -40,23 +38,20 @@ class ProfileViewSet(ModelViewSet):
                     'linktrees', 'socials',
                     'portfolios', 'awards',
                     'certificates', 'creatives',
-                    'settings', 'connecters',
-                    'connectings', 'followers',
-                    'followings',
+                    'settings'
                 ) \
-                .get(
-                    Q(id=request.user.id) |
-                    Q(connecters__connecter_id=request.user.id) |
-                    Q(connectings__connecting_id=request.user.id)
-                )
+                .get(id=request.user.id)
+
             if request.method == 'GET':
                 serializer = ProfileSerializer(profile)
                 return Response(serializer.data)
+
             elif request.method == 'PUT':
                 serializer = ProfileSerializer(profile, data=request.data)
                 serializer.is_valid(raise_exception=True)
                 serializer.save()
                 return Response(serializer.data)
+
         return Response({
             "detail": "Authentication credentials were not provided."
         })
