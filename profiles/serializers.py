@@ -102,7 +102,7 @@ class ProfileCreativeSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Creative
-        fields = ['id', 'title', 'description', 'link']
+        fields = ['id', 'image', 'title', 'description', 'link']
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
