@@ -35,15 +35,16 @@ class ConnectingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Connected
         fields = [
-            'id', 'connecter_choice',
-            'connecting_choice', 'connecter_username',
+            'id', 'connecter_choice', 'connecting_choice', 'connecter_username',
         ]
         read_only_fields = [
-            'connecter_username'
+            'connecter_choice', 'connecter_username'
         ]
 
     def update(self, instance, validated_data):
         instance.connecting_choice \
             = validated_data.get('connecting_choice')
+
         instance.save()
+
         return instance
