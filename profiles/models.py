@@ -138,6 +138,8 @@ class Creative(models.Model):
     """
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='creatives')
+    image = models.ImageField(
+        upload_to=user_directory_path, blank=True, null=True)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
