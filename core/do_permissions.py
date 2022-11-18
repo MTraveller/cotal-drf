@@ -23,17 +23,17 @@ def try_match(self):
     basename = self.request.resolver_match.url_name
     kwargs = self.request.resolver_match.kwargs
 
-    print("do_permissions")
+    print("try_match")
     print(basename)
     print(kwargs)
 
     if self.request.user.is_authenticated:
-        profile_slug = ''
+        profile_id = False
+        profile_slug = False
         if basename == 'profile-me':
             return [IsAuthenticated()]
 
         if basename in BASENAME_LIST:
-            print(self.queryset)
             if basename == 'profile-connecter-list':
                 if not kwargs['profiles_slug'] \
                         == self.request.user.profile.slug:
@@ -53,13 +53,9 @@ def try_match(self):
             return False
 
         elif basename in BASENAME_DETAIL:
-            print("Hello BASENAME_DETAIL")
             try:
                 queryset_dict = self.queryset[0].__dict__
-                print("queryset")
-                print(queryset_dict)
-                print(queryset_dict['connecting_id'])
-                print(self.request.user.id)
+
                 if basename == 'profile-connecter-detail' and \
                     'connecter_id' in queryset_dict and \
                         queryset_dict['connecter_id'] == self.request.user.id:
@@ -70,18 +66,8 @@ def try_match(self):
                         queryset_dict[
                             'connecting_id'
                         ] == self.request.user.id:
-                    print("If Connecting")
                     return [IsAuthenticated()]
 
-                # elif 'connecting_id' in queryset_dict and \
-                #         queryset_dict[
-                #             'connecting_id'
-                #         ] == self.request.user.id or \
-                #         queryset_dict[
-                #             'followed_by_id'
-                #         ] == self.request.user.id:
-                #     print("TRY")
-                #     return [IsAuthenticated()]
             except IndexError:
                 pass
 
@@ -91,7 +77,7 @@ def try_match(self):
             if 'profiles_slug' in kwargs:
                 profile_slug = kwargs['profiles_slug']
             elif 'pk' in kwargs:
-                profile_id = kwargs['pk']
+                profile_slug = kwargs['pk']
 
         elif basename.startswith('posts-') or \
                 basename.startswith('post-'):
@@ -109,7 +95,12 @@ def try_match(self):
                         .profile_id
 
         try:
-            return bool(self.request.user.username == profile_slug)
+            return bool(
+                self.request.user.username == profile_slug
+                if profile_slug else self.request.user.id
+                == profile_id if profile_id else False
+            )
+
         except KeyError:
             return False
 
