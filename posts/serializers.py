@@ -1,5 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
+from django.template.defaultfilters import slugify
 from rest_framework import serializers
 from core.serializers import BaseProfileSerializer, ProfileUserSerializer
 from tags.serializers import TaggedSerializer
@@ -30,20 +31,6 @@ class PostCommentSerializer(serializers.ModelSerializer):
             )
 
 
-class PostImageSerializer(serializers.ModelSerializer):
-    """
-    Post image serializer controlling post images.
-    """
-    class Meta:
-        model = PostImage
-        fields = ['id', 'image']
-
-    # TODO: Test post images creation on frontend!
-    # def create(self, validated_data):
-    #     profile_id = self.context['profile_id']
-    #     return PostImage.objects.create(profile_id=profile_id, **validated_data)
-
-
 # https://www.django-rest-framework.org/api-guide/relations/#writable-nested-serializers
 class PostSerializer(serializers.ModelSerializer):
     """
@@ -51,7 +38,6 @@ class PostSerializer(serializers.ModelSerializer):
     postcomments and tagged serializers
     """
     profile = BaseProfileSerializer(read_only=True)
-    postimages = PostImageSerializer(many=True, required=False)
     postcomments = PostCommentSerializer(many=True, read_only=True)
     tags = TaggedSerializer(many=True, required=False)
 
@@ -70,13 +56,14 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = [
-            'id', 'profile', 'title', 'slug',
-            'post', 'tags', 'add_tags',
-            'postimages', 'postcomments'
+            'id', 'profile', 'image', 'title',
+            'slug', 'post', 'tags', 'add_tags',
+            'postcomments'
         ]
         read_only_fields = ['slug']
 
     def create(self, validated_data):
+        post_slug = slugify(validated_data['title'].strip())
         profile_id = self.context['profile_id']
 
         # filter with lambda to extract
@@ -86,13 +73,22 @@ class PostSerializer(serializers.ModelSerializer):
                 'tags', 'add_tags', 'postimages'
             ], validated_data.items()))
 
-        if ('add_tags' or 'postimages') in validated_data:
+        if ('add_tags') in validated_data:
             # List comprehension to remove targeted dicts
             # from validated data.
             [validated_data.pop(key)
-             for key in ['tags', 'add_tags', 'postimages']]
+             for key in ['tags', 'add_tags']]
         post = Post.objects \
             .create(profile_id=profile_id, **validated_data)
+
+        if Post.objects.filter(slug=post_slug).count() >= 1:
+            raise serializers.ValidationError({
+                'detail': 'You already have this %s title,'
+                ' must be unique to your account.' % Post.__name__
+            })
+        else:
+            Post.objects \
+                .create(profile_id=profile_id, **validated_data)
 
         if 'add_tags' in data \
                 and bool(len(data['add_tags'])):
@@ -112,13 +108,6 @@ class PostSerializer(serializers.ModelSerializer):
                     content_type=content_type,  # type: ignore
                     tag_id=tag.id  # type: ignore
                 )
-
-        if 'postimages' in data \
-                and bool(len(data['postimages'])):
-            images_data = data.pop('postimages')
-            for image_data in images_data:
-                PostImage.objects.create(
-                    profile_id=profile_id, post=post, **image_data)
 
         return post
 
