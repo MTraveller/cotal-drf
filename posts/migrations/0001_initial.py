@@ -17,29 +17,27 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Post',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
+                ('image', models.ImageField(blank=True, null=True,
+                 upload_to=core.upload_to.user_directory_path)),
                 ('title', models.CharField(max_length=80)),
                 ('post', models.TextField()),
                 ('slug', models.SlugField()),
-                ('profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='posts', to='profiles.profile')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='PostImage',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.ImageField(blank=True, null=True, upload_to=core.upload_to.user_directory_path)),
-                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='postimages', to='posts.post')),
-                ('profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='profiles.profile')),
+                ('profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='posts', to='profiles.profile')),
             ],
         ),
         migrations.CreateModel(
             name='PostComment',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('comment', models.CharField(max_length=300)),
-                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='postcomments', to='posts.post')),
-                ('profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='profiles.profile')),
+                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='postcomments', to='posts.post')),
+                ('profile', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='profiles.profile')),
             ],
         ),
     ]

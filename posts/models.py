@@ -14,6 +14,8 @@ class Post(models.Model):
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='profileposts')
 
+    image = models.ImageField(
+        upload_to=user_directory_path, blank=True, null=True)
     title = models.CharField(max_length=80)
     post = models.TextField()
     slug = models.SlugField()
@@ -23,20 +25,6 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super().save(*args, **kwargs)
-
-
-class PostImage(models.Model):
-    """
-    Post image model stores user, post which the 
-    image belows to and the image.
-    """
-    profile = models.ForeignKey(
-        Profile, on_delete=models.CASCADE)
-    post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name='postimages')
-
-    image = models.ImageField(
-        upload_to=user_directory_path, blank=True, null=True)
 
 
 class PostComment(models.Model):
