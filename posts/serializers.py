@@ -78,8 +78,6 @@ class PostSerializer(serializers.ModelSerializer):
             # from validated data.
             [validated_data.pop(key)
              for key in ['tags', 'add_tags']]
-        post = Post.objects \
-            .create(profile_id=profile_id, **validated_data)
 
         if Post.objects.filter(slug=post_slug).count() >= 1:
             raise serializers.ValidationError({
@@ -87,8 +85,14 @@ class PostSerializer(serializers.ModelSerializer):
                 ' must be unique to your account.' % Post.__name__
             })
         else:
-            Post.objects \
-                .create(profile_id=profile_id, **validated_data)
+            if len(validated_data['title']) > 80:
+                raise serializers.ValidationError({
+                    'detail': 'The %s title,'
+                    ' can max be 80 characters long.' % Post.__name__
+                })
+            else:
+                post = Post.objects \
+                           .create(profile_id=profile_id, **validated_data)
 
         if 'add_tags' in data \
                 and bool(len(data['add_tags'])):
@@ -112,7 +116,10 @@ class PostSerializer(serializers.ModelSerializer):
         return post
 
     def update(self, instance, validated_data):
-        updated_tags = validated_data['tags']
+        post_title = validated_data['title']
+
+        updated_tags = validated_data['tags'] if bool(
+            'tags' in validated_data) else []
 
         # List comprehension to extract tags
         # within triple nested OrderedDicts.
@@ -122,6 +129,24 @@ class PostSerializer(serializers.ModelSerializer):
                 for key, inner_dict_v in outer_dict.items()
             ))[0] for outer_dict in updated_tags
         ]
+
+        if Post.objects.filter(title=post_title).count() >= 1:
+            raise serializers.ValidationError({
+                'detail': 'You already have this %s title,'
+                ' must be unique to your account.' % Post.__name__
+            })
+        else:
+            if len(validated_data['title']) > 80:
+                raise serializers.ValidationError({
+                    'detail': 'The %s title,'
+                    ' can max be 80 characters long.' % Post.__name__
+                })
+            else:
+                instance.image = validated_data.get('image', instance.image)
+                instance.title = validated_data.get('title', instance.title)
+                instance.post = validated_data.get('post', instance.post)
+
+                instance.save()
 
         # Queryset to grab all TaggedItems
         # for the edited post.
