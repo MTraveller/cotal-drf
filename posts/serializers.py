@@ -123,6 +123,7 @@ class PostSerializer(serializers.ModelSerializer):
 
         # List comprehension to extract tags
         # within triple nested OrderedDicts.
+        # O(n) = O(nx3)
         validated_tags = [
             list(list(tag)[0] for tag in (
                 inner_dict_v.values()
@@ -158,6 +159,7 @@ class PostSerializer(serializers.ModelSerializer):
 
         # map with lambda to extract tag id & label
         # from the queryset above.
+        # O(n)
         previous_tags = list(map(
             lambda tag: [
                 tag._state.fields_cache['tag'].id,
@@ -170,6 +172,7 @@ class PostSerializer(serializers.ModelSerializer):
 
         # Code block checks previous tags against
         # validated tags and acts accordingly.
+        # O(n) = (nx2)
         if len(validated_tags):
             for tag in previous_tags:
                 if tag[1] in validated_tags:
@@ -179,6 +182,7 @@ class PostSerializer(serializers.ModelSerializer):
                         .get(tag__label=tag[1])
                     TaggedItem.delete(remove_tag)
         else:
+            # O(n)
             for tag in previous_tags:
                 remove_tag = TaggedItem.objects \
                     .get(tag__label=tag[1])
@@ -187,12 +191,14 @@ class PostSerializer(serializers.ModelSerializer):
         # Code block to check if new tags were added
         # and acts accordingly.
         if 'add_tags' in validated_data:
+            # O(n)
             new_tags = list(map(
                 lambda tag: tag.lower(), validated_data['add_tags']
             ))
 
             content_type = ContentType.objects.get(model="post")
 
+            # O(n)
             for label in new_tags:
                 tag = ""
                 try:
