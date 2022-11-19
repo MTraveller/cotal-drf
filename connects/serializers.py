@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from core.models import User
+from profiles.models import Profile
 from .models import *
 
 
@@ -32,14 +34,31 @@ class ConnectingSerializer(serializers.ModelSerializer):
     Connecting serializer to handle the incomming connection
     between two profiles.
     """
+    connecter_image = serializers.SerializerMethodField()
+    connecter_name = serializers.SerializerMethodField()
+
     class Meta:
         model = Connected
         fields = [
-            'id', 'connecter_choice', 'connecting_choice', 'connecter_username',
+            'id', 'connecter_choice', 'connecting_choice',
+            'connecter_image', 'connecter_name', 'connecter_username'
         ]
         read_only_fields = [
             'connecter_choice', 'connecter_username'
         ]
+
+    def get_connecter_image(self, obj):
+        connecter_id = obj.connecter_id
+        user = Profile.objects.get(id=connecter_id)
+
+        if user.image:
+            return {'image': user.image}
+
+    def get_connecter_name(self, obj):
+        connecter_id = obj.connecter_id
+        user = User.objects.get(id=connecter_id)
+
+        return {'firstname': user.first_name, 'lastname': user.last_name}
 
     def update(self, instance, validated_data):
         instance.connecting_choice \
