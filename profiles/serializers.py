@@ -12,7 +12,7 @@ class ProfileLinktreeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Linktree
-        fields = ['username']
+        fields = ['id', 'username']
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
