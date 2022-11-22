@@ -35,20 +35,21 @@ def try_match(self):
 
         if basename in BASENAME_LIST:
             if basename == 'profile-connecter-list':
-                if not kwargs['profiles_slug'] \
-                        == self.request.user.profile.slug:
-                    return [IsAuthenticated()]
+                if not self.has_object == True:
+                    if not kwargs['profiles_slug'] \
+                            == self.request.user.profile.slug:
+                        return [IsAuthenticated()]
 
-                elif not len(self.queryset) >= 1 \
-                    and not \
-                        (kwargs[
-                            'profiles_slug'
-                        ]) == self.request.user.profile.slug:
-                    if basename == 'profile-connecting-list' and \
-                            len(self.queryset) == 0:
-                        return False
+                    elif not len(self.queryset) >= 1 \
+                        and not \
+                            (kwargs[
+                                'profiles_slug'
+                            ]) == self.request.user.profile.slug:
+                        if basename == 'profile-connecting-list' and \
+                                len(self.queryset) == 0:
+                            return False
 
-                    return [IsAuthenticated()]
+                        return [IsAuthenticated()]
 
             return False
 
@@ -59,6 +60,7 @@ def try_match(self):
                 if basename == 'profile-connecter-detail' and \
                     'connecter_id' in queryset_dict and \
                         queryset_dict['connecter_id'] == self.request.user.id:
+
                     return [IsAuthenticated()]
 
                 elif basename == 'profile-connecting-detail' and \
