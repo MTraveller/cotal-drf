@@ -89,6 +89,11 @@ class Portfolio(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        """Meta class for ordering by created on"""
+        ordering = ['created_on']
 
     def delete(self, *args, **kwargs):
         instance_deleted.send_robust(
@@ -107,6 +112,11 @@ class Award(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        """Meta class for ordering by created on"""
+        ordering = ['created_on']
 
     def delete(self, *args, **kwargs):
         instance_deleted.send_robust(
@@ -125,6 +135,11 @@ class Certificate(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        """Meta class for ordering by created on"""
+        ordering = ['created_on']
 
     def delete(self, *args, **kwargs):
         instance_deleted.send_robust(
@@ -143,6 +158,11 @@ class Creative(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        """Meta class for ordering by created on"""
+        ordering = ['created_on']
 
 
 class Setting(models.Model):
