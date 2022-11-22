@@ -35,7 +35,6 @@ class PostViewSet(ModelViewSet):
 
     # https://docs.djangoproject.com/en/4.1/ref/models/querysets/#django.db.models.Prefetch
     def get_queryset(self):
-        print(self.kwargs)
         return Post.objects \
             .prefetch_related('profile__user') \
             .prefetch_related('postcomments__profile__user') \
