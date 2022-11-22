@@ -34,31 +34,39 @@ class ConnectingSerializer(serializers.ModelSerializer):
     Connecting serializer to handle the incomming connection
     between two profiles.
     """
-    connecter_image = serializers.SerializerMethodField()
-    connecter_name = serializers.SerializerMethodField()
+    opposite_user = serializers.SerializerMethodField()
 
     class Meta:
         model = Connected
         fields = [
             'id', 'connecter_choice', 'connecting_choice',
-            'connecter_image', 'connecter_name', 'connecter_username'
+            'connecter_username', 'opposite_user',
         ]
         read_only_fields = [
             'connecter_choice', 'connecter_username'
         ]
 
-    def get_connecter_image(self, obj):
-        connecter_id = obj.connecter_id
-        user = Profile.objects.get(id=connecter_id)
+    def get_opposite_user(self, obj):
+        opposite_user_id = 0
+        if not obj.connecter_id == self.context['request_user_id']:
+            opposite_user_id = obj.connecter_id
+        else:
+            opposite_user_id = obj.connecting_id
 
-        if user.image:
-            return {'image': user.image}
+        profile = Profile.objects \
+                         .select_related('user') \
+                         .get(id=opposite_user_id)
 
-    def get_connecter_name(self, obj):
-        connecter_id = obj.connecter_id
-        user = User.objects.get(id=connecter_id)
+        user_context = {}
 
-        return {'firstname': user.first_name, 'lastname': user.last_name}
+        if profile.image:
+            user_context['image'] = profile.image
+
+        user_context['slug'] = profile.slug
+        user_context['firstname'] = profile.user.first_name
+        user_context['lastname'] = profile.user.last_name
+
+        return user_context
 
     def update(self, instance, validated_data):
         instance.connecting_choice \
