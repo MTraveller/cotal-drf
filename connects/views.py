@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework.viewsets import ModelViewSet
 from core.do_permissions import do_permissions
 from .serializers import *
@@ -16,9 +17,19 @@ class ConnecterViewSet(ModelViewSet):
                       .filter(slug=self.kwargs['profiles_slug'])
 
         queryset = Connected.objects \
-                            .filter(connecting_id=list(user)[0].id)  # type: ignore
+                            .filter(
+                                Q(connecter_id=list(user)[0].id) |
+                                Q(connecting_id=list(user)[0].id)
+                            )
+        has_object = False
+        for obj in list(queryset):
+            if obj.connecter_id == self.request.user.id or \
+                    obj.connecting_id == self.request.user.id:  # type: ignore
+                has_object = True
 
+        self.__dict__['has_object'] = has_object
         self.__dict__['queryset'] = list(queryset)
+
         return do_permissions(self)
 
     def get_queryset(self):
@@ -48,7 +59,7 @@ class ConnecterViewSet(ModelViewSet):
 class ConnectingViewSet(ModelViewSet):
     """
     Connecting view set with appropiate permission handling.
-    To get all initiated connecting to user.
+    To get all initiated connections to user.
     """
     serializer_class = ConnectingSerializer
 
@@ -67,4 +78,10 @@ class ConnectingViewSet(ModelViewSet):
                       .filter(slug=self.kwargs['profiles_slug'])
 
         return Connected.objects \
-                        .filter(connecting_id=list(user)[0].id)  # type: ignore
+                        .filter(
+                            Q(connecter_id=list(user)[0].id) |
+                            Q(connecting_id=list(user)[0].id)  # type: ignore
+                        )
+
+    def get_serializer_context(self):
+        return {"request_user_id": self.request.user.id}  # type: ignore
