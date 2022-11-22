@@ -19,8 +19,13 @@ class Post(models.Model):
     title = models.CharField(max_length=80)
     post = models.TextField()
     slug = models.SlugField()
+    created_on = models.DateTimeField(auto_now_add=True)
 
     tags = GenericRelation(TaggedItem, related_query_name='tags')
+
+    class Meta:
+        """Meta class for ordering by created on"""
+        ordering = ['created_on']
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -36,5 +41,10 @@ class PostComment(models.Model):
         Profile, on_delete=models.CASCADE, related_name='profilecomments')
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name='postcomments')
+    created_on = models.DateTimeField(auto_now_add=True)
 
     comment = models.CharField(max_length=300)
+
+    class Meta:
+        """Meta class for ordering by created on"""
+        ordering = ['created_on']
