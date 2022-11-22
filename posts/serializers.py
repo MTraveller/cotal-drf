@@ -17,8 +17,8 @@ class PostCommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PostComment
-        fields = ['id', 'profile', 'comment']
-        read_only_fields = ['profile']
+        fields = ['id', 'profile', 'created_on', 'comment']
+        read_only_fields = ['profile', 'created_on']
 
     def create(self, validated_data):
         profile_id = self.context['user_id']
@@ -38,6 +38,7 @@ class PostSerializer(serializers.ModelSerializer):
     postcomments and tagged serializers
     """
     profile = BaseProfileSerializer(read_only=True)
+    comment_count = serializers.SerializerMethodField()
     postcomments = PostCommentSerializer(many=True, read_only=True)
     tags = TaggedSerializer(many=True, required=False)
 
@@ -57,10 +58,13 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = [
             'id', 'profile', 'image', 'title',
-            'slug', 'post', 'tags', 'add_tags',
-            'postcomments'
+            'slug', 'created_on', 'post', 'tags', 'add_tags',
+            'comment_count', 'postcomments'
         ]
-        read_only_fields = ['slug']
+        read_only_fields = ['slug', 'created_on', 'comment_count']
+
+    def get_comment_count(self, obj):
+        return obj.postcomments.count()
 
     def create(self, validated_data):
         post_slug = slugify(validated_data['title'].strip())
