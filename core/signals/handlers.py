@@ -65,6 +65,7 @@ def delete_instance_image_cloudinary(sender, **kwargs):
     cloudinary.uploader.destroy(str(kwargs['image']))  # type: ignore
 
 
+# Due to deadline this is a future feature
 # Signal to send email on connect
 @receiver(profile_connect)
 def initiate_profile_connect(sender, **kwargs):
