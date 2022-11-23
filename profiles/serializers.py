@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from connects.serializers import ConnecterSerializer, ConnectingSerializer
 from follows.serializers import FollowSerializer, FollowingSerializer
-from core.serializers import ProfileUserSerializer
+from core.serializers import BaseProfileSerializer, ProfileUserSerializer
 from .models import *
 
 
@@ -55,9 +55,16 @@ class ProfilePortfolioSerializer(serializers.ModelSerializer):
     """
     Profile portfolio serializer.
     """
+    profile = BaseProfileSerializer(read_only=True)
+
     class Meta:
         model = Portfolio
-        fields = ['id', 'image', 'title', 'description', 'link']
+        fields = [
+            'id', 'profile', 'image', 'title',
+            'slug', 'description', 'link',
+            'created_on',
+        ]
+        read_only_fields = ['slug', 'created_on', ]
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
@@ -70,9 +77,16 @@ class ProfileAwardSerializer(serializers.ModelSerializer):
     """
     Profile award serializer.
     """
+    profile = BaseProfileSerializer(read_only=True)
+
     class Meta:
         model = Award
-        fields = ['id', 'image', 'title', 'description', 'link']
+        fields = [
+            'id', 'profile', 'image', 'title',
+            'slug', 'description', 'link',
+            'created_on',
+        ]
+        read_only_fields = ['slug', 'created_on', ]
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
@@ -85,9 +99,16 @@ class ProfileCertificateSerializer(serializers.ModelSerializer):
     """
     Profile certificate serializer.
     """
+    profile = BaseProfileSerializer(read_only=True)
+
     class Meta:
         model = Certificate
-        fields = ['id', 'image', 'title', 'description', 'link']
+        fields = [
+            'id', 'profile', 'image', 'title',
+            'slug', 'description', 'link',
+            'created_on',
+        ]
+        read_only_fields = ['slug', 'created_on', ]
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
@@ -100,9 +121,16 @@ class ProfileCreativeSerializer(serializers.ModelSerializer):
     """
     Profile creative serializer.
     """
+    profile = BaseProfileSerializer(read_only=True)
+
     class Meta:
         model = Creative
-        fields = ['id', 'image', 'title', 'description', 'link']
+        fields = [
+            'id', 'profile', 'image', 'title',
+            'slug', 'description', 'link',
+            'created_on',
+        ]
+        read_only_fields = ['slug', 'created_on', ]
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
@@ -134,24 +162,14 @@ class ProfileSerializer(serializers.ModelSerializer):
     user = ProfileUserSerializer(read_only=True)
     linktrees = ProfileLinktreeSerializer(many=True, read_only=True)
     socials = ProfileSocialSerializer(many=True, read_only=True)
-    # portfolios = ProfilePortfolioSerializer(many=True, read_only=True)
-    # awards = ProfileAwardSerializer(many=True, read_only=True)
-    # certificates = ProfileCertificateSerializer(many=True, read_only=True)
-    # creatives = ProfileCreativeSerializer(many=True, read_only=True)
-    # settings = ProfileSettingSerializer(many=True, read_only=True)
-    # connecters = ConnecterSerializer(many=True, read_only=True)
-    # connectings = ConnectingSerializer(many=True, read_only=True)
-    # followers = FollowSerializer(many=True, read_only=True)
-    # followings = FollowingSerializer(many=True, read_only=True)
 
     slug = serializers.CharField(read_only=True)
 
     class Meta:
         model = Profile
         fields = [
-            'id', 'user', 'slug', 'image', 'status', 'location', 'linktrees', 'socials',
-            # 'portfolios',
-            # 'awards', 'certificates', 'creatives', 'settings',
-            # 'connecters', 'connectings', 'followers', 'followings',
+            'id', 'user', 'slug',
+            'image', 'status', 'location',
+            'linktrees', 'socials',
         ]
-        lookup_field = ['slug']
+        # lookup_field = ['slug']
