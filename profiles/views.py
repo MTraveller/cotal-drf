@@ -102,6 +102,7 @@ class PortfolioViewSet(ModelViewSet):
     Profile social view set with appropiate permission handling.
     """
     serializer_class = ProfilePortfolioSerializer
+    lookup_field = 'slug'
 
     def get_permissions(self):
         return do_permissions(self)
@@ -122,6 +123,7 @@ class AwardViewSet(ModelViewSet):
     Profile social view set with appropiate permission handling.
     """
     serializer_class = ProfileAwardSerializer
+    lookup_field = 'slug'
 
     def get_permissions(self):
         return do_permissions(self)
@@ -142,6 +144,7 @@ class CertificateViewSet(ModelViewSet):
     Profile Certificate view set with appropiate permission handling.
     """
     serializer_class = ProfileCertificateSerializer
+    lookup_field = 'slug'
 
     def get_permissions(self):
         return do_permissions(self)
@@ -162,6 +165,7 @@ class CreativeViewSet(ModelViewSet):
     Profile Creative view set with appropiate permission handling.
     """
     serializer_class = ProfileCreativeSerializer
+    lookup_field = 'slug'
 
     def get_permissions(self):
         return do_permissions(self)
