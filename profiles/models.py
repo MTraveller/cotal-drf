@@ -87,6 +87,7 @@ class Portfolio(models.Model):
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
     title = models.CharField(max_length=255)
+    slug = models.SlugField()
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -94,6 +95,10 @@ class Portfolio(models.Model):
     class Meta:
         """Meta class for ordering by created on"""
         ordering = ['created_on']
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         instance_deleted.send_robust(
@@ -110,6 +115,7 @@ class Award(models.Model):
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
     title = models.CharField(max_length=255)
+    slug = models.SlugField()
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -117,6 +123,10 @@ class Award(models.Model):
     class Meta:
         """Meta class for ordering by created on"""
         ordering = ['created_on']
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         instance_deleted.send_robust(
@@ -133,6 +143,7 @@ class Certificate(models.Model):
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
     title = models.CharField(max_length=255)
+    slug = models.SlugField()
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -140,6 +151,10 @@ class Certificate(models.Model):
     class Meta:
         """Meta class for ordering by created on"""
         ordering = ['created_on']
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         instance_deleted.send_robust(
@@ -156,6 +171,7 @@ class Creative(models.Model):
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
     title = models.CharField(max_length=255)
+    slug = models.SlugField()
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -163,6 +179,15 @@ class Creative(models.Model):
     class Meta:
         """Meta class for ordering by created on"""
         ordering = ['created_on']
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        instance_deleted.send_robust(
+            self.__class__, image=self.image)
+        super().delete(*args, **kwargs)
 
 
 class Setting(models.Model):
