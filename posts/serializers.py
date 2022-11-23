@@ -134,8 +134,8 @@ class PostSerializer(serializers.ModelSerializer):
                 for key, inner_dict_v in outer_dict.items()
             ))[0] for outer_dict in updated_tags
         ]
-
-        if Post.objects.filter(title=post_title).count() >= 1:
+        queryset = Post.objects.filter(title=post_title)
+        if queryset.count() == 1 and not list(queryset)[0] == instance:
             raise serializers.ValidationError({
                 'detail': 'You already have this %s title,'
                 ' must be unique to your account.' % Post.__name__
