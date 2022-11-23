@@ -9,12 +9,15 @@ def user_directory_path(instance, filename):
     """
     # Source:
     # https://docs.djangoproject.com/en/4.1/ref/models/fields/#django.db.models.FileField.upload_to
-    previous_image = instance.__class__.objects.get(
-        id=instance.id).image
+    try:
+        previous_image = instance.__class__.objects.get(
+            id=instance.id).image
 
-    if previous_image:
-        media_uploaded.send_robust(
-            instance.__class__, image=previous_image)
+        if previous_image:
+            media_uploaded.send_robust(
+                instance.__class__, image=previous_image)
+    except:
+        pass
 
     instance_name = instance.__class__.__name__.lower()
 
