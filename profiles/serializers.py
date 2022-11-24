@@ -68,9 +68,45 @@ class ProfilePortfolioSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
+        title = validated_data['title']
 
-        return Portfolio.objects \
-                        .create(profile_id=profile_id, **validated_data)
+        queryset = Portfolio.objects.filter(
+            profile_id=profile_id).filter(title=title)
+        if queryset.count() == 1:
+            raise serializers.ValidationError({
+                'detail': 'You already have this %s title,'
+                ' must be unique to your account.' % Portfolio.__name__
+            })
+        else:
+            if len(validated_data['title']) > 80:
+                raise serializers.ValidationError({
+                    'detail': 'The %s title,'
+                    ' can max be 80 characters long.' % Portfolio.__name__
+                })
+            else:
+
+                return Portfolio.objects \
+                    .create(profile_id=profile_id, **validated_data)
+
+    def update(self, instance, validated_data):
+        profile_id = self.context['profile_id']
+        title = validated_data['title']
+
+        queryset = Portfolio.objects.filter(
+            profile_id=profile_id).filter(title=title)
+        if queryset.count() == 1 and not list(queryset)[0] == instance:
+            raise serializers.ValidationError({
+                'detail': 'You already have this %s title,'
+                ' must be unique to your account.' % Portfolio.__name__
+            })
+        else:
+            if len(validated_data['title']) > 80:
+                raise serializers.ValidationError({
+                    'detail': 'The %s title,'
+                    ' can max be 80 characters long.' % Portfolio.__name__
+                })
+            else:
+                return super().update(instance, validated_data)
 
 
 class ProfileAwardSerializer(serializers.ModelSerializer):
@@ -90,9 +126,45 @@ class ProfileAwardSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
+        title = validated_data['title']
 
-        return Award.objects \
+        queryset = Award.objects.filter(
+            profile_id=profile_id).filter(title=title)
+        if queryset.count() == 1:
+            raise serializers.ValidationError({
+                'detail': 'You already have this %s title,'
+                ' must be unique to your account.' % Award.__name__
+            })
+        else:
+            if len(validated_data['title']) > 80:
+                raise serializers.ValidationError({
+                    'detail': 'The %s title,'
+                    ' can max be 80 characters long.' % Award.__name__
+                })
+            else:
+
+                return Award.objects \
                     .create(profile_id=profile_id, **validated_data)
+
+    def update(self, instance, validated_data):
+        profile_id = self.context['profile_id']
+        title = validated_data['title']
+
+        queryset = Award.objects.filter(
+            profile_id=profile_id).filter(title=title)
+        if queryset.count() == 1 and not list(queryset)[0] == instance:
+            raise serializers.ValidationError({
+                'detail': 'You already have this %s title,'
+                ' must be unique to your account.' % Award.__name__
+            })
+        else:
+            if len(validated_data['title']) > 80:
+                raise serializers.ValidationError({
+                    'detail': 'The %s title,'
+                    ' can max be 80 characters long.' % Award.__name__
+                })
+            else:
+                return super().update(instance, validated_data)
 
 
 class ProfileCertificateSerializer(serializers.ModelSerializer):
@@ -112,9 +184,45 @@ class ProfileCertificateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
+        title = validated_data['title']
 
-        return Certificate.objects \
-                          .create(profile_id=profile_id, **validated_data)
+        queryset = Certificate.objects.filter(
+            profile_id=profile_id).filter(title=title)
+        if queryset.count() == 1:
+            raise serializers.ValidationError({
+                'detail': 'You already have this %s title,'
+                ' must be unique to your account.' % Certificate.__name__
+            })
+        else:
+            if len(validated_data['title']) > 80:
+                raise serializers.ValidationError({
+                    'detail': 'The %s title,'
+                    ' can max be 80 characters long.' % Certificate.__name__
+                })
+            else:
+
+                return Certificate.objects \
+                    .create(profile_id=profile_id, **validated_data)
+
+    def update(self, instance, validated_data):
+        profile_id = self.context['profile_id']
+        title = validated_data['title']
+
+        queryset = Certificate.objects.filter(
+            profile_id=profile_id).filter(title=title)
+        if queryset.count() == 1 and not list(queryset)[0] == instance:
+            raise serializers.ValidationError({
+                'detail': 'You already have this %s title,'
+                ' must be unique to your account.' % Certificate.__name__
+            })
+        else:
+            if len(validated_data['title']) > 80:
+                raise serializers.ValidationError({
+                    'detail': 'The %s title,'
+                    ' can max be 80 characters long.' % Certificate.__name__
+                })
+            else:
+                return super().update(instance, validated_data)
 
 
 class ProfileCreativeSerializer(serializers.ModelSerializer):
@@ -134,9 +242,45 @@ class ProfileCreativeSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         profile_id = self.context['profile_id']
+        title = validated_data['title']
 
-        return Creative.objects \
-                       .create(profile_id=profile_id, **validated_data)
+        queryset = Creative.objects.filter(
+            profile_id=profile_id).filter(title=title)
+        if queryset.count() == 1:
+            raise serializers.ValidationError({
+                'detail': 'You already have this %s title,'
+                ' must be unique to your account.' % Creative.__name__
+            })
+        else:
+            if len(validated_data['title']) > 80:
+                raise serializers.ValidationError({
+                    'detail': 'The %s title,'
+                    ' can max be 80 characters long.' % Creative.__name__
+                })
+            else:
+
+                return Creative.objects \
+                    .create(profile_id=profile_id, **validated_data)
+
+    def update(self, instance, validated_data):
+        profile_id = self.context['profile_id']
+        title = validated_data['title']
+
+        queryset = Creative.objects.filter(
+            profile_id=profile_id).filter(title=title)
+        if queryset.count() == 1 and not list(queryset)[0] == instance:
+            raise serializers.ValidationError({
+                'detail': 'You already have this %s title,'
+                ' must be unique to your account.' % Creative.__name__
+            })
+        else:
+            if len(validated_data['title']) > 80:
+                raise serializers.ValidationError({
+                    'detail': 'The %s title,'
+                    ' can max be 80 characters long.' % Creative.__name__
+                })
+            else:
+                return super().update(instance, validated_data)
 
 
 class ProfileSettingSerializer(serializers.ModelSerializer):
@@ -172,4 +316,3 @@ class ProfileSerializer(serializers.ModelSerializer):
             'image', 'status', 'location',
             'linktrees', 'socials',
         ]
-        # lookup_field = ['slug']
