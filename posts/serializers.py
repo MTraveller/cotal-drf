@@ -83,7 +83,9 @@ class PostSerializer(serializers.ModelSerializer):
             [validated_data.pop(key)
              for key in ['tags', 'add_tags']]
 
-        if Post.objects.filter(slug=post_slug).count() >= 1:
+        if Post.objects \
+               .filter(profile_id=profile_id) \
+               .filter(slug=post_slug).count() >= 1:
             raise serializers.ValidationError({
                 'detail': 'You already have this %s title,'
                 ' must be unique to your account.' % Post.__name__
@@ -134,7 +136,11 @@ class PostSerializer(serializers.ModelSerializer):
                 for key, inner_dict_v in outer_dict.items()
             ))[0] for outer_dict in updated_tags
         ]
-        queryset = Post.objects.filter(title=post_title)
+
+        queryset = Post.objects \
+                       .filter(profile_id=instance.profile_id) \
+                       .filter(title=post_title)
+
         if queryset.count() == 1 and not list(queryset)[0] == instance:
             raise serializers.ValidationError({
                 'detail': 'You already have this %s title,'
