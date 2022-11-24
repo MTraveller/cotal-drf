@@ -94,7 +94,7 @@ class Portfolio(models.Model):
 
     class Meta:
         """Meta class for ordering by created on"""
-        ordering = ['created_on']
+        ordering = ['-created_on']
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -122,7 +122,7 @@ class Award(models.Model):
 
     class Meta:
         """Meta class for ordering by created on"""
-        ordering = ['created_on']
+        ordering = ['-created_on']
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -150,7 +150,7 @@ class Certificate(models.Model):
 
     class Meta:
         """Meta class for ordering by created on"""
-        ordering = ['created_on']
+        ordering = ['-created_on']
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -178,7 +178,7 @@ class Creative(models.Model):
 
     class Meta:
         """Meta class for ordering by created on"""
-        ordering = ['created_on']
+        ordering = ['-created_on']
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
