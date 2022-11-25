@@ -1,4 +1,4 @@
-from django.db.models import Q
+from django.http import Http404
 from rest_framework.viewsets import ModelViewSet
 from core.do_permissions import do_permissions
 from core.models import User
@@ -25,16 +25,19 @@ class FollowViewSet(ModelViewSet):
             .filter(profile__slug=self.kwargs['profiles_slug'])
 
     def get_serializer_context(self):
-        user = User.objects \
-            .get(username=self.kwargs['profiles_slug'])
-        return {
-            'profile_id': user.id,  # type: ignore
-            'followed_by_id': self.request.user.id,  # type: ignore
-            'followed_by_name': self.request.user,
-            'followed_by_username': self.request.user.username,  # type: ignore
-            'following_by_name': user,
-            'following_by_username': user.username,
-        }
+        try:
+            user = User.objects \
+                .get(username=self.kwargs['profiles_slug'])
+            return {
+                'profile_id': user.id,  # type: ignore
+                'followed_by_id': self.request.user.id,  # type: ignore
+                'followed_by_name': self.request.user,
+                'followed_by_username': self.request.user.username,  # type: ignore
+                'following_by_name': user,
+                'following_by_username': user.username,
+            }
+        except:
+            raise Http404
 
 
 class FollowingViewSet(ModelViewSet):
@@ -47,8 +50,14 @@ class FollowingViewSet(ModelViewSet):
         queryset = Followed.objects \
             .filter(followed_by_id=self.request.user.id)  # type: ignore
         self.__dict__['queryset'] = list(queryset)
+
         return do_permissions(self)
 
     def get_queryset(self):
-        return Followed.objects \
+        queryset = Followed.objects \
             .filter(followed_by_id=self.request.user.id)  # type: ignore
+
+        if len(queryset) == 0:
+            raise Http404
+
+        return queryset

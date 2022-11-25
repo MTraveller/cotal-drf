@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.db.models import Prefetch
 from rest_framework.viewsets import ModelViewSet
 from core.do_permissions import do_permissions
@@ -47,9 +48,12 @@ class PostViewSet(ModelViewSet):
             .filter(profile__slug=self.kwargs['profile_slug'])
 
     def get_serializer_context(self):
-        user = Profile.objects.get(slug=self.kwargs['profile_slug'])
+        try:
+            user = Profile.objects.get(slug=self.kwargs['profile_slug'])
 
-        return {'profile_id': user.id}  # type: ignore
+            return {'profile_id': user.id}  # type: ignore
+        except:
+            raise Http404
 
 
 class PostCommentViewSet(ModelViewSet):
@@ -63,10 +67,14 @@ class PostCommentViewSet(ModelViewSet):
 
         if url_name == 'post-comments-detail':
             pk = self.request.resolver_match.kwargs['pk']
-            comment_profile_id = PostComment.objects \
-                .get(id=pk)
-            self.__dict__['comment_profile_id'] \
-                = comment_profile_id  # type: ignore
+
+            try:
+                comment_profile_id = PostComment.objects \
+                    .get(id=pk)
+                self.__dict__['comment_profile_id'] \
+                    = comment_profile_id  # type: ignore
+            except:
+                pass
 
         return do_permissions(self)
 
@@ -85,9 +93,13 @@ class PostCommentViewSet(ModelViewSet):
             .filter(id=pk)
 
     def get_serializer_context(self):
-        post = Post.objects.get(slug=self.kwargs['post_slug'])
+        try:
+            post = Post.objects.get(slug=self.kwargs['post_slug'])
 
-        return {
-            'post_id': post.id,  # type: ignore
-            'user_id': self.request.user.id,  # type: ignore
-        }
+            return {
+                'post_id': post.id,  # type: ignore
+                'user_id': self.request.user.id,  # type: ignore
+            }
+
+        except:
+            raise Http404

@@ -1,10 +1,11 @@
-from django.db.models import Q
+from django.http import Http404
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from core.do_permissions import do_permissions
 from .models import *
 from .serializers import *
+from rest_framework.response import Response
 
 
 class ProfileViewSet(ModelViewSet):
@@ -67,11 +68,13 @@ class LinkViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        user = Profile.objects \
-                      .filter(slug=self.kwargs['profiles_slug'])
-
-        return Linktree.objects \
-                       .filter(profile_id=list(user)[0].id)  # type: ignore
+        queryset = Profile.objects \
+            .filter(slug=self.kwargs['profiles_slug'])
+        try:
+            return Linktree.objects \
+                .filter(profile_id=list(queryset)[0].id)  # type: ignore
+        except:
+            raise Http404
 
     def get_serializer_context(self):
         return {'profile_id': self.request.user.id}  # type: ignore
@@ -87,11 +90,13 @@ class SocialViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        user = Profile.objects \
-                      .filter(slug=self.kwargs['profiles_slug'])
-
-        return Social.objects \
-                     .filter(profile_id=list(user)[0].id)  # type: ignore
+        queryset = Profile.objects \
+            .filter(slug=self.kwargs['profiles_slug'])
+        try:
+            return Social.objects \
+                .filter(profile_id=list(queryset)[0].id)  # type: ignore
+        except:
+            raise Http404
 
     def get_serializer_context(self):
         return {'profile_id': self.request.user.id}  # type: ignore
@@ -108,11 +113,14 @@ class PortfolioViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        user = Profile.objects \
-                      .filter(slug=self.kwargs['profiles_slug'])
+        queryset = Profile.objects \
+            .filter(slug=self.kwargs['profiles_slug'])
 
-        return Portfolio.objects \
-                        .filter(profile_id=list(user)[0].id)  # type: ignore
+        try:
+            return Portfolio.objects \
+                .filter(profile_id=list(queryset)[0].id)  # type: ignore
+        except:
+            raise Http404
 
     def get_serializer_context(self):
         return {'profile_id': self.request.user.id}  # type: ignore
@@ -129,11 +137,13 @@ class AwardViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        user = Profile.objects \
-                      .filter(slug=self.kwargs['profiles_slug'])
-
-        return Award.objects \
-                    .filter(profile_id=list(user)[0].id)  # type: ignore
+        queryset = Profile.objects \
+            .filter(slug=self.kwargs['profiles_slug'])
+        try:
+            return Award.objects \
+                .filter(profile_id=list(queryset)[0].id)  # type: ignore
+        except:
+            raise Http404
 
     def get_serializer_context(self):
         return {'profile_id': self.request.user.id}  # type: ignore
@@ -150,11 +160,13 @@ class CertificateViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        user = Profile.objects \
-                      .filter(slug=self.kwargs['profiles_slug'])
-
-        return Certificate.objects \
-                          .filter(profile_id=list(user)[0].id)  # type: ignore
+        queryset = Profile.objects \
+            .filter(slug=self.kwargs['profiles_slug'])
+        try:
+            return Certificate.objects \
+                .filter(profile_id=list(queryset)[0].id)  # type: ignore
+        except:
+            raise Http404
 
     def get_serializer_context(self):
         return {'profile_id': self.request.user.id}  # type: ignore
@@ -171,11 +183,13 @@ class CreativeViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        user = Profile.objects \
-                      .filter(slug=self.kwargs['profiles_slug'])
-
-        return Creative.objects \
-                       .filter(profile_id=list(user)[0].id)  # type: ignore
+        queryset = Profile.objects \
+            .filter(slug=self.kwargs['profiles_slug'])
+        try:
+            return Creative.objects \
+                .filter(profile_id=list(queryset)[0].id)  # type: ignore
+        except:
+            raise Http404
 
     def get_serializer_context(self):
         return {'profile_id': self.request.user.id}  # type: ignore
@@ -191,11 +205,13 @@ class SettingViewSet(ModelViewSet):
         return do_permissions(self)
 
     def get_queryset(self):
-        user = Profile.objects \
-                      .filter(slug=self.kwargs['profiles_slug'])
-
-        return Setting.objects \
-                      .filter(profile_id=list(user)[0].id)  # type: ignore
+        queryset = Profile.objects \
+            .filter(slug=self.kwargs['profiles_slug'])
+        try:
+            return Setting.objects \
+                .filter(profile_id=list(queryset)[0].id)  # type: ignore
+        except:
+            raise Http404
 
     def get_serializer_context(self):
         return {'profile_id': self.request.user.id}  # type: ignore
