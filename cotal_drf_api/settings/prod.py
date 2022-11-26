@@ -43,4 +43,5 @@ REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = (
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT', 'Cotal',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
 }
