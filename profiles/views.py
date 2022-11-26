@@ -16,9 +16,6 @@ class ProfileViewSet(ModelViewSet):
         .prefetch_related(
             'user',
             'linktrees', 'socials',
-            'portfolios', 'awards',
-            'certificates', 'creatives',
-            'settings'
         ) \
         .all()
     serializer_class = ProfileSerializer
@@ -37,20 +34,21 @@ class ProfileViewSet(ModelViewSet):
                 .prefetch_related(
                     'user',
                     'linktrees', 'socials',
-                    'portfolios', 'awards',
-                    'certificates', 'creatives',
-                    'settings'
                 ) \
                 .get(id=request.user.id)
 
             if request.method == 'GET':
                 serializer = ProfileSerializer(profile)
+                print("GET", serializer)
                 return Response(serializer.data)
 
             elif request.method == 'PUT':
                 serializer = ProfileSerializer(profile, data=request.data)
                 serializer.is_valid(raise_exception=True)
+                print("Is Valid", serializer.is_valid())
+                print("Serializer", serializer)
                 serializer.save()
+                print("Serializer data", serializer.data)
                 return Response(serializer.data)
 
         return Response({
