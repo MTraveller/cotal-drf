@@ -101,12 +101,12 @@ def try_match(self):
         print("self.request.user.id", self.request.user.id)
         try:
             print(bool(
-                self.request.user.username == profile_slug
+                self.request.user.username.lower() == profile_slug
                 if profile_slug else self.request.user.id
                 == profile_id if profile_id else False
             ))
             return bool(
-                self.request.user.username == profile_slug
+                self.request.user.username.lower() == profile_slug
                 if profile_slug else self.request.user.id
                 == profile_id if profile_id else False
             )
