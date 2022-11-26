@@ -13,8 +13,9 @@ class Profile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=80)
-    image = models.ImageField(
-        upload_to=user_directory_path, blank=True, null=True)
+    image = models.ImageField(default=None,
+                              upload_to=user_directory_path,
+                              blank=True, null=True)
 
     class Status(models.TextChoices):
         """
