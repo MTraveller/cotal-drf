@@ -23,6 +23,9 @@ def try_match(self):
     basename = self.request.resolver_match.url_name
     kwargs = self.request.resolver_match.kwargs
 
+    print(basename)
+    print(kwargs)
+
     if self.request.user.is_authenticated:
         profile_id = False
         profile_slug = False
@@ -93,6 +96,11 @@ def try_match(self):
                         .profile_id
 
         try:
+            print(bool(
+                self.request.user.username == profile_slug
+                if profile_slug else self.request.user.id
+                == profile_id if profile_id else False
+            ))
             return bool(
                 self.request.user.username == profile_slug
                 if profile_slug else self.request.user.id
@@ -110,6 +118,7 @@ def do_permissions(self):
     Function to get the appropiate permission.
     """
     if try_match(self):
+        print("True - TRY_MATCH")
         return [IsObjectUser()]
     elif not self.request.user.is_authenticated:
         return [IsNotObjectUserOrReadOnly()]
