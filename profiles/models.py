@@ -22,10 +22,13 @@ class Profile(models.Model):
         """
         # Easily adding TextChoices source:
         # https://docs.djangoproject.com/en/4.1/ref/models/fields/#enumeration-types
+        OWNER = 'Owner', _('Owner')
         EMPLOYEE = 'Employee', _('Employee')
         JOB_SEEKER = 'Job Seeker', _('Job Seeker')
         OPEN_TO_COLLABORATE = 'Open To Collaborate', _('Open To Collaborate')
-        OWNER = 'Owner', _('Owner')
+        HANDS_FULL = 'Hands Full', _('Hands Full')
+        TRAVELING = 'Traveling', _('Traveling')
+        NOT_SPECIFIED = 'Not Specified', _('Not Specified')
 
         __empty__ = _('Not Specified')
 
