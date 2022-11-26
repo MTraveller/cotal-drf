@@ -316,8 +316,9 @@ class ProfileSerializer(serializers.ModelSerializer):
             'image', 'status', 'location',
             'linktrees', 'socials',
         ]
+        read_only_fields = ['id', 'user', 'slug']
 
     def update(self, instance, validated_data):
-        print(self.__dict__)
+        print("def update", self.__dict__)
         print(validated_data)
         return super().update(instance, validated_data)
