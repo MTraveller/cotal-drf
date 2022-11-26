@@ -38,6 +38,7 @@ class ProfileUserSerializer(BaseUserSerializer):
     """
     class Meta(BaseUserSerializer.Meta):
         fields = ['first_name', 'last_name']
+        read_only_fields = ['first_name', 'last_name']
 
 
 class BaseProfileSerializer(serializers.ModelSerializer):
