@@ -39,7 +39,6 @@ class ProfileViewSet(ModelViewSet):
 
             if request.method == 'GET':
                 serializer = ProfileSerializer(profile)
-                print("GET", serializer)
                 return Response(serializer.data)
 
             elif request.method == 'PUT':

@@ -111,7 +111,6 @@ def do_permissions(self):
     Function to get the appropiate permission.
     """
     if try_match(self):
-        print("True - TRY_MATCH")
         return [IsObjectUser()]
     elif not self.request.user.is_authenticated:
         return [IsNotObjectUserOrReadOnly()]
