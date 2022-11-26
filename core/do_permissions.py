@@ -23,9 +23,6 @@ def try_match(self):
     basename = self.request.resolver_match.url_name
     kwargs = self.request.resolver_match.kwargs
 
-    print(basename)
-    print(kwargs)
-
     if self.request.user.is_authenticated:
         profile_id = False
         profile_slug = False
@@ -95,16 +92,8 @@ def try_match(self):
                     profile_id = self.__dict__['comment_profile_id'] \
                         .profile_id
 
-        print("profile_slug", profile_slug)
-        print("self.request.user.username", self.request.user.username)
-        print("profile_id", profile_id)
-        print("self.request.user.id", self.request.user.id)
         try:
-            print(bool(
-                self.request.user.username.lower() == profile_slug
-                if profile_slug else self.request.user.id
-                == profile_id if profile_id else False
-            ))
+
             return bool(
                 self.request.user.username.lower() == profile_slug
                 if profile_slug else self.request.user.id
