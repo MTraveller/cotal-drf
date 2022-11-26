@@ -95,6 +95,10 @@ def try_match(self):
                     profile_id = self.__dict__['comment_profile_id'] \
                         .profile_id
 
+        print("profile_slug", profile_slug)
+        print("self.request.user.username", self.request.user.username)
+        print("profile_id", profile_id)
+        print("self.request.user.id", self.request.user.id)
         try:
             print(bool(
                 self.request.user.username == profile_slug
