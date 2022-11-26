@@ -7,7 +7,7 @@ from .common import *
 
 load_dotenv()
 
-DEBUG = True
+DEBUG = False
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -37,9 +37,9 @@ DATABASES = {
     'default': dj_database_url.parse(os.environ['DATABASE_URL'])
 }
 
-# REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = (
-#     'rest_framework.renderers.JSONRenderer',
-# )
+REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = (
+    'rest_framework.renderers.JSONRenderer',
+)
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT', 'Cotal',),
