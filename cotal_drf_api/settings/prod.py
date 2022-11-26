@@ -22,7 +22,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 API_ENDPOINT = os.environ.get('API_ENDPOINT')
 
 INTERNAL_IPS = [
-    "127.0.0.1", "localhost",
+    "0.0.0.0", "127.0.0.1", "localhost",
 ]
 
 ALLOWED_HOSTS = [
