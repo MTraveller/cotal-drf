@@ -69,5 +69,4 @@ def delete_instance_image_cloudinary(sender, **kwargs):
 # Signal to send email on connect
 @receiver(profile_connect)
 def initiate_profile_connect(sender, **kwargs):
-    # print("Connecting")
     return
