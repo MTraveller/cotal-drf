@@ -38,7 +38,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=255, blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.user.username)
+        self.slug = self.slug or slugify(self.user.username)
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
