@@ -18,7 +18,7 @@ class Post(models.Model):
         upload_to=user_directory_path, blank=True, null=True)
     title = models.CharField(max_length=80)
     post = models.TextField()
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=80)
     created_on = models.DateTimeField(auto_now_add=True)
 
     tags = GenericRelation(TaggedItem, related_query_name='tags')
