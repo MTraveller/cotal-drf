@@ -12,7 +12,7 @@ class Profile(models.Model):
     """
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=80)
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
 
@@ -30,13 +30,11 @@ class Profile(models.Model):
         TRAVELING = 'Traveling', _('Traveling')
         NOT_SPECIFIED = 'Not Specified', _('Not Specified')
 
-        __empty__ = _('Not Specified')
-
-    status = models.CharField(
-        max_length=19, choices=Status.choices,
-        default=Status.__empty__, null=True
-    )
-    location = models.CharField(max_length=255, null=True)
+    status = models.CharField(blank=True, null=True,
+                              max_length=19, choices=Status.choices,
+                              default=Status.NOT_SPECIFIED
+                              )
+    location = models.CharField(max_length=255, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.user.username)
@@ -90,7 +88,7 @@ class Portfolio(models.Model):
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
     title = models.CharField(max_length=255)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=80)
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -118,7 +116,7 @@ class Award(models.Model):
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
     title = models.CharField(max_length=255)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=80)
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -146,7 +144,7 @@ class Certificate(models.Model):
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
     title = models.CharField(max_length=255)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=80)
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -174,7 +172,7 @@ class Creative(models.Model):
     image = models.ImageField(
         upload_to=user_directory_path, blank=True, null=True)
     title = models.CharField(max_length=255)
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=80)
     description = models.CharField(max_length=500)
     link = models.URLField(max_length=255, blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
