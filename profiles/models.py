@@ -76,7 +76,7 @@ class Social(models.Model):
         PINTEREST = 'Pinterest', _('Pinterest')
 
     name = models.CharField(max_length=10, choices=SocialMedia.choices)
-    username = models.CharField(max_length=50)
+    username = models.CharField(max_length=50, blank=True, null=True)
 
 
 class Portfolio(models.Model):
