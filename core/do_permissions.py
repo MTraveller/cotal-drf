@@ -23,10 +23,6 @@ def try_match(self):
     basename = self.request.resolver_match.url_name
     kwargs = self.request.resolver_match.kwargs
 
-    print("try_match")
-    print(basename)
-    print(kwargs)
-
     if self.request.user.is_authenticated:
         profile_id = False
         profile_slug = False
