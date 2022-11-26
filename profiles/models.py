@@ -53,7 +53,7 @@ class Linktree(models.Model):
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='linktrees')
     title = models.CharField(max_length=8, default='Linktree')
-    username = models.CharField(max_length=50)
+    username = models.CharField(max_length=50, blank=True)
 
 
 class Social(models.Model):
