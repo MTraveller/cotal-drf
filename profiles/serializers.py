@@ -307,7 +307,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     linktrees = ProfileLinktreeSerializer(many=True, read_only=True)
     socials = ProfileSocialSerializer(many=True, read_only=True)
 
-    slug = serializers.CharField(read_only=True)
+    slug = serializers.CharField(read_only=True, required=False)
 
     class Meta:
         model = Profile
@@ -316,9 +316,16 @@ class ProfileSerializer(serializers.ModelSerializer):
             'image', 'status', 'location',
             'linktrees', 'socials',
         ]
-        read_only_fields = ['id', 'user', 'slug']
 
     def update(self, instance, validated_data):
         print("def update", self.__dict__)
         print(validated_data)
-        return super().update(instance, validated_data)
+        instance.image = validated_data.get('image', instance.image)
+        instance.status = validated_data.get('status', instance.status)
+        instance.location = validated_data.get('location', instance.location)
+
+        print("instance.__dict__", instance.__dict__)
+
+        instance.save()
+
+        return instance
