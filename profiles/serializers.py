@@ -299,15 +299,14 @@ class ProfileSettingSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     """
-    Profile serializer that extends all above,
-    connecter, connecting, follow and following serializers.
+    Profile serializer that extends user, linktrees and socials.
     """
     # https://www.django-rest-framework.org/api-guide/relations/#nested-relationships
     user = ProfileUserSerializer(read_only=True)
     linktrees = ProfileLinktreeSerializer(many=True, read_only=True)
     socials = ProfileSocialSerializer(many=True, read_only=True)
 
-    image = serializers.ImageField(required=False)
+    image = serializers.FileField(required=False)
     slug = serializers.CharField(read_only=True, required=False)
 
     class Meta:
