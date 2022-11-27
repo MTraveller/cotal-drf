@@ -319,13 +319,9 @@ class ProfileSerializer(serializers.ModelSerializer):
         ]
 
     def update(self, instance, validated_data):
-        print("def update", self.__dict__)
-        print(validated_data)
         instance.image = validated_data.get('image', instance.image)
         instance.status = validated_data.get('status', instance.status)
         instance.location = validated_data.get('location', instance.location)
-
-        print("instance.__dict__", instance.__dict__)
 
         instance.save()
 
