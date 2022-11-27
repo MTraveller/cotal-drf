@@ -3,16 +3,22 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, JSONParser
 from core.do_permissions import do_permissions
 from .models import *
 from .serializers import *
-from rest_framework.response import Response
 
 
 class ProfileViewSet(ModelViewSet):
     """
     Profile view set with appropiate permission handling.
     """
+    parser_classes = (
+        MultiPartParser,
+        JSONParser,
+    )
+
     queryset = Profile.objects \
         .select_related('user') \
         .prefetch_related('linktrees', 'socials') \
