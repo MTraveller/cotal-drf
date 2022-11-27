@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-from rest_framework.parsers import MultiPartParser, JSONParser
+from rest_framework.parsers import MultiPartParser, FormParser
 from core.do_permissions import do_permissions
 from .models import *
 from .serializers import *
@@ -16,7 +16,7 @@ class ProfileViewSet(ModelViewSet):
     """
     parser_classes = (
         MultiPartParser,
-        JSONParser,
+        FormParser,
     )
 
     queryset = Profile.objects \
@@ -106,6 +106,10 @@ class PortfolioViewSet(ModelViewSet):
     """
     Profile social view set with appropiate permission handling.
     """
+    parser_classes = (
+        MultiPartParser,
+        FormParser,
+    )
     serializer_class = ProfilePortfolioSerializer
     lookup_field = 'slug'
 
@@ -130,6 +134,10 @@ class AwardViewSet(ModelViewSet):
     """
     Profile social view set with appropiate permission handling.
     """
+    parser_classes = (
+        MultiPartParser,
+        FormParser,
+    )
     serializer_class = ProfileAwardSerializer
     lookup_field = 'slug'
 
@@ -153,6 +161,10 @@ class CertificateViewSet(ModelViewSet):
     """
     Profile Certificate view set with appropiate permission handling.
     """
+    parser_classes = (
+        MultiPartParser,
+        FormParser,
+    )
     serializer_class = ProfileCertificateSerializer
     lookup_field = 'slug'
 
@@ -176,6 +188,10 @@ class CreativeViewSet(ModelViewSet):
     """
     Profile Creative view set with appropiate permission handling.
     """
+    parser_classes = (
+        MultiPartParser,
+        FormParser,
+    )
     serializer_class = ProfileCreativeSerializer
     lookup_field = 'slug'
 

@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.db.models import Prefetch
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.parsers import MultiPartParser, FormParser
 from core.do_permissions import do_permissions
 from profiles.models import Profile
 from tags.models import TaggedItem
@@ -17,6 +18,10 @@ class ProfilePostViewSet(ModelViewSet):
         .prefetch_related('profileposts__postcomments__profile__user') \
         .all()
 
+    parser_classes = (
+        MultiPartParser,
+        FormParser,
+    )
     serializer_class = ProfileSerializer
     lookup_field = 'slug'
 
@@ -28,6 +33,10 @@ class PostViewSet(ModelViewSet):
     """
     Post view set with appropiate permission handling.
     """
+    parser_classes = (
+        MultiPartParser,
+        FormParser,
+    )
     serializer_class = PostSerializer
     lookup_field = 'slug'
 
