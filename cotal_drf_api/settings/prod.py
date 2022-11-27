@@ -37,6 +37,8 @@ CORS_ALLOWED_ORIGINS = [
     )
 ]
 
+print(CORS_ALLOWED_ORIGINS)
+
 DATABASES = {
     'default': dj_database_url.parse(os.environ['DATABASE_URL'])
 }
