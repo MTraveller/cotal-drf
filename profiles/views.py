@@ -1,4 +1,5 @@
 from django.http import Http404
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -43,12 +44,10 @@ class ProfileViewSet(ModelViewSet):
 
             elif request.method == 'PUT':
                 serializer = ProfileSerializer(profile, data=request.data)
-                serializer.is_valid(raise_exception=True)
-                print("Is Valid", serializer.is_valid())
-                print("Serializer", serializer)
-                serializer.save()
-                print("Serializer data", serializer.data)
-                return Response(serializer.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         return Response({
             "detail": "Authentication credentials were not provided."
