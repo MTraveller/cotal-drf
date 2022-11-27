@@ -14,10 +14,8 @@ class ProfileViewSet(ModelViewSet):
     Profile view set with appropiate permission handling.
     """
     queryset = Profile.objects \
-        .prefetch_related(
-            'user',
-            'linktrees', 'socials',
-        ) \
+        .prefetch_related('user') \
+        .select_related('linktrees', 'socials') \
         .all()
     serializer_class = ProfileSerializer
     lookup_field = 'slug'
