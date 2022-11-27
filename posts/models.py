@@ -15,7 +15,7 @@ class Post(models.Model):
         Profile, on_delete=models.CASCADE, related_name='profileposts')
 
     image = models.ImageField(
-        upload_to=user_directory_path, blank=True, null=True)
+        upload_to=user_directory_path, blank=True, default=None)
     title = models.CharField(max_length=80)
     post = models.TextField()
     slug = models.SlugField(max_length=80)
@@ -28,7 +28,7 @@ class Post(models.Model):
         ordering = ['-created_on']
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = self.slug or slugify(self.title)
         super().save(*args, **kwargs)
 
 

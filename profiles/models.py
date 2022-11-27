@@ -14,7 +14,7 @@ class Profile(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=80)
     image = models.ImageField(upload_to=user_directory_path,
-                              blank=True, null=True)
+                              blank=True, default=None)
 
     class Status(models.TextChoices):
         """
@@ -30,11 +30,11 @@ class Profile(models.Model):
         TRAVELING = 'Traveling', _('Traveling')
         NOT_SPECIFIED = 'Not Specified', _('Not Specified')
 
-    status = models.CharField(blank=True, null=True,
+    status = models.CharField(blank=True,
                               max_length=19, choices=Status.choices,
                               default=Status.NOT_SPECIFIED
                               )
-    location = models.CharField(max_length=255, blank=True, null=True)
+    location = models.CharField(max_length=50, blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = self.slug or slugify(self.user.username)
@@ -76,7 +76,7 @@ class Social(models.Model):
         PINTEREST = 'Pinterest', _('Pinterest')
 
     name = models.CharField(max_length=10, choices=SocialMedia.choices)
-    username = models.CharField(max_length=50, blank=True, null=True)
+    username = models.CharField(max_length=50, blank=True)
 
 
 class Portfolio(models.Model):
@@ -86,11 +86,11 @@ class Portfolio(models.Model):
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='portfolios')
     image = models.ImageField(
-        upload_to=user_directory_path, blank=True, null=True)
-    title = models.CharField(max_length=255)
+        upload_to=user_directory_path, blank=True, default=None)
+    title = models.CharField(max_length=80)
     slug = models.SlugField(max_length=80)
     description = models.CharField(max_length=500)
-    link = models.URLField(max_length=255, blank=True, null=True)
+    link = models.URLField(max_length=255, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -98,7 +98,7 @@ class Portfolio(models.Model):
         ordering = ['-created_on']
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = self.slug or slugify(self.title)
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -114,11 +114,11 @@ class Award(models.Model):
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='awards')
     image = models.ImageField(
-        upload_to=user_directory_path, blank=True, null=True)
-    title = models.CharField(max_length=255)
+        upload_to=user_directory_path, blank=True, default=None)
+    title = models.CharField(max_length=80)
     slug = models.SlugField(max_length=80)
     description = models.CharField(max_length=500)
-    link = models.URLField(max_length=255, blank=True, null=True)
+    link = models.URLField(max_length=255, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -126,7 +126,7 @@ class Award(models.Model):
         ordering = ['-created_on']
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = self.slug or slugify(self.title)
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -142,11 +142,11 @@ class Certificate(models.Model):
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='certificates')
     image = models.ImageField(
-        upload_to=user_directory_path, blank=True, null=True)
-    title = models.CharField(max_length=255)
+        upload_to=user_directory_path, blank=True, default=None)
+    title = models.CharField(max_length=80)
     slug = models.SlugField(max_length=80)
     description = models.CharField(max_length=500)
-    link = models.URLField(max_length=255, blank=True, null=True)
+    link = models.URLField(max_length=255, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -154,7 +154,7 @@ class Certificate(models.Model):
         ordering = ['-created_on']
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = self.slug or slugify(self.title)
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -170,11 +170,11 @@ class Creative(models.Model):
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='creatives')
     image = models.ImageField(
-        upload_to=user_directory_path, blank=True, null=True)
-    title = models.CharField(max_length=255)
+        upload_to=user_directory_path, blank=True, default=None)
+    title = models.CharField(max_length=80)
     slug = models.SlugField(max_length=80)
     description = models.CharField(max_length=500)
-    link = models.URLField(max_length=255, blank=True, null=True)
+    link = models.URLField(max_length=255, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -182,7 +182,7 @@ class Creative(models.Model):
         ordering = ['-created_on']
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = self.slug or slugify(self.title)
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
