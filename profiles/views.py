@@ -30,7 +30,7 @@ class ProfileViewSet(ModelViewSet):
         return do_permissions(self)
 
     # https://www.django-rest-framework.org/api-guide/viewsets/#marking-extra-actions-for-routing
-    @action(detail=False, methods=['GET', 'PUT', 'DELETE'])
+    @action(detail=False, methods=['GET', 'PUT', 'POST', 'DELETE'])
     # Add djoser's /me endpoint to /profile endpoint
     def me(self, request):
         if request.user.id:
@@ -46,7 +46,7 @@ class ProfileViewSet(ModelViewSet):
                 serializer = ProfileSerializer(profile)
                 return Response(serializer.data)
 
-            elif request.method == 'PUT':
+            elif request.method == 'POST':
                 serializer = ProfileSerializer(profile, data=request.data)
                 if serializer.is_valid():
                     serializer.save()
