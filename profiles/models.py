@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
-from django.core.validators import validate_image_file_extension
 from django.template.defaultfilters import slugify
 from core.upload_to import user_directory_path
 from core.signals import profile_deleted, instance_deleted
@@ -15,10 +14,9 @@ class Profile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=80)
-    image = models.FileField(
+    image = models.ImageField(
         blank=True, default=None, upload_to=user_directory_path,
-        validators=[validate_file_size, validate_image_file_extension]
-    )
+        validators=[validate_file_size])
 
     class Status(models.TextChoices):
         """
