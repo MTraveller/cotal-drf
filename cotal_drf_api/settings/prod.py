@@ -7,7 +7,7 @@ from .common import *
 
 load_dotenv()
 
-DEBUG = False
+DEBUG = True
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
