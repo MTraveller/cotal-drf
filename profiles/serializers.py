@@ -106,6 +106,9 @@ class ProfilePortfolioSerializer(serializers.ModelSerializer):
                     ' can max be 80 characters long.' % Portfolio.__name__
                 })
             else:
+                if not 'image' in validated_data and \
+                        self.initial_data['remove_image'] == 'true':  # type: ignore
+                    instance.image = None
                 return super().update(instance, validated_data)
 
 
@@ -142,7 +145,6 @@ class ProfileAwardSerializer(serializers.ModelSerializer):
                     ' can max be 80 characters long.' % Award.__name__
                 })
             else:
-
                 return Award.objects \
                     .create(profile_id=profile_id, **validated_data)
 
@@ -164,6 +166,9 @@ class ProfileAwardSerializer(serializers.ModelSerializer):
                     ' can max be 80 characters long.' % Award.__name__
                 })
             else:
+                if not 'image' in validated_data and \
+                        self.initial_data['remove_image'] == 'true':  # type: ignore
+                    instance.image = None
                 return super().update(instance, validated_data)
 
 
@@ -200,7 +205,6 @@ class ProfileCertificateSerializer(serializers.ModelSerializer):
                     ' can max be 80 characters long.' % Certificate.__name__
                 })
             else:
-
                 return Certificate.objects \
                     .create(profile_id=profile_id, **validated_data)
 
@@ -222,6 +226,9 @@ class ProfileCertificateSerializer(serializers.ModelSerializer):
                     ' can max be 80 characters long.' % Certificate.__name__
                 })
             else:
+                if not 'image' in validated_data and \
+                        self.initial_data['remove_image'] == 'true':  # type: ignore
+                    instance.image = None
                 return super().update(instance, validated_data)
 
 
@@ -258,7 +265,6 @@ class ProfileCreativeSerializer(serializers.ModelSerializer):
                     ' can max be 80 characters long.' % Creative.__name__
                 })
             else:
-
                 return Creative.objects \
                     .create(profile_id=profile_id, **validated_data)
 
@@ -280,6 +286,9 @@ class ProfileCreativeSerializer(serializers.ModelSerializer):
                     ' can max be 80 characters long.' % Creative.__name__
                 })
             else:
+                if not 'image' in validated_data and \
+                        self.initial_data['remove_image'] == 'true':  # type: ignore
+                    instance.image = None
                 return super().update(instance, validated_data)
 
 
@@ -321,6 +330,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.image = validated_data.get('image', instance.image)
         instance.status = validated_data.get('status', instance.status)
         instance.location = validated_data.get('location', instance.location)
+
+        if not 'image' in validated_data and \
+                self.initial_data['remove_image'] == 'true':  # type: ignore
+            instance.image = None
 
         instance.save()
 
