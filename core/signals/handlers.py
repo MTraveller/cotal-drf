@@ -14,8 +14,8 @@ from . import (
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_profile(sender, instance, **kwargs):
     """ Signal to create profile on user creation """
-    if not instance.username == 'initial':
-        Profile.objects.create(user=instance)
+    if not instance.is_superuser or not instance.is_staff:
+        Profile.objects.create(id=instance.id, user_id=instance.id)
         Setting.objects.create(profile_id=instance.id)
 
 
