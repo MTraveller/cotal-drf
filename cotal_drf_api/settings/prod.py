@@ -7,7 +7,7 @@ from .common import *
 
 load_dotenv()
 
-DEBUG = True
+DEBUG = False
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -20,6 +20,8 @@ CSRF_COOKIE_SECURE = True
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 API_ENDPOINT = os.environ.get('API_ENDPOINT')
+
+CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
 
 INTERNAL_IPS = [
     "0.0.0.0", "127.0.0.1", "localhost",
@@ -36,8 +38,6 @@ CORS_ALLOWED_ORIGINS = [
         os.environ['DJANGO_ALLOWED_HOSTS']
     )
 ]
-
-print(CORS_ALLOWED_ORIGINS)
 
 DATABASES = {
     'default': dj_database_url.parse(os.environ['DATABASE_URL'])
