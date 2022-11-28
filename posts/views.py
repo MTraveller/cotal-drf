@@ -13,11 +13,6 @@ class ProfilePostViewSet(ModelViewSet):
     """
     Profile post view set with appropiate permission handling.
     """
-    queryset = Profile.objects \
-        .prefetch_related('user__profile') \
-        .prefetch_related('profileposts__postcomments__profile__user') \
-        .all()
-
     parser_classes = (
         MultiPartParser,
         FormParser,
@@ -27,6 +22,18 @@ class ProfilePostViewSet(ModelViewSet):
 
     def get_permissions(self):
         return do_permissions(self)
+
+    def get_queryset(self):
+        queryset = Profile.objects \
+            .prefetch_related('user__profile') \
+            .prefetch_related('profileposts__postcomments__profile__user') \
+            .all()
+
+        if self.request.user.is_authenticated:
+            queryset = queryset.exclude(
+                id=self.request.user.id)  # type: ignore
+
+        return queryset
 
 
 class PostViewSet(ModelViewSet):
