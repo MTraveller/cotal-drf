@@ -219,7 +219,7 @@ class PostSerializer(serializers.ModelSerializer):
             # # remove: [0] on validated_data['add_tags']
             new_tags = list(map(
                 lambda tag: tag.lower(), json.loads(
-                    validated_data['add_tags'])[0]
+                    validated_data['add_tags'][0])
             ))
 
             content_type = ContentType.objects.get(model="post")
