@@ -40,6 +40,9 @@ class Profile(models.Model):
                               )
     location = models.CharField(max_length=50, blank=True)
 
+    def __str__(self) -> str:
+        return self.user.username
+
     def save(self, *args, **kwargs):
         self.slug = self.slug or slugify(self.user.username)
         super().save(*args, **kwargs)
@@ -102,6 +105,9 @@ class Portfolio(models.Model):
         """Meta class for ordering by created on"""
         ordering = ['-created_on']
 
+    def __str__(self) -> str:
+        return self.title
+
     def save(self, *args, **kwargs):
         self.slug = self.slug or slugify(self.title)
         self.title = self.title.title()
@@ -131,6 +137,9 @@ class Award(models.Model):
     class Meta:
         """Meta class for ordering by created on"""
         ordering = ['-created_on']
+
+    def __str__(self) -> str:
+        return self.title
 
     def save(self, *args, **kwargs):
         self.slug = self.slug or slugify(self.title)
@@ -162,6 +171,9 @@ class Certificate(models.Model):
         """Meta class for ordering by created on"""
         ordering = ['-created_on']
 
+    def __str__(self) -> str:
+        return self.title
+
     def save(self, *args, **kwargs):
         self.slug = self.slug or slugify(self.title)
         self.title = self.title.title()
@@ -191,6 +203,9 @@ class Creative(models.Model):
     class Meta:
         """Meta class for ordering by created on"""
         ordering = ['-created_on']
+
+    def __str__(self) -> str:
+        return self.title
 
     def save(self, *args, **kwargs):
         self.slug = self.slug or slugify(self.title)

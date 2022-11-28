@@ -28,6 +28,9 @@ class Tag(models.Model):
     label = models.CharField(max_length=50)
     slug = models.SlugField(blank=True)
 
+    def __str__(self) -> str:
+        return self.label
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.label)
         super().save(*args, **kwargs)

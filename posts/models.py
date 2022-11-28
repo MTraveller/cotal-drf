@@ -29,6 +29,9 @@ class Post(models.Model):
         """Meta class for ordering by created on"""
         ordering = ['-created_on']
 
+    def __str__(self) -> str:
+        return self.title
+
     def save(self, *args, **kwargs):
         self.slug = self.slug or slugify(self.title)
         self.title = self.title.title()
@@ -51,3 +54,6 @@ class PostComment(models.Model):
     class Meta:
         """Meta class for ordering by created on"""
         ordering = ['-created_on']
+
+    def __str__(self) -> str:
+        return self.comment
