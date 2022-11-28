@@ -45,7 +45,9 @@ class PostSerializer(serializers.ModelSerializer):
         Filter out primitive datatypes.
         """
         result = super().to_representation(instance)
-        return OrderedDict([(key, result[key]) for key in result if result[key] is not None])
+        print(result)
+        return OrderedDict(
+            [(key, result[key]) for key in result if result[key] is not None])
 
     profile = BaseProfileSerializer(read_only=True)
     comment_count = serializers.SerializerMethodField()
@@ -77,14 +79,15 @@ class PostSerializer(serializers.ModelSerializer):
         return obj.postcomments.count()
 
     def create(self, validated_data):
-        post_slug = slugify(validated_data['title'].strip())
+        print(validated_data)
         profile_id = self.context['profile_id']
+        post_slug = slugify(validated_data['title'].strip())
 
         # filter with lambda to extract
         # targeted dicts from validated data
         data = dict(filter(
             lambda key: key[0] in [
-                'tags', 'add_tags', 'postimages'
+                'tags', 'add_tags'
             ], validated_data.items()))
 
         if ('add_tags') in validated_data:
@@ -108,7 +111,8 @@ class PostSerializer(serializers.ModelSerializer):
                 })
             else:
                 post = Post.objects \
-                           .create(profile_id=profile_id, **validated_data)
+                           .create(
+                               profile_id=profile_id, **validated_data)
 
         if 'add_tags' in data \
                 and bool(len(data['add_tags'])):
