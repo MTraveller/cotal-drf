@@ -90,7 +90,8 @@ class Portfolio(models.Model):
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='portfolios')
     image = models.ImageField(
-        upload_to=user_directory_path, blank=True, default=None)
+        upload_to=user_directory_path, blank=True, default=None,
+        validators=[validate_file_size])
     title = models.CharField(max_length=80)
     slug = models.SlugField(max_length=80)
     description = models.CharField(max_length=500)
@@ -103,6 +104,7 @@ class Portfolio(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = self.slug or slugify(self.title)
+        self.title = self.title.title()
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -118,7 +120,8 @@ class Award(models.Model):
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='awards')
     image = models.ImageField(
-        upload_to=user_directory_path, blank=True, default=None)
+        upload_to=user_directory_path, blank=True, default=None,
+        validators=[validate_file_size])
     title = models.CharField(max_length=80)
     slug = models.SlugField(max_length=80)
     description = models.CharField(max_length=500)
@@ -131,6 +134,7 @@ class Award(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = self.slug or slugify(self.title)
+        self.title = self.title.title()
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -146,7 +150,8 @@ class Certificate(models.Model):
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='certificates')
     image = models.ImageField(
-        upload_to=user_directory_path, blank=True, default=None)
+        upload_to=user_directory_path, blank=True, default=None,
+        validators=[validate_file_size])
     title = models.CharField(max_length=80)
     slug = models.SlugField(max_length=80)
     description = models.CharField(max_length=500)
@@ -159,6 +164,7 @@ class Certificate(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = self.slug or slugify(self.title)
+        self.title = self.title.title()
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -174,7 +180,8 @@ class Creative(models.Model):
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name='creatives')
     image = models.ImageField(
-        upload_to=user_directory_path, blank=True, default=None)
+        upload_to=user_directory_path, blank=True, default=None,
+        validators=[validate_file_size])
     title = models.CharField(max_length=80)
     slug = models.SlugField(max_length=80)
     description = models.CharField(max_length=500)
@@ -187,6 +194,7 @@ class Creative(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = self.slug or slugify(self.title)
+        self.title = self.title.title()
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):

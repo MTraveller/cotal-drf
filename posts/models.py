@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericRelation
 from django.template.defaultfilters import slugify
 from core.upload_to import user_directory_path
+from core.validators import validate_file_size
 from profiles.models import Profile
 from tags.models import TaggedItem
 
@@ -15,7 +16,8 @@ class Post(models.Model):
         Profile, on_delete=models.CASCADE, related_name='profileposts')
 
     image = models.ImageField(
-        upload_to=user_directory_path, blank=True, default=None)
+        upload_to=user_directory_path, blank=True, default=None,
+        validators=[validate_file_size])
     title = models.CharField(max_length=80)
     post = models.TextField()
     slug = models.SlugField(max_length=80)
