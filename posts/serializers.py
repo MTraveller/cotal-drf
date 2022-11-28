@@ -111,16 +111,14 @@ class PostSerializer(serializers.ModelSerializer):
             if not str(data['add_tags']):
                 tags_data = data.pop('add_tags')
             else:
-                tags_data = data['add_tags'][0]
+                tags_data = json.loads(data['add_tags'][0])
                 data.pop('add_tags')
 
             content_type = ContentType.objects.get(model="post")
 
-            print("tags_data", tags_data)
             # # If working in backend without the frontend,
             # # remove: [] from tags_data
-            for label in [tags_data]:
-                print(label)
+            for label in tags_data:
                 tag = ""
                 label.lower()
                 try:
@@ -220,7 +218,8 @@ class PostSerializer(serializers.ModelSerializer):
             # # If working in backend without the frontend,
             # # remove: [0] on validated_data['add_tags']
             new_tags = list(map(
-                lambda tag: tag.lower(), validated_data['add_tags'][0]
+                lambda tag: tag.lower(), json.loads(
+                    validated_data['add_tags'])[0]
             ))
 
             content_type = ContentType.objects.get(model="post")
