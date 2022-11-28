@@ -23,6 +23,9 @@ from django.urls import path, include
 from . import views
 
 
+admin.site.site_header = 'Cotal DRF Admin'
+admin.site.index_title = 'Admin'
+
 patterns = ([
     path('', views.api_start_endpoint),  # type: ignore
     path('profiles/', include('profiles.urls')),
