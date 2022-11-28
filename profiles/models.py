@@ -16,7 +16,7 @@ class Profile(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(max_length=80)
     image = models.FileField(
-        blank=True, default=None,                                                  upload_to=user_directory_path,
+        blank=True, default=None, upload_to=user_directory_path,
         validators=[validate_file_size, validate_image_file_extension]
     )
 
