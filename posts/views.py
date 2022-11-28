@@ -2,11 +2,33 @@ from django.http import Http404
 from django.db.models import Prefetch
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.parsers import MultiPartParser, FormParser
-from core.do_permissions import do_permissions
+from core.do_permissions import do_permissions, IsNotObjectUserOrReadOnly
 from profiles.models import Profile
 from tags.models import TaggedItem
 from .models import *
 from .serializers import *
+from .pagination import DefaultPagination
+
+
+class PostsViewSet(ModelViewSet):
+    ordering_fields = ['created_on']
+    pagination_class = DefaultPagination
+    serializer_class = PostSerializer
+
+    def get_permissions(self):
+        return [IsNotObjectUserOrReadOnly()]
+
+    def get_queryset(self):
+        queryset = Post.objects \
+            .prefetch_related('profile__user') \
+            .prefetch_related('postcomments__profile__user') \
+            .all()
+
+        if self.request.user.is_authenticated:
+            queryset = queryset.exclude(
+                id=self.request.user.id)  # type: ignore
+
+        return queryset
 
 
 class ProfilePostViewSet(ModelViewSet):
@@ -17,8 +39,10 @@ class ProfilePostViewSet(ModelViewSet):
         MultiPartParser,
         FormParser,
     )
-    serializer_class = ProfileSerializer
     lookup_field = 'slug'
+    ordering_fields = ['profileposts__created_on']
+    pagination_class = DefaultPagination
+    serializer_class = ProfileSerializer
 
     def get_permissions(self):
         return do_permissions(self)
@@ -44,8 +68,8 @@ class PostViewSet(ModelViewSet):
         MultiPartParser,
         FormParser,
     )
-    serializer_class = PostSerializer
     lookup_field = 'slug'
+    serializer_class = PostSerializer
 
     def get_permissions(self):
         return do_permissions(self)
