@@ -35,7 +35,7 @@ class PostCommentSerializer(serializers.ModelSerializer):
 # https://www.django-rest-framework.org/api-guide/relations/#writable-nested-serializers
 class PostSerializer(serializers.ModelSerializer):
     """
-    Post serializer extends profile, postimages,
+    Post serializer extends profile,
     postcomments and tagged serializers
     """
 
