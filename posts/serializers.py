@@ -2,6 +2,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.template.defaultfilters import slugify
 from rest_framework import serializers
+from rest_framework.fields import SkipField
+from collections import OrderedDict
 from core.serializers import BaseProfileSerializer, ProfileUserSerializer
 from tags.serializers import TaggedSerializer
 from tags.models import Tag, TaggedItem
@@ -37,6 +39,14 @@ class PostSerializer(serializers.ModelSerializer):
     Post serializer extends profile, postimages,
     postcomments and tagged serializers
     """
+
+    def to_representation(self, instance):
+        """
+        Filter out primitive datatypes.
+        """
+        result = super().to_representation(instance)
+        return OrderedDict([(key, result[key]) for key in result if result[key] is not None])
+
     profile = BaseProfileSerializer(read_only=True)
     comment_count = serializers.SerializerMethodField()
     postcomments = PostCommentSerializer(many=True, read_only=True)
