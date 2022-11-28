@@ -26,7 +26,7 @@ class Tag(models.Model):
     Tag model to store all tags made by all users.
     """
     label = models.CharField(max_length=50)
-    slug = models.SlugField()
+    slug = models.SlugField(blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.label)
