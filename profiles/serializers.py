@@ -306,7 +306,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     linktrees = ProfileLinktreeSerializer(many=True, read_only=True)
     socials = ProfileSocialSerializer(many=True, read_only=True)
 
-    image = serializers.FileField(required=False)
+    image = serializers.ImageField(required=False)
     slug = serializers.CharField(read_only=True, required=False)
 
     class Meta:
