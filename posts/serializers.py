@@ -1,8 +1,8 @@
+import json
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.template.defaultfilters import slugify
 from rest_framework import serializers
-from collections import OrderedDict
 from core.serializers import BaseProfileSerializer, ProfileUserSerializer
 from tags.serializers import TaggedSerializer
 from tags.models import Tag, TaggedItem
@@ -39,14 +39,6 @@ class PostSerializer(serializers.ModelSerializer):
     postcomments and tagged serializers
     """
 
-    def to_representation(self, instance):
-        """
-        Filter out primitive datatypes.
-        """
-        result = super().to_representation(instance)
-        return OrderedDict(
-            [(key, result[key]) for key in result if result[key] is not None])
-
     profile = BaseProfileSerializer(read_only=True)
     comment_count = serializers.SerializerMethodField()
     postcomments = PostCommentSerializer(many=True, read_only=True)
@@ -77,7 +69,6 @@ class PostSerializer(serializers.ModelSerializer):
         return obj.postcomments.count()
 
     def create(self, validated_data):
-        print(validated_data)
         profile_id = self.context['profile_id']
         post_slug = slugify(validated_data['title'].strip())
 
@@ -91,8 +82,10 @@ class PostSerializer(serializers.ModelSerializer):
         if ('add_tags') in validated_data:
             # List comprehension to remove targeted dicts
             # from validated data.
+            # # If working in backend without the frontend,
+            # # add: tags to ['tags', 'add_tags']
             [validated_data.pop(key)
-             for key in ['tags', 'add_tags']]
+             for key in ['add_tags']]
 
         if Post.objects \
                .filter(profile_id=profile_id) \
@@ -114,12 +107,22 @@ class PostSerializer(serializers.ModelSerializer):
 
         if 'add_tags' in data \
                 and bool(len(data['add_tags'])):
-            tags_data = data.pop('add_tags')
-            tags_data = [tag.lower() for tag in tags_data]
+            tags_data = ''
+            if not str(data['add_tags']):
+                tags_data = data.pop('add_tags')
+            else:
+                tags_data = data['add_tags'][0]
+                data.pop('add_tags')
+
             content_type = ContentType.objects.get(model="post")
 
-            for label in tags_data:
+            print("tags_data", tags_data)
+            # # If working in backend without the frontend,
+            # # remove: [] from tags_data
+            for label in [tags_data]:
+                print(label)
                 tag = ""
+                label.lower()
                 try:
                     tag = Tag.objects.get(label=label)
                 except ObjectDoesNotExist:
@@ -136,17 +139,17 @@ class PostSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         post_title = validated_data['title']
 
-        updated_tags = validated_data['tags'] if bool(
+        tags = validated_data['tags'] if bool(
             'tags' in validated_data) else []
 
         # List comprehension to extract tags
         # within triple nested OrderedDicts.
         # O(n) = O(nx3)
-        validated_tags = [
+        prev_tags = [
             list(list(tag)[0] for tag in (
                 inner_dict_v.values()
                 for key, inner_dict_v in outer_dict.items()
-            ))[0] for outer_dict in updated_tags
+            ))[0] for outer_dict in tags
         ]
 
         queryset = Post.objects \
@@ -182,22 +185,22 @@ class PostSerializer(serializers.ModelSerializer):
         # map with lambda to extract tag id & label
         # from the queryset above.
         # O(n)
-        previous_tags = list(map(
+        prev_tags_queryset = list(map(
             lambda tag: [
                 tag._state.fields_cache['tag'].id,
                 tag._state.fields_cache['tag'].label
             ], queryset
         ))
 
-        previous_tags.sort()
-        validated_tags.sort()
+        prev_tags_queryset.sort()
+        prev_tags.sort()
 
         # Code block checks previous tags against
         # validated tags and acts accordingly.
         # O(n) = (nx2)
-        if len(validated_tags):
-            for tag in previous_tags:
-                if tag[1] in validated_tags:
+        if len(prev_tags):
+            for tag in prev_tags_queryset:
+                if tag[1] in prev_tags:
                     continue
                 else:
                     remove_tag = TaggedItem.objects \
@@ -205,7 +208,7 @@ class PostSerializer(serializers.ModelSerializer):
                     TaggedItem.delete(remove_tag)
         else:
             # O(n)
-            for tag in previous_tags:
+            for tag in prev_tags_queryset:
                 remove_tag = TaggedItem.objects \
                     .get(tag__label=tag[1])
                 TaggedItem.delete(remove_tag)
@@ -214,8 +217,10 @@ class PostSerializer(serializers.ModelSerializer):
         # and acts accordingly.
         if 'add_tags' in validated_data:
             # O(n)
+            # # If working in backend without the frontend,
+            # # remove: [0] on validated_data['add_tags']
             new_tags = list(map(
-                lambda tag: tag.lower(), validated_data['add_tags']
+                lambda tag: tag.lower(), validated_data['add_tags'][0]
             ))
 
             content_type = ContentType.objects.get(model="post")
