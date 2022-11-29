@@ -106,10 +106,15 @@ class ProfilePortfolioSerializer(serializers.ModelSerializer):
                     ' can max be 80 characters long.' % Portfolio.__name__
                 })
             else:
-                if not 'image' in validated_data and \
-                        self.initial_data['remove_image'] == 'true':  # type: ignore
-                    instance.image = None
-                return super().update(instance, validated_data)
+                try:
+                    if not 'image' in validated_data and \
+                            self.initial_data['remove_image'] == 'true':  # type: ignore
+                        instance.image = None
+                        super().update(instance, validated_data)
+                except:
+                    super().update(instance, validated_data)
+
+        return instance
 
 
 class ProfileAwardSerializer(serializers.ModelSerializer):
@@ -166,10 +171,15 @@ class ProfileAwardSerializer(serializers.ModelSerializer):
                     ' can max be 80 characters long.' % Award.__name__
                 })
             else:
-                if not 'image' in validated_data and \
-                        self.initial_data['remove_image'] == 'true':  # type: ignore
-                    instance.image = None
-                return super().update(instance, validated_data)
+                try:
+                    if not 'image' in validated_data and \
+                            self.initial_data['remove_image'] == 'true':  # type: ignore
+                        instance.image = None
+                        super().update(instance, validated_data)
+                except:
+                    super().update(instance, validated_data)
+
+        return instance
 
 
 class ProfileCertificateSerializer(serializers.ModelSerializer):
@@ -226,10 +236,15 @@ class ProfileCertificateSerializer(serializers.ModelSerializer):
                     ' can max be 80 characters long.' % Certificate.__name__
                 })
             else:
-                if not 'image' in validated_data and \
-                        self.initial_data['remove_image'] == 'true':  # type: ignore
-                    instance.image = None
-                return super().update(instance, validated_data)
+                try:
+                    if not 'image' in validated_data and \
+                            self.initial_data['remove_image'] == 'true':  # type: ignore
+                        instance.image = None
+                        super().update(instance, validated_data)
+                except:
+                    super().update(instance, validated_data)
+
+        return instance
 
 
 class ProfileCreativeSerializer(serializers.ModelSerializer):
@@ -286,10 +301,15 @@ class ProfileCreativeSerializer(serializers.ModelSerializer):
                     ' can max be 80 characters long.' % Creative.__name__
                 })
             else:
-                if not 'image' in validated_data and \
-                        self.initial_data['remove_image'] == 'true':  # type: ignore
-                    instance.image = None
-                return super().update(instance, validated_data)
+                try:
+                    if not 'image' in validated_data and \
+                            self.initial_data['remove_image'] == 'true':  # type: ignore
+                        instance.image = None
+                        super().update(instance, validated_data)
+                except:
+                    super().update(instance, validated_data)
+
+        return instance
 
 
 class ProfileSettingSerializer(serializers.ModelSerializer):
@@ -331,10 +351,12 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.status = validated_data.get('status', instance.status)
         instance.location = validated_data.get('location', instance.location)
 
-        if not 'image' in validated_data and \
-                self.initial_data['remove_image'] == 'true':  # type: ignore
-            instance.image = None
-
-        instance.save()
+        try:
+            if not 'image' in validated_data and \
+                    self.initial_data['remove_image'] == 'true':  # type: ignore
+                instance.image = None
+                instance.save()
+        except:
+            instance.save()
 
         return instance
