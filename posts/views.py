@@ -26,7 +26,7 @@ class PostsViewSet(ModelViewSet):
 
         if self.request.user.is_authenticated:
             queryset = queryset.exclude(
-                id=self.request.user.id)  # type: ignore
+                profile_id=self.request.user.id)  # type: ignore
 
         return queryset
 
