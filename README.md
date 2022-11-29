@@ -31,23 +31,23 @@
 
 ### Surface
 
-What will the product actually look like, what colors, what typography, what images/design elements, what animation, what transitions, how will the final product look like?
+As this is the backend, no one other than admins and staff would interact with the backend site in the admin area. The admin area is the default generic template that comes with Django, with the site title changed to give it a more personal touch toward the Cotal brand.
 
 <br>
 
 ### Skeleton
 
-(How the infomation implemented), (how will the user navigate), (how the content relate to each other, low, mid top priority, how and where to position content)?
+In the admin area, all content models (user and profile) have some interactivity to satisfy the user stories created for the backend.
 
 <br>
 
 ### Structure
 
-How is the information, logically grouped, the feature the elements the data?
-
-The data model built for this project laid the foundation for how the app should work and from this point forward, all that is needed, is to get hacking.
+The data model built for this project laid the foundation for how the app should work, and from this point forward, all that is needed is to get hacking.
 
 ![Data-Model](./docs/planes/structure/data-models-v3.png "Data model image")
+
+The above image has since changed a bit but still applies today. Models are crafted to satisfy the features offered on the frontend, with some that are working technically but are not fully implemented on the frontend, like follow and connect. The frontend does get the data, but does not post it. Due to the limited time I had, I prioritized the overall functionality of the backend and frontend. Tagging posts works perfectly, but it requires more work to be fully optimized. Currently, if a user wants to retain the existing tags, the user must add the existing tags to the PUT request with the other data.
 
 <br>
 
@@ -80,19 +80,19 @@ The desired features this would want:
 
 App Goal:
 
-- Cotal-drf is the backend for Cotal aiming to fulfill and satisfy all requests about the users, posts, likes, follows, connections between users, and more.
+- Cotal-drf is the backend for Cotal, aiming to fulfill and satisfy all requests about the users, posts, likes, follows, connections between users, and more.
 
    <br>
 
 Agile Development:
 
-- Agile development methodology was used for this project, planning, developing, and delivering in small sprints. There were 2 Epic's in total spaced out over 15 days with:
-  - epic 1 - 100% of the total time.
-  - epic 2 - Moved to backlog.
+- The agile development methodology was used for this project, with planning, development, and delivery in small sprints. There were two epics in total, spaced out over 15 days, with:
+  - epic 1 - 100 percent of total time
+  - epic 2 - Added to backlog
 
       <br>
 
-   I assigned all epics labels and I prioritized all sprints according to their labeling.
+   I assigned all epics labels, and I prioritized all sprints according to their labeling.
 
       -  must-have.
       -  should have.
@@ -161,7 +161,11 @@ The Kanban board used was created using Github projects and can be seen [here](h
 ### Bugs
 
 I have grown fond of eliminating bugs found in my code as I intentionally try to provoke and find them.
-Currently no bugs or errors exists.
+Currently, no known bugs or errors exist.
+
+A lot of testing took place with the help of DataGrip.
+
+![datagrip](./docs/testings/datagrip-database.webp)
 
 <br>
 
@@ -171,7 +175,7 @@ Currently no bugs or errors exists.
 
 ### Validate Python
 
-Python code were checked against PEP8 VSCode extension, and errors/warnings was fixed during development.
+Python code was checked against the PEP8 VSCode extension, and errors and warnings were fixed during development.
 
 <br>
 
@@ -184,7 +188,7 @@ Python code were checked against PEP8 VSCode extension, and errors/warnings was 
 How to fork this repository:
 
 1. Log in to GitHub and navigate to [this repository](https://github.com/MTraveller/cotal-drf.git).
-2. You'll see a button called <b>Fork</b> on the top right side of the page. Click the button to create a copy of this repository to your own GitHub account.
+2. You'll see a button called "Fork" on the top right side of the page. Click the button to create a copy of this repository on your own GitHub account.
 
 <br>
 
@@ -205,30 +209,30 @@ How to clone this project:
 
 #### Development and Production
 
-This project was chosen to be hosted on render.com, if you choose to host else where please consult the docs of that host. Choosing to host on render then follow the steps below.
+This project was chosen to be hosted on render.com; if you choose to host it elsewhere, please consult the documentation of that host. If you want to host on render, follow the steps below. 
 <br>
 
-First create a folder anywhere you want to work with this repo. Inside this folder, follow the steps below.
+First, create a folder anywhere you want to work with this repository. Inside this folder, follow the steps below.
 
-Assuming you have a Github account, if not, sign-up for an Github account and continue with the below steps.
-If you do not have an terminal app you can see which option there is for your operation system.
+Assuming you have a Github account; if not, create one and proceed with the steps below.
+If you do not have a terminal app, you can see what options are available for your operating system.
 
 We will be using a terminal window to continue with the steps below.
 I use: [Hyper](https://hyper.is "hyper.is")
 
-`Do:` means to input the command `highlighted` into the terminal followed by "Enter" on the keyboard.
+`Do:` means to input the `highlighted` command into the terminal, followed by `Enter` on the keyboard.
    
    1. Prerequisite
       1. Do: `git clone https://github.com/MTraveller/cotal-drf.git` "Press Enter"
-      2. cd into cloned folder `cotal-drf`.
+      2. CD into the cloned folder `cotal-drf`.
          -  Find the folder: 
-            -  on linux: Do: `find . -name "cotal-drf" -type d` "Press Enter"
-            -  on windows Do: `dir "cotal-drf" /AD /s` "Press Enter"
-               -  in root - e.g. C:/
+            -  On linux: Do: `find . -name "cotal-drf" -type d` "Press Enter"
+            -  On windows Do: `dir "cotal-drf" /AD /s` "Press Enter"
+               -  In root - e.g. C:/
                -  [read more here](https://superuser.com/questions/428088/find-a-directory-folder-with-cmd-without-knowing-full-path "superuser.com/questions/428088/find-a-directory-folder-with-cmd-without-knowing-full-path")
-      3. install [GitHub cli](https://cli.github.com "cli.github.com") if you don't have it.
+      3. Install [GitHub cli](https://cli.github.com "cli.github.com") if you don't have it.
          -  Do: `gh auth login` "Press Enter"
-            -  follow the instructions to connect the Github CLI to your Github account.
+            -  Follow the instructions to connect the Github CLI to your Github account.
       4. Do: `gh repo create` "Press Enter"
          - Choose:
             - Create a new repository from scratch
@@ -238,7 +242,7 @@ I use: [Hyper](https://hyper.is "hyper.is")
             - Make public
             <br>
 
-         -  Continue the below assuming you are inside the working folder.
+         -  Assuming you're in the working folder, continue reading.
             1. Do: `rm -rf .git` "Press Enter"
             2. Do: `git init` "Press Enter"
             3. Do: `git remote add origin https://github.com/<your-user-name>/<created-repo-name>.git` "Press Enter"
@@ -247,9 +251,9 @@ I use: [Hyper](https://hyper.is "hyper.is")
             5. Do: `git commit -m "Initial commit"` "Press Enter"
             6. Do: `git branch -M main` "Press Enter"
             7. Do: `git push -u origin main` "Press Enter"
-            8. Wait until files are uploaded, usually takes a couple seconds.
-            9. Now this project is in your created repo.
-               -  to push to GitHub you must use the command from step 7
+            8. Wait until files are uploaded; this usually takes a couple seconds.
+            9. This project is now in your newly created repo. 
+               -  To push to GitHub, you must use the command from step 7.
                -  to push using only git push:
                   -  Do: `git branch --set-upstream-to=origin/main main` "Press Enter"
 
@@ -257,25 +261,25 @@ I use: [Hyper](https://hyper.is "hyper.is")
    2. Development:
       1. Find and rename `cotal_drf_api/settings/dev_file_rename_to_just_dev.py` to dev.py
          -  dev.py is automatically ignored by git
-         -  add a Django secret key from the provided website
-         -  add your cloudinary api `cloudinary://my_key:my_secret@my_cloud_name`.
-      2. Open the terminal or a new one and cd to the cloned project folder.
-         -  I recommend to continue with an virtual environment for more see:
+         -  Insert a Django secret key obtained from the provided website. 
+         -  Add your cloudinary api `cloudinary://my_key:my_secret@my_cloud_name`.
+      2. Open a new terminal window and navigate to the cloned project folder. 
+         -  I recommend continuing with a virtual environment; for more information, see:
             -  [pipenv](https://pipenv.pypa.io/en/latest/ "pipenv.pypa.io/en/latest/")
-            -  Activate a pipenv environment:
+            -  Set up a Pipenv environment: 
                - Do: `pipenv shell` "Press Enter"
-            -  just remember to set vscode python interpeter to the virtual environment used if vscode is used. For other programs you'll have to see their docs.
+            -  Just remember to set the vscode Python interpreter to the virtual environment used if vscode is used. For other programs, you'll have to see their documents.
       -  Depending on your operating system or if pipenv is used:
          -  on windows use `python`
          -  on linux based systems use `python3`
          -  if pipenv is used, use `python`
       3. Do: `python` or `python3` `install -r requirements.txt` "Press Enter"
       4. Do: `python` or `python3` `manage.py runserver 127.0.0.1:3000` "Press Enter"
-      5. You should now be able to open the project on 127.0.0.1:3000
+      5. You should now be able to open the project at 127.0.0.1:3000.
       <br>
    3. Production:
       1. Sign-in or signup for a [Render.com](https://render.com "render.com") account.
-      2. Open `config/.env` file copy all variables and change accordingly in a new text document "keep it open".
+      2. Open `config/.env` file, copy all variables, and change accordingly in a new text document "keep it open".
       3. Go to [New Env Group](https://dashboard.render.com/new/env-group "dashboard.render.com/new/env-group") and create a new environment group for this project.
       4. Scroll down to "Secret Files" press "Add Secret":
          -  in key input add:
@@ -285,7 +289,7 @@ I use: [Hyper](https://hyper.is "hyper.is")
          -  press save.
       5. Open `render.yaml` and make any changes to reflect your project, fromGroup(env group name from step 3),  names, region etc.
          - find available [regions here](https://render.com/docs/regions "render.com/docs/regions")
-      6. In the same terminal window, or open a new one if closed and cd to project folder.
+      6. In the same terminal window, or open a new one if closed, and cd to the project folder.
       7. Do: `git add .` "Press Enter"
       8. Do: `git commit -m "Your Message"` "Press Enter"
       9. Do: `git push -u origin main` or `git push` if upstream is set "Press Enter"
