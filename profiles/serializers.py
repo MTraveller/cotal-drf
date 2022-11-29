@@ -106,13 +106,21 @@ class ProfilePortfolioSerializer(serializers.ModelSerializer):
                     ' can max be 80 characters long.' % Portfolio.__name__
                 })
             else:
+                instance.image = validated_data.get('image', instance.image)
+                instance.title = validated_data.get('title', instance.title)
+                instance.link = validated_data.get('link', instance.link)
+                instance.description = validated_data.get(
+                    'description', instance.description)
+
+                instance.save()
+
                 try:
                     if not 'image' in validated_data and \
                             self.initial_data['remove_image'] == 'true':  # type: ignore
                         instance.image = None
-                        super().update(instance, validated_data)
+                        instance.save()
                 except:
-                    super().update(instance, validated_data)
+                    pass
 
         return instance
 
@@ -171,13 +179,21 @@ class ProfileAwardSerializer(serializers.ModelSerializer):
                     ' can max be 80 characters long.' % Award.__name__
                 })
             else:
+                instance.image = validated_data.get('image', instance.image)
+                instance.title = validated_data.get('title', instance.title)
+                instance.link = validated_data.get('link', instance.link)
+                instance.description = validated_data.get(
+                    'description', instance.description)
+
+                instance.save()
+
                 try:
                     if not 'image' in validated_data and \
                             self.initial_data['remove_image'] == 'true':  # type: ignore
                         instance.image = None
-                        super().update(instance, validated_data)
+                        instance.save()
                 except:
-                    super().update(instance, validated_data)
+                    pass
 
         return instance
 
@@ -236,13 +252,21 @@ class ProfileCertificateSerializer(serializers.ModelSerializer):
                     ' can max be 80 characters long.' % Certificate.__name__
                 })
             else:
+                instance.image = validated_data.get('image', instance.image)
+                instance.title = validated_data.get('title', instance.title)
+                instance.link = validated_data.get('link', instance.link)
+                instance.description = validated_data.get(
+                    'description', instance.description)
+
+                instance.save()
+
                 try:
                     if not 'image' in validated_data and \
                             self.initial_data['remove_image'] == 'true':  # type: ignore
                         instance.image = None
-                        super().update(instance, validated_data)
+                        instance.save()
                 except:
-                    super().update(instance, validated_data)
+                    pass
 
         return instance
 
@@ -301,13 +325,21 @@ class ProfileCreativeSerializer(serializers.ModelSerializer):
                     ' can max be 80 characters long.' % Creative.__name__
                 })
             else:
+                instance.image = validated_data.get('image', instance.image)
+                instance.title = validated_data.get('title', instance.title)
+                instance.link = validated_data.get('link', instance.link)
+                instance.description = validated_data.get(
+                    'description', instance.description)
+
+                instance.save()
+
                 try:
                     if not 'image' in validated_data and \
                             self.initial_data['remove_image'] == 'true':  # type: ignore
                         instance.image = None
-                        super().update(instance, validated_data)
+                        instance.save()
                 except:
-                    super().update(instance, validated_data)
+                    pass
 
         return instance
 
@@ -351,12 +383,14 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.status = validated_data.get('status', instance.status)
         instance.location = validated_data.get('location', instance.location)
 
+        instance.save()
+
         try:
             if not 'image' in validated_data and \
                     self.initial_data['remove_image'] == 'true':  # type: ignore
                 instance.image = None
                 instance.save()
         except:
-            instance.save()
+            pass
 
         return instance
