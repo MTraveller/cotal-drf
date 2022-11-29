@@ -170,11 +170,13 @@ class PostSerializer(serializers.ModelSerializer):
                 instance.title = validated_data.get('title', instance.title)
                 instance.post = validated_data.get('post', instance.post)
 
-                if not 'image' in validated_data and \
-                        self.initial_data['remove_image'] == 'true':  # type: ignore
-                    instance.image = None
-
-                instance.save()
+                try:
+                    if not 'image' in validated_data and \
+                            self.initial_data['remove_image'] == 'true':  # type: ignore
+                        instance.image = None
+                        instance.save()
+                except:
+                    instance.save()
 
         # Queryset to grab all TaggedItems
         # for the edited post.
