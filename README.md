@@ -156,7 +156,7 @@ The Kanban board used was created using Github projects and can be seen [here](h
 
 ## Testings
 
-[Testings.md]()
+[Testings.md](./testings.md)
 
 ### Bugs
 
