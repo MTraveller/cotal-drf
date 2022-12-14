@@ -152,6 +152,57 @@ The Kanban board used was created using Github projects and can be seen [here](h
 
 <br>
 
+API_ENDPOINT: rest/
+
+Profiles: 
+`/profiles/`
+
+Profile object: 
+`/profiles/<username>/`
+
+Linktrees: 
+`/profiles/<username>/linktree/`
+
+Socials: 
+`/profiles/<username>/socials/`
+
+Social object:
+`/profiles/<username>/socials/<id>/`
+
+model = portfolios/awards/certificates or creatives
+
+model:
+`/profiles/<username>/<model>/`
+
+model object:
+`/profiles/<username>/<model>/<slug>/`
+
+Posts:
+`/posts/`
+
+Profile posts:
+`/posts/profiles/<username>/posts/`
+
+Profile post object:
+`/posts/profiles/<username>/posts/<slug>/`
+
+For post comment:
+`/posts/profiles/<username>/posts/<slug>/comments/`
+
+Comment object:
+`/posts/profiles/<username>/posts/<slug>/comments/<id>/`
+
+For follow:
+`/profiles/<username>/follow/`
+
+Connects:
+
+For connecter:
+`/profiles/<username>/connecter/`
+
+For connecting:
+`/profiles/<username>/connecting/`
+
 <br>
 
 ## Testings
