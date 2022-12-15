@@ -319,6 +319,7 @@ I use: [Hyper](https://hyper.is "hyper.is")
       2. Open a new terminal window and navigate to the cloned project folder. 
          -  I recommend continuing with a virtual environment; for more information, see:
             -  [pipenv](https://pipenv.pypa.io/en/latest/ "pipenv.pypa.io/en/latest/")
+            -  First [install pipenv](https://pipenv.pypa.io/en/latest/#install-pipenv-today "#install-pipenv-today").
             -  Set up a Pipenv environment: 
                - Do: `pipenv shell` "Press Enter"
             -  Just remember to set the vscode Python interpreter to the virtual environment used if vscode is used. For other programs, you'll have to see their documents.
