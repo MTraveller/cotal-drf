@@ -7,3 +7,4 @@ dev.py
 db.sqlite3
 data/
 .DS_Store
+static/
