@@ -327,7 +327,8 @@ I use: [Hyper](https://hyper.is "hyper.is")
          -  on windows use `python`
          -  on linux based systems use `python3`
          -  if pipenv is used, use `python`
-      3. Do: `python` or `python3` `install -r requirements.txt` "Press Enter"
+      3. Do: `python` or `python3` `install -r requirements.txt` "Press Enter" or
+         if pipenv is used: Do `pipenv sync`
       4. Do: `python` or `python3` `manage.py runserver 127.0.0.1:3000` "Press Enter"
       5. You should now be able to open the project at 127.0.0.1:3000.
       <br>
